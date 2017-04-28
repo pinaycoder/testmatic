@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTemplateComponentsTable extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,19 @@ class CreateTemplateComponentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('template_components', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->integer('template_id')->unsigned();
-            $table->foreign('template_id')->references('id')->on('templates');
-            $table->enum('type', ['Question', 'Scenario']);
-            $table->integer('order')->default(0);
+            $table->string('name', 20)->default('');
             $table->text('description');
-            $table->text('help_text');
-            $table->string('target')->default('');
-            $table->string('time_limit', 5)->default('');
-            $table->string('selections')->default('');
+            $table->string('entry_url')->default('');
+            $table->enum('status', ['Closed', 'In Progress', 'Open']);
+            $table->datetime('start')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('end')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('created_by')->default(1);
             $table->timestamp('created_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(1);
+            $table->boolean('inactive')->default(false);
         });
     }
 
@@ -39,6 +36,6 @@ class CreateTemplateComponentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('template_components');
+        Schema::dropIfExists('projects');
     }
 }

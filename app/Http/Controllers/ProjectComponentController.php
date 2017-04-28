@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\ProjectComponent;
 use Illuminate\Http\Request;
 
-use App\User;
-
-class UserController extends Controller
+class ProjectComponentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-
-        return view('users.index', compact('users'));
+        //
     }
 
     /**
@@ -44,23 +41,21 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ProjectComponent  $projectComponent
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(ProjectComponent $projectComponent)
     {
-        $user = User::find($id);
-
-        return view('users.show', compact('user'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\ProjectComponent  $projectComponent
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProjectComponent $projectComponent)
     {
         //
     }
@@ -69,10 +64,10 @@ class UserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\ProjectComponent  $projectComponent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ProjectComponent $projectComponent)
     {
         //
     }
@@ -80,10 +75,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\ProjectComponent  $projectComponent
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(ProjectComponent $projectComponent)
     {
         //
     }

@@ -2,10 +2,18 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">KC Reyes</strong>
-                             </span> <span class="text-muted text-xs block">Super Administrator<b class="caret"></b></span> </span> </a>
+                    <div class="dropdown profile-element"> 
+                    <span>
+                        <img alt="image" class="img-circle" src="/img/default-user-img.png">
+                    </span>
+                    <span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear">
+                                <span class="block m-t-xs"> <strong class="font-bold">KC Reyes</strong>
+                                </span>
+                                <span class="text-muted text-xs block">Super Administrator<b class="caret"></b></span>
+                            </span>
+                        </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="/users/profile">Profile</a></li>
                                 <li><a href="/logout">Logout</a></li>

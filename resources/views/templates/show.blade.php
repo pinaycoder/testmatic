@@ -76,7 +76,7 @@
 				            <div class="panel-body">
 				                <div class="tab-content">
 				                    <div class="tab-pane active" id="tab-1">
-										        <table class="table table-hover dataTables-example" >
+										        <table class="table table-hover dt-tables" >
 										        <thead>
 										        <tr>
 										        	<th>Order</th>
@@ -87,20 +87,20 @@
 										        </tr>
 										        </thead>
 										        <tbody>
-										        @foreach($template->components as $component)
+										        @foreach($template->question_components as $component)
 										        <tr>
 										        	<td>{{ $component->order }}</td>
 										            <td class="table-title">
-										            	<a href="/components/show/{{ $component->id }}">{{ $component->name }}</a>
+										            	<a href="/templates/components/show/{{ $component->id }}">{{ $component->name }}</a>
 										            	<br/>
 										            	<small>{{ $component->description }}</small>
 										            </td>
 										            <td>{{ $component->help_text }}</td>
 										            <td>{{ $component->selections }}</td>
 										            <td class="center">
-										            	<a href="/components/show/1" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> View </a>
-										            	<a href="/components/edit/1" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-										            	<a href="/components/delete/1" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete </a>
+										            	<a href="/templates/components/show/1" class="btn btn-info btn-xs option-buttons"><i class="fa fa-folder"></i> View </a>
+										            	<a href="/templates/components/edit/1" class="btn btn-white btn-xs option-buttons"><i class="fa fa-pencil"></i> Edit </a>
+										            	<a href="/templates/components/delete/1" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Delete </a>
 										            </td>
 										        </tr>
 										        @endforeach
@@ -109,7 +109,7 @@
 				                    </div>
 
 				                    <div class="tab-pane" id="tab-2">
-										    <table class="table table-hover dataTables-example" >
+										    <table class="table table-hover dt-tables" >
 										        <thead>
 										        <tr>
 										        	<th>Order</th>
@@ -121,22 +121,24 @@
 										        </tr>
 										        </thead>
 										        <tbody>
+										        @foreach($template->scenario_components as $component)
 										        <tr>
-										        	<td>1</td>
+										        	<td>{{ $component->order }}</td>
 										            <td class="table-title">
-										            	<a href="#">Trident</a>
+										            	<a href="/templates/components/show/{{ $component->id }}">{{ $component->name }}</a>
 										            	<br/>
-										            	<small>Description</small>
+										            	<small>{{ $component->description }}</small>
 										            </td>
-										            <td>Test Help Text</td>
-										            <td>www.testmatic.com</td>
-										            <td>2 hours</td>
+										            <td>{{ $component->help_text }}</td>
+										            <td>{{ $component->target }}</td>
+										            <td>{{ $component->time_limit}}</td>
 										            <td class="center">
-										            	<a href="/templates/show/1" class="btn btn-info btn-xs"><i class="fa fa-folder"></i> View </a>
-										            	<a href="#" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> Edit </a>
-										            	<a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete </a>
+										            	<a href="/templates/components/show/1" class="btn btn-info btn-xs option-buttons"><i class="fa fa-folder"></i> View </a>
+										            	<a href="/templates/components/edit/1" class="btn btn-white btn-xs option-buttons"><i class="fa fa-pencil"></i> Edit </a>
+										            	<a href="/components/delete/1" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Delete </a>
 										            </td>
 										        </tr>
+										        @endforeach
 										        </tbody>
 										    </table>
 				                    </div>

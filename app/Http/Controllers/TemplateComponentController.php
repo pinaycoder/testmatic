@@ -14,7 +14,7 @@ class TemplateComponentController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -44,9 +44,11 @@ class TemplateComponentController extends Controller
      * @param  \App\TemplateComponent  $templateComponent
      * @return \Illuminate\Http\Response
      */
-    public function show(TemplateComponent $templateComponent)
+    public function show($id)
     {
-        //
+        $component = TemplateComponent::find($id);
+
+        return view('components.show', compact('component'));
     }
 
     /**
@@ -55,9 +57,11 @@ class TemplateComponentController extends Controller
      * @param  \App\TemplateComponent  $templateComponent
      * @return \Illuminate\Http\Response
      */
-    public function edit(TemplateComponent $templateComponent)
+    public function edit($id)
     {
-        //
+        $component = TemplateComponent::find($id);
+
+        return view('components.edit', compact('component'));
     }
 
     /**
@@ -67,9 +71,29 @@ class TemplateComponentController extends Controller
      * @param  \App\TemplateComponent  $templateComponent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TemplateComponent $templateComponent)
+    public function update(Request $request, $id)
     {
-        //
+        $validations = [
+                            'name' => 'required',
+                            'type' => 'required',
+                            'description' => 'required',
+                            'order' => 'required|unique:template_components'
+                        ];
+
+        if($request['type'] == 'Question'){
+            $validations['selections'] = 'required';
+        } else if($request['type'] == 'Scenario'){
+            $validations['target'] = 'required';
+            $validations['time_limit'] = 'required';
+        }
+
+        $this->validate($request, $validations);
+
+        $component = TemplateComponent::find($id);
+
+        $component->name = $request['name'];
+
+        $component->save();
     }
 
     /**

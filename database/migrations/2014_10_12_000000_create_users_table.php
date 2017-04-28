@@ -27,15 +27,16 @@ class CreateUsersTable extends Migration
             $table->string('middle_name', 50)->default('');
             $table->string('last_name', 50)->default('');
             $table->date('birthdate');
-            $table->char('gender_code', 1)->default('');
+            $table->enum('gender', ['Female', 'Male']);
+            $table->enum('role', ['Super Administrator', 'Administrator', 'Participant']);
             $table->string('email');
             $table->string('contact_num', 50)->default('');
-            $table->string('user_pic_file', 50)->default('');
+            $table->string('user_pic_file', 50)->default('/img/default-user-img.png');
             $table->integer('created_by')->default(1);
             $table->timestamp('created_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(1);
-            $table->rememberToken();
+            $table->boolean('inactive')->default(false);
         });
     }
 

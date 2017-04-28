@@ -25,13 +25,29 @@ Route::get('/templates/show/{id}', 'TemplateController@show');
 
 Route::get('/templates/create', 'TemplateController@create');
 
-Route::get('/templates/store', 'TemplateController@store');
+Route::post('/templates/store', 'TemplateController@store');
 
 Route::get('/templates/edit/{id}', 'TemplateController@edit');
 
-Route::get('/templates/update', 'TemplateController@update');
+Route::post('/templates/update', 'TemplateController@update');
 
 Route::get('/templates/delete', 'TemplateController@destroy');
+
+// Routes for the Test Components Module
+
+Route::get('/templates/components', 'TemplateComponentController@index');
+
+Route::get('/templates/components/show/{id}', 'TemplateComponentController@show');
+
+Route::get('/templates/components/create', 'TemplateComponentController@create');
+
+Route::get('/templates/components/store', 'TemplateComponentController@store');
+
+Route::get('/templates/components/edit/{id}', 'TemplateComponentController@edit');
+
+Route::post('/templates/components/update/{id}', 'TemplateComponentController@update');
+
+Route::get('/templates/components/delete', 'TemplateComponentController@destroy');
 
 // Routes for the Test Projects Module
 

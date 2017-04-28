@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTemplateComponentsTable extends Migration
+class CreateProjectComponentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateTemplateComponentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('template_components', function (Blueprint $table) {
+        Schema::create('project_components', function (Blueprint $table){
             $table->increments('id');
             $table->string('name');
-            $table->integer('template_id')->unsigned();
-            $table->foreign('template_id')->references('id')->on('templates');
+            $table->integer('project_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects');
             $table->enum('type', ['Question', 'Scenario']);
             $table->integer('order')->default(0);
             $table->text('description');
@@ -39,6 +39,6 @@ class CreateTemplateComponentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('template_components');
+        Schema::dropIfExists('project_components');
     }
 }

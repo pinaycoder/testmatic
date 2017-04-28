@@ -8,5 +8,6 @@ class Template extends Model
 {
     public $created_full_name = '';
     public $modified_full_name = '';
-    public $components = null;
+    public $question_components = null;
+    public $scenario_components = null;
 }

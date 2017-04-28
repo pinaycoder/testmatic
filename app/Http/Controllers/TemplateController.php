@@ -61,7 +61,13 @@ class TemplateController extends Controller
 
         $template->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
 
-        $template->components = TemplateComponent::all()->where('template_id', $template->id);
+        $template->question_components = TemplateComponent::all()
+                                                            ->where('template_id', $template->id)
+                                                            ->where('type', 'Question');
+
+        $template->scenario_components = TemplateComponent::all()
+                                                            ->where('template_id', $template->id)
+                                                            ->where('type', 'Scenario');
 
         return view('templates.show', compact('template'));
     }

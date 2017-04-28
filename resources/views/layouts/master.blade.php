@@ -30,6 +30,23 @@
             color: #676a6c;
             font-weight: 600;
         }
+
+        .option-buttons{
+            width: 65px;
+        }
+
+        .dt-tables td{
+            vertical-align: middle !important;
+        }
+
+        .options-td{
+            width: 82px !important;
+            max-width: 82px !important;
+            overflow: hidden;
+            border: solid red;
+            vertical-align: top !important;
+        }
+
     </style>
 
 </head>
@@ -112,7 +129,7 @@ Angular Dependiences
 -->
 <script>
     $(document).ready(function() {
-        $('.dataTables-example').dataTable({
+        $('.dt-tables').dataTable({
             responsive: true,
             lengthChange: false
 
