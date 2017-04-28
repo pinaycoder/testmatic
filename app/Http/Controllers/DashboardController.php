@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use Redirect;
 
 class DashboardController extends Controller
 {
@@ -14,7 +16,7 @@ class DashboardController extends Controller
 
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -91,5 +93,18 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Logout current user from the application.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+        Auth::logout(); // log the user out of our application
+
+        return Redirect::to('login'); // redirect the user to the login screen
     }
 }

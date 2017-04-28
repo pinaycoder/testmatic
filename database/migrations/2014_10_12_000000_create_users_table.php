@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(1);
             $table->boolean('inactive')->default(false);
+            $table->string('remember_token', 100)->nullable();
         });
     }
 

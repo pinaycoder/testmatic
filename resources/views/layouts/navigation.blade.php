@@ -9,13 +9,23 @@
                     <span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                             <span class="clear">
-                                <span class="block m-t-xs"> <strong class="font-bold">KC Reyes</strong>
+                                <span class="block m-t-xs">
+                                <strong class="font-bold">
+                                    @if( Auth::check() )
+                                        {{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
+                                    @endif
+                                </strong>
                                 </span>
-                                <span class="text-muted text-xs block">Super Administrator<b class="caret"></b></span>
+                                <span class="text-muted text-xs block">    @if( Auth::check() )
+                                        {{ Auth::user()->role }}
+                                    @endif
+                                <b class="caret"></b></span>
                             </span>
                         </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="/users/profile">Profile</a></li>
+                                @if( Auth::check() )
+                                    <li><a href="/users/show/{{ Auth::user()->id }}">Profile</a></li>
+                                @endif
                                 <li><a href="/logout">Logout</a></li>
                             </ul>
                     </div>

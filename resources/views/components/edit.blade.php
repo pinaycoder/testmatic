@@ -2,6 +2,13 @@
 
 @section('content')
 	
+	<ul>
+
+    @foreach($errors->all() as $error)
+        <li>{{ $error }}</li>
+	    @endforeach
+	</ul>
+
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="ibox">
             <div class="ibox-content">

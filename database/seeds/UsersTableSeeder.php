@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         for($i = 1; $i <= 5; $i++){
 	        DB::table('users')->insert([
-	            'username' => 'username' . $i . '@gmail.com',
+	            'username' => 'test' . $i . '@gmail.com',
                 'password' => Hash::make('test123'),
                 'first_name' => 'Test',
                 'middle_name' => 'Name ' . $i,

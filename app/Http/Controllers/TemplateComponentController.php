@@ -7,6 +7,17 @@ use Illuminate\Http\Request;
 
 class TemplateComponentController extends Controller
 {
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -77,7 +88,7 @@ class TemplateComponentController extends Controller
                             'name' => 'required',
                             'type' => 'required',
                             'description' => 'required',
-                            'order' => 'required|unique:template_components'
+                            'order' => 'required'
                         ];
 
         if($request['type'] == 'Question'){
@@ -92,8 +103,19 @@ class TemplateComponentController extends Controller
         $component = TemplateComponent::find($id);
 
         $component->name = $request['name'];
+        $component->description = $request['description'];
+        $component->type = $request['type'];
+        $component->help_text = $request['help_text'];
+        $component->order = $request['order'];
+
+        $component->selections = $request['selections'];
+
+        $component->target = $request['target'];
+        $component->time_limit = $request['time_limit'];
 
         $component->save();
+
+        return view('components.show', compact('component'));
     }
 
     /**

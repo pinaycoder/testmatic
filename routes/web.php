@@ -13,8 +13,6 @@
 
 Route::get('/', 'DashboardController@index');
 
-Route::get('/', 'DashboardController@index');
-
 Route::get('/dashboard', 'DashboardController@index');
 
 // Routes for the Test Template Module
@@ -75,4 +73,5 @@ Route::get('/reports', 'ReportController@index');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'DashboardController@index');
+Route::get('/logout', array('uses' => 'DashboardController@logout'));
