@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="inspinia" lang="{{ config('app.locale') }}">
+<html lang="{{ config('app.locale') }}">
 
 <head>
 
@@ -22,6 +22,8 @@
     <link href="/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
     <link href="/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
 
+    <link href="/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <style>
@@ -31,8 +33,8 @@
             font-weight: 600;
         }
 
-        .option-buttons{
-            width: 65px;
+        /**.option-buttons{
+            width: 75px;
         }
 
         .dt-tables td{
@@ -43,15 +45,34 @@
             width: 82px !important;
             max-width: 82px !important;
             overflow: hidden;
-            border: solid red;
             vertical-align: top !important;
+        }**/
+
+        .user-details-dl dt, 
+        .user-details-dl dd{
+            text-align: left;
+        }
+
+        .form-group span{
+            vertical-align: middle;
+        }
+
+        .user-details-img-div{
+            min-height: 150px;
+            max-width: 150px;
+            margin: 10px auto;
+        }
+
+        .user-details-img{
+            width: 100%;
+            border: solid gray 1px;
         }
 
     </style>
 
 </head>
 
-<body ng-controller="mainCtrl as main">
+<body>
 
 <div id="wrapper">
 
@@ -63,7 +84,7 @@
 
         @include('layouts.pageheading')
 
-        <div ui-view class="wrapper wrapper-content animated fadeInRight">
+        <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
                     
@@ -127,6 +148,15 @@ Angular Dependiences
 <script src="/js/directives.js"></script>
 <script src="/js/controllers.js"></script>
 -->
+<!-- Steps -->
+<script src="/js/plugins/steps/jquery.steps.min.js"></script>
+
+<!-- Jquery Validate -->
+<script src="/js/plugins/validate/jquery.validate.min.js"></script>
+
+<!-- Data picker -->
+<script src="/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
 <script>
     $(document).ready(function() {
         $('.dt-tables').dataTable({
@@ -134,7 +164,86 @@ Angular Dependiences
             lengthChange: false
 
         })
-    });
+
+        $("#wizard").steps();
+        $(".form-wizards").steps({
+            bodyTag: "fieldset",
+            onStepChanging: function (event, currentIndex, newIndex)
+            {
+                // Always allow going backward even if the current step contains invalid fields!
+                if (currentIndex > newIndex)
+                {
+                    return true;
+                }
+
+                var form = $(this);
+
+                // Clean up if user went backward before
+                if (currentIndex < newIndex)
+                {
+                    // To remove error styles
+                    $(".body:eq(" + newIndex + ") label.error", form).remove();
+                    $(".body:eq(" + newIndex + ") .error", form).removeClass("error");
+                }
+
+                // Disable validation on fields that are disabled or hidden.
+                form.validate().settings.ignore = ":disabled,:hidden";
+
+                // Start validation; Prevent going forward if false
+                return form.valid();
+            },
+            onStepChanged: function (event, currentIndex, priorIndex)
+            {
+                // Suppress (skip) "Warning" step if the user is old enough.
+                if (currentIndex === 2 && Number($("#age").val()) >= 18)
+                {
+                    $(this).steps("next");
+                }
+
+                // Suppress (skip) "Warning" step if the user is old enough and wants to the previous step.
+                if (currentIndex === 2 && priorIndex === 3)
+                {
+                    $(this).steps("previous");
+                }
+            },
+            onFinishing: function (event, currentIndex)
+            {
+                var form = $(this);
+
+                // Disable validation on fields that are disabled.
+                // At this point it's recommended to do an overall check (mean ignoring only disabled fields)
+                form.validate().settings.ignore = ":disabled";
+
+                // Start validation; Prevent form submission if false
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex)
+            {
+                var form = $(this);
+
+                // Submit form input
+                form.submit();
+            }
+        }).validate({
+                    errorPlacement: function (error, element)
+                    {
+                        element.before(error);
+                    },
+                    rules: {
+                        confirm: {
+                            greaterThan: "#password"
+                        }
+                    }
+                });
+
+        $('.input-group.date').datepicker({
+                todayBtn: "linked",
+                format: 'yyyy-mm-dd',
+                calendarWeeks: true,
+                autoclose: true
+            });
+   });
+
 </script>
 
 </body>

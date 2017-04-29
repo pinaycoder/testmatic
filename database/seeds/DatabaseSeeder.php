@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TemplateComponentsTableSeeder::class);
         $this->call(ProjectsTableSeeder::class);
         $this->call(ProjectComponentsTableSeeder::class);
+        $this->call(SecurityQuestionsTableSeeder::class);
     }
 }

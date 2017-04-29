@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 50)->default('');
             $table->date('birthdate');
             $table->enum('gender', ['Female', 'Male']);
-            $table->enum('role', ['Super Administrator', 'Administrator', 'Participant']);
+            $table->enum('role', ['Super Administrator', 'Test Administrator', 'Test Participant']);
             $table->string('email');
             $table->string('contact_num', 50)->default('');
             $table->string('user_pic_file', 50)->default('/img/default-user-img.png');

@@ -39,7 +39,7 @@ Route::get('/templates/components/show/{id}', 'TemplateComponentController@show'
 
 Route::get('/templates/components/create', 'TemplateComponentController@create');
 
-Route::get('/templates/components/store', 'TemplateComponentController@store');
+Route::post('/templates/components/store', 'TemplateComponentController@store');
 
 Route::get('/templates/components/edit/{id}', 'TemplateComponentController@edit');
 
@@ -59,11 +59,11 @@ Route::get('/users/show/{id}', 'UserController@show');
 
 Route::get('/users/create', 'UserController@create');
 
-Route::get('/users/store', 'UserController@store');
+Route::post('/users/store', 'UserController@store');
 
 Route::get('/users/edit/{id}', 'UserController@edit');
 
-Route::get('/users/update', 'UserController@update');
+Route::post('/users/update/{id}', 'UserController@update');
 
 Route::get('/users/delete', 'UserController@destroy');
 

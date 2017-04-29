@@ -1,14 +1,6 @@
 @extends('layouts.master')
 
 @section('content')
-	
-	<ul>
-
-    @foreach($errors->all() as $error)
-        <li>{{ $error }}</li>
-	    @endforeach
-	</ul>
-
     <div class="wrapper wrapper-content animated fadeInUp">
         <div class="ibox">
             <div class="ibox-content">
@@ -22,6 +14,9 @@
 			            </div>
 		        	</div>
 		            <div class="ibox-content">
+		            	@if(count($errors->all()) > 0)
+		            		@include('layouts.errors')
+		            	@endif
 		            	<form action='/templates/components/update/{{ $component->id }}'method="post" class="form-horizontal">
 			                {{ csrf_field() }}
 			                <div class="form-group">

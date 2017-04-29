@@ -50,7 +50,9 @@ class TemplateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $template = new Template;
+
+        dd($request);
     }
 
     /**

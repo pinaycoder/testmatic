@@ -27,6 +27,5 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public $security_question1 = '';
-    public $security_question2 = '';
+    public $timestamps = false;
 }

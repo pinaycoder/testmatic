@@ -1,7 +1,11 @@
 @extends('layouts.master')
 
 @section('content')
-    <div class="ibox float-e-margins">
+<div class="wrapper wrapper-content animated fadeInUp">
+	@if(isset($success_message))
+      @include('layouts.success')
+   @endif
+    <div class="ibox">
         <div class="ibox-title">
             <h5>All Users</h5>
             <div class="ibox-tools">
@@ -16,9 +20,10 @@
 			        <tr>
 			        	<th>Status</th>
 			            <th>Username</th>
-			            <th>Full Name</th>
+			            <th>Name</th>
+			            <th>Email</th>
 			            <th>Role</th>
-			            <th>Options</th>
+			            <th>Actions</th>
 			        </tr>
 			        </thead>
 			        <tbody>
@@ -34,10 +39,13 @@
 			            	<!--<small>{{ $user->email }}</small>-->
 			            </td>
 			            <td>
+			            	{{ $user->email }}
+			            </td>
+			            <td>
 			            	{{ $user->role }}
 			            </td>
 			            <td class="center options-td">
-			            	<a href="/users/show/{{ $user->id }}" class="btn btn-info btn-xs option-buttons"><i class="fa fa-folder"></i> View </a>
+			            	<!--<a href="/users/show/{{ $user->id }}" class="btn btn-info btn-xs option-buttons"><i class="fa fa-folder"></i> View </a>-->
 			            	<a href="/users/edit/{{ $user->id }}" class="btn btn-white btn-xs option-buttons"><i class="fa fa-pencil"></i> Edit </a>
 			            	<a href="/users/delete/{{ $user->id }}" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Delete </a>
 			            </td>
@@ -49,4 +57,5 @@
 			</div>
 		</div>
 	</div>
+</div>
 @endsection
