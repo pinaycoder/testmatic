@@ -64,6 +64,8 @@ class UserController extends Controller
         $user->contact_num = $request['contact_num'];
         $user->birthdate = $request['birthdate'];
         $user->password = Hash::make(str_random(8));
+        $user->created_by = Auth::user()->id;
+        $user->modified_by = Auth::user()->id;
 
         $user->save();
 
@@ -136,12 +138,14 @@ class UserController extends Controller
         $user->email = $request['email'];
         $user->gender = $request['gender'];
         $user->role = $request['role'];
+        $user->inactive = (boolean) $request['inactive'];
         $user->contact_num = $request['contact_num'];
         $user->birthdate = $request['birthdate'];
         $user->question_id_1 = $request['question_id_1'];
         $user->question_ans_1 = $request['question_ans_1'];
         $user->question_id_2 = $request['question_id_2'];
         $user->question_ans_2 = $request['question_ans_2'];
+        $user->modified_by = Auth::user()->id;
 
         $user->save();
 

@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
+	@if(isset($success_message))
+      @include('layouts.success')
+    @endif
     <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>All Templates</h5>
@@ -26,7 +29,7 @@
 			            <td class="table-title">
 			            	<a href="/templates/show/{{ $template->id }}">{{ $template->name }}</a>
 			            	<br/>
-			            	<small>{{ $template->description }}</small>
+			            	<small>{{ str_limit($template->description, 150) }}</small>
 			            </td>
 			            <td class="center options-td">
 			            	<a href="/templates/show/{{ $template->id }}" class="btn btn-info btn-xs option-buttons"><i class="fa fa-folder"></i> View </a>

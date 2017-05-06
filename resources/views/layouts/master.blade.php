@@ -68,8 +68,12 @@
             border: solid gray 1px;
         }
 
-    </style>
+        .scenario-mandatory,
+        .question-mandatory{
+            display: none;
+        }
 
+    </style>
 </head>
 
 <body>
@@ -112,7 +116,8 @@
 <script src="/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
 
 <!-- Custom and plugin javascript -->
-<script src="/js/inspinia.js"></script>
+<script src="/js/inspinia.js">
+</script>
 
 <!-- Angular scripts-->
 <!-- <script src="/js/angular/angular.min.js"></script>
@@ -159,11 +164,11 @@ Angular Dependiences
 
 <script>
     $(document).ready(function() {
+        
         $('.dt-tables').dataTable({
-            responsive: true,
-            lengthChange: false
-
-        })
+            'lengthChange': false,
+            'ordering': false
+        });
 
         $("#wizard").steps();
         $(".form-wizards").steps({
@@ -242,6 +247,86 @@ Angular Dependiences
                 calendarWeeks: true,
                 autoclose: true
             });
+
+        var table = $('#add-component-table').DataTable({
+                                              "columns": [
+                                                { "data": "order" },
+                                                { "data": "type" },
+                                                { "data": "description" },
+                                                { "data": "help_text" },
+                                                { "data": "target" },
+                                                { "data": "selections" },
+                                                { "data": "time_limit" }
+                                              ],
+                                            "paging": false,
+                                            "ordering": false,
+                                            "lengthChange": false,
+                                            "searching": false,
+                                            "info": false
+                                            });
+
+        var components = [];
+
+        if($('#components-json').val()){
+            components = JSON.parse($('#components-json').val());
+            table.rows.add(components).draw(false);
+        }
+
+        var counter = components.length + 1;
+
+        $('#add-component-modal').on('show.bs.modal', function(){
+            $('#add-component-form #order').val(counter).attr('readonly','readonly');
+        });
+
+        $('#add-component-row-btn').on('click', function () {
+
+            var isValidForm = true;
+
+            $('#add-component-form').validate({
+              invalidHandler: function(event, validator) {
+                isValidForm = false;
+                return false;
+              }
+            }).form();
+
+            if(isValidForm){
+
+                var component = {
+                                    "order": counter,
+                                    "type": $('#add-component-form #type').val(),
+                                    "description": $('#add-component-form #description').val(),
+                                    "help_text": $('#add-component-form #help_text').val(),
+                                    "target": $('#add-component-form #target').val(),
+                                    "selections": $('#add-component-form #selections').val(),
+                                    "time_limit": $('#add-component-form #time_limit').val()
+                                };
+
+                components.push(component);
+                
+                table.row.add(component).draw(false);
+
+                counter++;
+
+                $('#add-component-form')[0].reset();
+                $('#add-component-modal').modal('hide');  
+
+                $('#components-json').val(JSON.stringify(components));
+            }
+
+        });
+
+        $('#add-component-form #type').on('change', function(){
+            if(this.value == 'Question'){
+                $('.scenario-mandatory').hide();
+                $('.question-mandatory').show();
+            } 
+
+            if(this.value == 'Scenario'){
+                $('.question-mandatory').hide();
+                $('.scenario-mandatory').show();
+            }
+        });
+    
    });
 
 </script>

@@ -27,7 +27,7 @@ Route::post('/templates/store', 'TemplateController@store');
 
 Route::get('/templates/edit/{id}', 'TemplateController@edit');
 
-Route::post('/templates/update', 'TemplateController@update');
+Route::post('/templates/update/{id}', 'TemplateController@update');
 
 Route::get('/templates/delete', 'TemplateController@destroy');
 

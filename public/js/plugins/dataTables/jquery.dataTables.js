@@ -865,7 +865,7 @@
 	
 		oData._aData = aDataIn;
 		oSettings.aoData.push( oData );
-	
+		
 		/* Create the cells */
 		var nTd, sThisType;
 		var columns = oSettings.aoColumns;
@@ -882,7 +882,7 @@
 	
 		/* Add to the display array */
 		oSettings.aiDisplayMaster.push( iRow );
-	
+		
 		/* Create the DOM information */
 		if ( !oSettings.oFeatures.bDeferRender )
 		{
@@ -1466,7 +1466,7 @@
 			cells = [],
 			nTr, nTd, oCol,
 			i, iLen;
-	
+		console.log(row.nTr);
 		if ( row.nTr === null )
 		{
 			nTr = nTrIn || document.createElement('tr');
@@ -1489,7 +1489,7 @@
 	
 				nTd = nTrIn ? anTds[i] : document.createElement( oCol.sCellType );
 				cells.push( nTd );
-	
+				
 				// Need to create the HTML if new, or if a rendering function is defined
 				if ( !nTrIn || oCol.mRender || oCol.mData !== i )
 				{
@@ -1511,7 +1511,7 @@
 				{
 					nTd.parentNode.removeChild( nTd );
 				}
-	
+				
 				if ( oCol.fnCreatedCell )
 				{
 					oCol.fnCreatedCell.call( oSettings.oInstance,
@@ -1752,6 +1752,7 @@
 	{
 		/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
 		var aPreDraw = _fnCallbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
+		
 		if ( $.inArray( false, aPreDraw ) !== -1 )
 		{
 			_fnProcessingDisplay( oSettings, false );
@@ -1869,7 +1870,7 @@
 	
 		body.children().detach();
 		body.append( $(anRows) );
-	
+		
 		/* Call all required callback functions for the end of a draw */
 		_fnCallbackFire( oSettings, 'aoDrawCallback', 'draw', [oSettings] );
 	
@@ -7581,11 +7582,13 @@
 	_api_register( 'row.add()', function ( row ) {
 		// Allow a jQuery object to be passed in - only a single row is added from
 		// it though - the first element in the set
+		
 		if ( row instanceof $ && row.length ) {
 			row = row[0];
 		}
 	
 		var rows = this.iterator( 'table', function ( settings ) {
+
 			if ( row.nodeName && row.nodeName.toUpperCase() === 'TR' ) {
 				return _fnAddTr( settings, row )[0];
 			}

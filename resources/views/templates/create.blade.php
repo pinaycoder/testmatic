@@ -9,6 +9,7 @@
       <div class="ibox-content">
 <form id="new-template-form" action="/templates/store" method="POST" class="wizard-big form-wizards">
 {{ csrf_field() }}
+<input type="hidden" name="components-json" id="components-json"/>
     <h1>Basic Info</h1>
     <fieldset>
         <h2>Basic Information</h2>
@@ -40,19 +41,26 @@
         </div>
 
     </fieldset>
+
     <h1>Components</h1>
-    <fieldset>
-        <h2>Add Test Components</h2>
-                <div class="row">
-            <div class="col-lg-8">
-                
-            </div>
-            <div class="col-lg-4">
-                <div class="text-center">
-                    <div style="margin-top: 20px">
-                        <i class="fa fa-sign-in" style="font-size: 180px;color: #e5e5e5 "></i>
-                    </div>
-                </div>
+    <fieldset style="border: solid red; width: 100%;">
+        <h2>Test Template Components</h2>
+        <a href="#" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#add-component-modal"><i class="fa fa-pencil"></i> Add Component </a>
+        <div class="row" style="border: solid red;">
+            <div class="col-lg-12">
+                <table class="table table-hover" id="add-component-table">
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Help Text</th>
+                            <th>Target</th>
+                            <th>Selections</th>
+                            <th>Time Limit</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </fieldset>
@@ -60,10 +68,12 @@
     <h1>Finish</h1>
     <fieldset>
         <h2>Review User Details</h2>
-        
     </fieldset>
 </form>
 </div>  
 </div>
 </div>
+
+@include('components.create')
+
 @endsection

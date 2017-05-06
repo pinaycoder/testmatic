@@ -113,6 +113,8 @@ class TemplateComponentController extends Controller
         $component->target = $request['target'];
         $component->time_limit = $request['time_limit'];
 
+        $component->modified_by = Auth::user()->id;
+
         $component->save();
 
         return view('components.show', compact('component'));

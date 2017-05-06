@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\User;
 use App\Template;
 use App\TemplateComponent;
@@ -52,7 +54,40 @@ class TemplateController extends Controller
     {
         $template = new Template;
 
-        dd($request);
+        $template->name = $request['name'];
+        $template->entry_url = $request['entry_url'];
+        $template->inactive = (boolean) $request['inactive'];
+        $template->description = $request['description'];
+        $template->created_by = Auth::user()->id;
+        $template->modified_by = Auth::user()->id;
+
+        $template->save();
+
+        $components = json_decode($request['components-json']);
+
+        foreach($components as $component){
+
+            $template_component = new TemplateComponent;
+
+            $template_component->template_id = $template->id;
+            $template_component->name = $template->description;
+            $template_component->order = $component->order;
+            $template_component->type = $component->type;
+            $template_component->description = $component->description;
+            $template_component->help_text = $component->help_text;
+            $template_component->created_by = Auth::user()->id;
+            $template_component->modified_by = Auth::user()->id;
+
+            $template_component->save();
+
+        }
+
+        $templates = Template::all();
+
+        $success_message = 'New template has been saved. Click <a href="/templates/show/' . $template->id . '">here</a> to check new template.';
+
+        return view('templates.index', compact('templates', 'success_message'));
+
     }
 
     /**
@@ -73,15 +108,9 @@ class TemplateController extends Controller
 
         $template->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
 
-        $template->question_components = TemplateComponent::all()
-                                                            ->where('template_id', $template->id)
-                                                            ->where('type', 'Question');
+        $template_components = TemplateComponent::all()->where('template_id', $template->id);
 
-        $template->scenario_components = TemplateComponent::all()
-                                                            ->where('template_id', $template->id)
-                                                            ->where('type', 'Scenario');
-
-        return view('templates.show', compact('template'));
+        return view('templates.show', compact('template', 'template_components'));
     }
 
     /**
@@ -92,7 +121,19 @@ class TemplateController extends Controller
      */
     public function edit($id)
     {
-        return view('templates.edit');
+        $template = Template::find($id);
+
+        $created = User::find($template->created_by);
+
+        $modified = User::find($template->modified_by);
+
+        $template->created_full_name = $created->first_name . ' ' . $created->last_name;
+
+        $template->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
+
+        $template_components = TemplateComponent::select(array('id', 'order', 'type', 'description', 'help_text', 'target', 'selections', 'time_limit'))->where('template_id', $template->id)->get();
+
+        return view('templates.edit', compact('template', 'template_components'));
     }
 
     /**
@@ -104,7 +145,44 @@ class TemplateController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $template = Template::find($id);
+
+        $template->name = $request['name'];
+        $template->entry_url = $request['entry_url'];
+        $template->inactive = (boolean) $request['inactive'];
+        $template->description = $request['description'];
+        $template->modified_by = Auth::user()->id;
+
+        $template->save();
+
+        $components = json_decode($request['components-json']);
+
+        foreach($components as $component){
+        
+            if(!isset($component->id)){
+            
+                $template_component = new TemplateComponent;
+
+                $template_component->template_id = $template->id;
+                $template_component->name = 'Template Component' . $component->order;
+                $template_component->order = $component->order;
+                $template_component->type = $component->type;
+                $template_component->description = $component->description;
+                $template_component->help_text = $component->help_text;
+                $template_component->modified_by = Auth::user()->id;
+
+                $template_component->save();
+            }
+
+        }
+
+        $success_message = 'Changes has been saved. Click <a href="/templates/show/' . $template->id . '">here</a> to go back to template.';
+
+        $template_components = TemplateComponent::all()->where('template_id', $template->id);
+
+        $template_components = TemplateComponent::select(array('order', 'type', 'description', 'help_text', 'target', 'selections', 'time_limit'))->where('template_id', $template->id)->get();
+
+        return view('templates.edit', compact('template', 'template_components','success_message'));
     }
 
     /**
