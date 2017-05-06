@@ -28,4 +28,31 @@ class User extends Authenticatable
     ];
 
     public $timestamps = false;
+
+    protected $created_full_name = '';
+    protected $modified_full_name = '';
+
+    public function __construct(){
+
+        $this->setCreatedByName();
+        $this->setModifiedByName();
+
+    }
+
+    private function setCreatedByName(){
+
+        $this->created_full_name = $this->first_name . ' ' . $this->last_name;
+    }
+
+    private function setModifiedByName(){
+
+        $this->modified_full_name = $this->first_name . ' ' . $this->last_name;
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany('App\Project');
+    }
+
+    
 }

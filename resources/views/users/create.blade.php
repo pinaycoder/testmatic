@@ -66,7 +66,6 @@
                     <label>Role *</label>
                     <select class="form-control required" name="role" required>
                     	<option value="">Please select user role</option>
-	                    <option value="Super Administrator">Super Administrator</option>
 	                    <option value="Test Administrator">Test Administrator</option>
 	                    <option value="Test Participant">Test Participant</option>
 	                </select>

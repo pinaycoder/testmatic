@@ -1,16 +1,16 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Data Tables</h2>
+        <h2>{{ ucfirst(strtok(Request::path(), '/')) }}</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>
-                <a>Tables</a>
+                <a href="/">Home</a>
             </li>
             <li class="active">
-                <strong>Data Tables</strong>
+                <strong>{{ ucfirst(strtok(Request::path(), '/')) }}</strong>
             </li>
+            <!--<li class="active">
+                <strong>{{ ucfirst(Request::path()) }}</strong>
+            </li>-->
         </ol>
     </div>
     <div class="col-lg-2">

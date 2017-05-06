@@ -24,7 +24,7 @@
                         </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 @if( Auth::check() )
-                                    <li><a href="/users/show/{{ Auth::user()->id }}">Profile</a></li>
+                                    <li><a href="/myprofile/{{ Auth::user()->id }}">Profile</a></li>
                                 @endif
                                 <li><a href="/logout">Logout</a></li>
                             </ul>
@@ -33,19 +33,19 @@
                         TM+
                     </div>
                 </li>
-                <li class="{{ Request::path() ==  'dashboard' ? 'active' : ''  }}">
+                <li class="{{ (str_contains(Request::path(), 'dashboard') || Request::path() == '/') ? 'active' : ''  }}">
                     <a href="/dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
-                <li class="{{ Request::path() ==  'templates' ? 'active' : ''  }}">
+                <li class="{{ str_contains(Request::path(),  'templates') ? 'active' : ''  }}">
                     <a href="/templates"><i class="fa fa-book"></i> <span class="nav-label">Test Templates</span></a>
                 </li>
-                <li class="{{ Request::path() ==  'projects' ? 'active' : ''  }}">
+                <li class="{{ str_contains(Request::path(), 'projects') ? 'active' : ''  }}">
                     <a href="/projects"><i class="fa fa-folder"></i> <span class="nav-label">Test Projects</span> </a>
                 </li>
-                <li class="{{ Request::path() ==  'users' ? 'active' : ''  }}">
+                <li class="{{ str_contains(Request::path(), 'users') ? 'active' : ''  }}">
                     <a href="/users"><i class="fa fa-users"></i> <span class="nav-label">Test Users</span> </a>
                 </li>
-                <li class="{{ Request::path() ==  'reports' ? 'active' : ''  }}">
+                <li class="{{ str_contains(Request::path(), 'reports') ? 'active' : ''  }}">
                     <a href="/reports"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Test Reports</span> </a>
                 </li>
             </ul>

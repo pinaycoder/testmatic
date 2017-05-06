@@ -11,6 +11,7 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+    <link href="/css/plugins/chosen/chosen.css" rel="stylesheet">
     <!-- Angular notify -->
     <link href="/css/plugins/angular-notify/angular-notify.min.css" rel="stylesheet">
 
@@ -71,6 +72,10 @@
         .scenario-mandatory,
         .question-mandatory{
             display: none;
+        }
+
+        .chosen-container{
+            width: 400px !important;
         }
 
     </style>
@@ -153,6 +158,9 @@ Angular Dependiences
 <script src="/js/directives.js"></script>
 <script src="/js/controllers.js"></script>
 -->
+<!-- Chosen -->
+<script src="/js/plugins/chosen/chosen.jquery.js"></script>
+
 <!-- Steps -->
 <script src="/js/plugins/steps/jquery.steps.min.js"></script>
 
@@ -164,7 +172,7 @@ Angular Dependiences
 
 <script>
     $(document).ready(function() {
-        
+
         $('.dt-tables').dataTable({
             'lengthChange': false,
             'ordering': false
@@ -278,6 +286,10 @@ Angular Dependiences
             $('#add-component-form #order').val(counter).attr('readonly','readonly');
         });
 
+        $('#add-participants-modal').on('show.bs.modal', function(){
+            $('.chosen-select', this).chosen('destroy').chosen();
+        });
+
         $('#add-component-row-btn').on('click', function () {
 
             var isValidForm = true;
@@ -325,6 +337,12 @@ Angular Dependiences
                 $('.question-mandatory').hide();
                 $('.scenario-mandatory').show();
             }
+        }); 
+
+        $('#add-participants-row-btn').on('click', function(){
+            $('#selected_users').val($(".chosen-select").val());
+            $('#add-participants-form').submit();
+
         });
     
    });

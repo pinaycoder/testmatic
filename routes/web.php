@@ -51,11 +51,27 @@ Route::get('/templates/components/delete', 'TemplateComponentController@destroy'
 
 Route::get('/projects', 'ProjectController@index');
 
+Route::get('/projects/show/{id}', 'ProjectController@show');
+
+Route::get('/projects/create', 'ProjectController@create');
+
+Route::post('/projects/store', 'ProjectController@store');
+
+Route::get('/projects/edit/{id}', 'ProjectController@edit');
+
+Route::post('/projects/update/{id}', 'ProjectController@update');
+
+Route::get('/projects/delete', 'ProjectController@destroy');
+
+Route::post('/projects/user/add/{id}', 'ProjectController@addUser');
+
 // Routes for the Test Users Module
 
 Route::get('/users', 'UserController@index');
 
 Route::get('/users/show/{id}', 'UserController@show');
+
+Route::get('/myprofile/{id}', 'UserController@show');
 
 Route::get('/users/create', 'UserController@create');
 

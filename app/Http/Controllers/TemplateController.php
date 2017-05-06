@@ -110,7 +110,11 @@ class TemplateController extends Controller
 
         $template_components = TemplateComponent::all()->where('template_id', $template->id);
 
-        return view('templates.show', compact('template', 'template_components'));
+        $participants = User::all()
+                                ->where('role', 'Test Participant')
+                                ->where('inactive', false);
+
+        return view('templates.show', compact('template', 'template_components', 'participants'));
     }
 
     /**
@@ -121,6 +125,12 @@ class TemplateController extends Controller
      */
     public function edit($id)
     {
+        /** $template = Template::find($id)
+                                ->getCreatedByName()
+                                ->getModifiedByName()
+                                ->getDuration();
+        **/
+                                
         $template = Template::find($id);
 
         $created = User::find($template->created_by);
