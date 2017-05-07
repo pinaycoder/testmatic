@@ -20,9 +20,8 @@
                                 <select name="project_users[]"data-placeholder="Select Participants" class="chosen-select" multiple tabindex="4">
                                     @foreach($participants as $participant)
                                     
-                                    <!--<option value="{{ $participant->id }}">{{ $participant->first_name . ' ' . $participant->last_name }}</option>-->
-
-                                    <option value="{{ $participant->id }}">{{ $participant->role }}</option>
+                                    <option value="{{ $participant->id }}">{{ $participant->first_name . ' ' . $participant->last_name }}</option>
+                                    
                                     @endforeach
                                 </select>
                             </div>

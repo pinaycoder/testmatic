@@ -17,7 +17,7 @@
 		            	@if(count($errors->all()) > 0)
 		            		@include('layouts.errors')
 		            	@endif
-		            	<form action='/templates/components/update/{{ $component->id }}'method="post" class="form-horizontal">
+		            	<form action='/templates/components/update/{{ $component->id }}' method="post" class="form-horizontal">
 			                {{ csrf_field() }}
 			                <div class="form-group">
 			            		<label class="col-sm-3 control-label">Name: </label>

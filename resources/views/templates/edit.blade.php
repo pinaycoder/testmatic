@@ -3,7 +3,7 @@
 @section('content')
 	
     <div class="wrapper wrapper-content animated fadeInUp">
-    @if(isset($success_message))
+    @if(isset($success_message) || Session::has('message'))
       @include('layouts.success')
    @endif
    @if(count($errors->all()) > 0)
@@ -19,6 +19,7 @@
             	<div class="row">
                     <div class="col-lg-12">
                         <div class="m-b-md">
+                            <a href="#" data-toggle="modal" data-target="#add-component-modal" class="btn btn-primary btn-xs pull-right">Add Component</a>
                             <h2>Edit {{ $template->name }}</h2>
                         </div>
                     </div>
@@ -95,7 +96,9 @@
 					<div class="ibox-title">
 					<h5>Template Components</h5>
 					<div class="ibox-tools">
-                        <a href="#" data-toggle="modal" data-target="#add-component-modal" class="btn btn-primary btn-xs pull-right">Add Component</a>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
 					</div>
 					</div>
 					<div class="ibox-content">

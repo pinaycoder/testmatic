@@ -31,6 +31,10 @@ Route::post('/templates/update/{id}', 'TemplateController@update');
 
 Route::get('/templates/delete', 'TemplateController@destroy');
 
+Route::get('/templates/deactivate/{id}', 'TemplateController@deactivate');
+
+Route::get('/templates/activate/{id}', 'TemplateController@activate');
+
 // Routes for the Test Components Module
 
 Route::get('/templates/components', 'TemplateComponentController@index');
@@ -46,6 +50,8 @@ Route::get('/templates/components/edit/{id}', 'TemplateComponentController@edit'
 Route::post('/templates/components/update/{id}', 'TemplateComponentController@update');
 
 Route::get('/templates/components/delete', 'TemplateComponentController@destroy');
+
+Route::get('/templates/components/get/{id}', 'TemplateComponentController@getTemplateComponents');
 
 // Routes for the Test Projects Module
 
@@ -64,6 +70,18 @@ Route::post('/projects/update/{id}', 'ProjectController@update');
 Route::get('/projects/delete', 'ProjectController@destroy');
 
 Route::post('/projects/user/add/{id}', 'ProjectController@addUser');
+
+Route::get('/projects/user/delete/{project_id}/{user_id}', 'ProjectController@removeUser');
+
+Route::get('/projects/deactivate/{id}', 'ProjectController@deactivate');
+
+Route::get('/projects/activate/{id}', 'ProjectController@activate');
+
+Route::post('/projects/components/create/{id}', 'ProjectController@addComponent');
+
+Route::get('/projects/components/edit/{id}', 'ProjectComponentController@edit');
+
+Route::post('/projects/components/update/{id}', 'ProjectComponentController@update');
 
 // Routes for the Test Users Module
 

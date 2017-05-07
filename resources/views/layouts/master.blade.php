@@ -28,13 +28,13 @@
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <style>
-        .table-title a {
+        /**.table-title a {
             font-size: 14px;
             color: #676a6c;
             font-weight: 600;
         }
 
-        /**.option-buttons{
+        .option-buttons{
             width: 75px;
         }
 
@@ -48,6 +48,10 @@
             overflow: hidden;
             vertical-align: top !important;
         }**/
+
+        .options-td .btn{
+            width: 85px !important;
+        }
 
         .user-details-dl dt, 
         .user-details-dl dd{
@@ -78,53 +82,65 @@
             width: 400px !important;
         }
 
-    </style>
+        #project-buttons-div{
+            padding-right: 2px;
+        }
+
+        .datepicker {
+          z-index: 1600 !important; /* has to be larger than 1050 */
+      }
+
+      .wizard-big.wizard > .content{
+        min-height: 1000px;
+      }
+
+  </style>
 </head>
 
 <body>
 
-<div id="wrapper">
+    <div id="wrapper">
 
-    @include('layouts.navigation')
+        @include('layouts.navigation')
 
-    <div id="page-wrapper" class="gray-bg">
+        <div id="page-wrapper" class="gray-bg">
 
-        @include('layouts.topnavbar')
+            @include('layouts.topnavbar')
 
-        @include('layouts.pageheading')
+            @include('layouts.pageheading')
 
-        <div class="wrapper wrapper-content animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-12">
-                    
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        
                         @yield('content')
-                    
+                        
+                    </div>
                 </div>
             </div>
+
+            @include('layouts.footer')
+
         </div>
-
-        @include('layouts.footer')
-
     </div>
-</div>
 
-<!-- Mainly scripts -->
-<script src="/js/jquery-2.1.1.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- Mainly scripts -->
+    <script src="/js/jquery-2.1.1.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-<!-- Data Tables -->
-<script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
-<script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
-<script src="/js/plugins/dataTables/dataTables.responsive.js"></script>
-<script src="/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+    <!-- Data Tables -->
+    <script src="/js/plugins/dataTables/jquery.dataTables.js"></script>
+    <script src="/js/plugins/dataTables/dataTables.bootstrap.js"></script>
+    <script src="/js/plugins/dataTables/dataTables.responsive.js"></script>
+    <script src="/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
 
-<!-- Custom and plugin javascript -->
-<script src="/js/inspinia.js">
-</script>
+    <!-- Custom and plugin javascript -->
+    <script src="/js/inspinia.js">
+    </script>
 
-<!-- Angular scripts-->
+    <!-- Angular scripts-->
 <!-- <script src="/js/angular/angular.min.js"></script>
 <script src="/js/ui-router/angular-ui-router.min.js"></script>
 <script src="/js/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
@@ -238,80 +254,140 @@ Angular Dependiences
                 form.submit();
             }
         }).validate({
-                    errorPlacement: function (error, element)
-                    {
-                        element.before(error);
-                    },
-                    rules: {
-                        confirm: {
-                            greaterThan: "#password"
-                        }
-                    }
-                });
+            errorPlacement: function (error, element)
+            {
+                element.before(error);
+            },
+            rules: {
+                confirm: {
+                    greaterThan: "#password"
+                }
+            }
+        });
 
         $('.input-group.date').datepicker({
-                todayBtn: "linked",
-                format: 'yyyy-mm-dd',
-                calendarWeeks: true,
-                autoclose: true
-            });
+            todayBtn: "linked",
+            format: 'yyyy-mm-dd',
+            calendarWeeks: true,
+            autoclose: true
+        });
 
         var table = $('#add-component-table').DataTable({
-                                              "columns": [
-                                                { "data": "order" },
-                                                { "data": "type" },
-                                                { "data": "description" },
-                                                { "data": "help_text" },
-                                                { "data": "target" },
-                                                { "data": "selections" },
-                                                { "data": "time_limit" }
-                                              ],
-                                            "paging": false,
-                                            "ordering": false,
-                                            "lengthChange": false,
-                                            "searching": false,
-                                            "info": false
-                                            });
+          "columns": [
+          { "data": "order" },
+          { "data": "type" },
+          { "data": "description" },
+          { "data": "help_text" },
+          { "data": "target" },
+          { "data": "selections" },
+          { "data": "time_limit" }
+          ],
+          "paging": false,
+          "ordering": false,
+          "lengthChange": false,
+          "searching": false,
+          "info": false
+      });
 
         var components = [];
+        
+        var counter = table.data().length + 1;
+
+        $('#reference-template').on('change', function(){
+            $.get('/templates/components/get/'+this.value, function(data){
+
+                components = data;
+                table.rows.add(components).draw(false);
+                counter = table.data().length + 1;
+
+                $('#components-json').val(JSON.stringify(components));
+            });
+        });
 
         if($('#components-json').val()){
             components = JSON.parse($('#components-json').val());
             table.rows.add(components).draw(false);
         }
 
-        var counter = components.length + 1;
-
         $('#add-component-modal').on('show.bs.modal', function(){
             $('#add-component-form #order').val(counter).attr('readonly','readonly');
+        });
+
+        $('#add-project-component-modal').on('show.bs.modal', function(){
+            var count = $('#project-components-table').DataTable().data().length + 1;
+            $('#add-project-component-form #order').val(count).attr('readonly','readonly');
         });
 
         $('#add-participants-modal').on('show.bs.modal', function(){
             $('.chosen-select', this).chosen('destroy').chosen();
         });
 
-        $('#add-component-row-btn').on('click', function () {
+        $('#edit-project-info-modal').on('show.bs.modal', function(){
+            $('.date').datepicker({
+                todayBtn: "linked",
+                format: 'yyyy-mm-dd',
+                calendarWeeks: true,
+                autoclose: true,
+                container: '#edit-project-info-modal modal-body'
+            });
+        });
+
+        $('#add-component-row-btn').on('click', function (event) {
+
+            event.preventDefault();
 
             var isValidForm = true;
 
             $('#add-component-form').validate({
-              invalidHandler: function(event, validator) {
-                isValidForm = false;
-                return false;
-              }
-            }).form();
+              rules: {
+                time_limit: {
+                  required: true,
+                  number: true,
+                  min: 0,
+                  max: 30
+              },
+              order: {
+                  required: true,
+                  number: true,
+                  min: 1,
+                  max: 50
+                                        }/**,
+                                        description: {
+                                          required: true,
+                                          min: 1,
+                                          max: 500
+                                        },
+                                        help_text: {
+                                          required: true,
+                                          min: 1,
+                                          max: 500
+                                        },
+                                        target: {
+                                          required: true,
+                                          min: 1,
+                                          max: 500
+                                        },
+                                        selections: {
+                                          required: true,
+                                          min: 1,
+                                          max: 1000
+                                      }**/
+                                  }
+                              }).form();
 
+            isValidForm = $('#add-component-form').valid();
+            
             if(isValidForm){
 
                 var component = {
-                                    "order": counter,
-                                    "type": $('#add-component-form #type').val(),
-                                    "description": $('#add-component-form #description').val(),
-                                    "help_text": $('#add-component-form #help_text').val(),
-                                    "target": $('#add-component-form #target').val(),
-                                    "selections": $('#add-component-form #selections').val(),
-                                    "time_limit": $('#add-component-form #time_limit').val()
-                                };
+                    "order": counter,
+                    "type": $('#add-component-modal #type').val(),
+                    "description": $('#add-component-modal #description').val(),
+                    "help_text": $('#add-component-modal #help_text').val(),
+                    "target": $('#add-component-modal #target').val(),
+                    "selections": $('#add-component-modal #selections').val(),
+                    "time_limit": $('#add-component-modal #time_limit').val()
+                };
 
                 components.push(component);
                 
@@ -327,7 +403,7 @@ Angular Dependiences
 
         });
 
-        $('#add-component-form #type').on('change', function(){
+        $('#add-component-modal #type, #add-project-component-modal #type').on('change', function(){
             if(this.value == 'Question'){
                 $('.scenario-mandatory').hide();
                 $('.question-mandatory').show();
@@ -344,8 +420,8 @@ Angular Dependiences
             $('#add-participants-form').submit();
 
         });
-    
-   });
+        
+    });
 
 </script>
 

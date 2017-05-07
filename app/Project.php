@@ -31,4 +31,9 @@ class Project extends Model
         return $this->belongsToMany('App\User');
     }
 
+    public function components()
+    {
+        return $this->hasMany('App\ProjectComponent');
+    }
+
 }

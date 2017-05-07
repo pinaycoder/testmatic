@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 use App\TemplateComponent;
 use Illuminate\Http\Request;
 
@@ -129,5 +131,13 @@ class TemplateComponentController extends Controller
     public function destroy(TemplateComponent $templateComponent)
     {
         //
+    }
+
+    public function getTemplateComponents($id){
+
+        $template_components = TemplateComponent::select(array('order', 'type', 'description', 'help_text', 'target', 'selections', 'time_limit'))->where('template_id', $id)->get();
+
+        return $template_components;
+
     }
 }

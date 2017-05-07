@@ -31,6 +31,18 @@ class TemplateController extends Controller
     {
         $templates = Template::all();
 
+        foreach($templates as $template){
+
+            $created = User::find($template->created_by);
+
+            $modified = User::find($template->modified_by);
+
+            $template->created_full_name = $created->first_name . ' ' . $created->last_name;
+
+            $template->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
+        
+        }
+
         return view('templates.index', compact('templates'));
     }
 
@@ -155,6 +167,16 @@ class TemplateController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $validations = [
+                            'name' => 'required',
+                            'description' => 'required',
+                            'entry_url' => 'required',
+                            'inactive' => 'required'
+                        ];
+
+        $this->validate($request, $validations);
+
         $template = Template::find($id);
 
         $template->name = $request['name'];
@@ -165,7 +187,7 @@ class TemplateController extends Controller
 
         $template->save();
 
-        $components = json_decode($request['components-json']);
+        /**$components = json_decode($request['components-json']);
 
         foreach($components as $component){
         
@@ -184,15 +206,11 @@ class TemplateController extends Controller
                 $template_component->save();
             }
 
-        }
+        }**/
 
-        $success_message = 'Changes has been saved. Click <a href="/templates/show/' . $template->id . '">here</a> to go back to template.';
+        session()->flash('message', 'Template updated!');
 
-        $template_components = TemplateComponent::all()->where('template_id', $template->id);
-
-        $template_components = TemplateComponent::select(array('order', 'type', 'description', 'help_text', 'target', 'selections', 'time_limit'))->where('template_id', $template->id)->get();
-
-        return view('templates.edit', compact('template', 'template_components','success_message'));
+        return redirect()->back();
     }
 
     /**
@@ -204,5 +222,37 @@ class TemplateController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deactivate($id){
+
+        $template = Template::find($id);
+
+        $template->inactive = true;
+
+        $template->modified_by = Auth::user()->id;
+
+        $template->save();
+
+        session()->flash('message', 'Template deactivated!');
+
+        return redirect()->back();
+
+    }
+
+    public function activate($id){
+
+        $template = Template::find($id);
+
+        $template->inactive = false;
+
+        $template->modified_by = Auth::user()->id;
+
+        $template->save();
+
+        session()->flash('message', 'Template activated!');
+
+        return redirect()->back();
+
     }
 }
