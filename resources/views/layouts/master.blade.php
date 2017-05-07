@@ -91,7 +91,7 @@
       }
 
       .wizard-big.wizard > .content{
-        min-height: 1000px;
+        min-height: 500px;
       }
 
   </style>
@@ -318,6 +318,11 @@ Angular Dependiences
             $('#add-project-component-form #order').val(count).attr('readonly','readonly');
         });
 
+        $('#add-template-component-modal').on('show.bs.modal', function(){
+            var count = $('#template-components-table').DataTable().data().length + 1;
+            $('#add-template-component-form #order').val(count).attr('readonly','readonly');
+        });
+
         $('#add-participants-modal').on('show.bs.modal', function(){
             $('.chosen-select', this).chosen('destroy').chosen();
         });
@@ -403,7 +408,7 @@ Angular Dependiences
 
         });
 
-        $('#add-component-modal #type, #add-project-component-modal #type').on('change', function(){
+        $('#add-component-modal #type, #add-project-component-modal #type, #add-template-component-modal #type').on('change', function(){
             if(this.value == 'Question'){
                 $('.scenario-mandatory').hide();
                 $('.question-mandatory').show();

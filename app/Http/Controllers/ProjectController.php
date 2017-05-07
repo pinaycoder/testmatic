@@ -289,7 +289,7 @@ class ProjectController extends Controller
         $component = new ProjectComponent;
 
         $component->project_id = $project->id;
-        $component->name = 'JPY COMPONENT';
+        $component->name = $project->name . ' Component ' . $request['order'];
         $component->type = $request['type'];
         $component->description = $request['description'];
         $component->order = $request['order'];

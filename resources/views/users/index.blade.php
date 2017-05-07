@@ -18,9 +18,9 @@
 			        <table class="table table-hover dt-tables" >
 			        <thead>
 			        <tr>
-			        	<th>Status</th>
-			            <th>Username</th>
+			        	<th>Active?</th>
 			            <th>Name</th>
+			            <th>Username</th>
 			            <th>Email</th>
 			            <th>Role</th>
 			            <th>Actions</th>
@@ -29,14 +29,16 @@
 			        <tbody>
 			        @foreach($users as $user)
 			        <tr>
-			        	<td class="is-active-td"><span class="label {{ ($user->inactive == false ? 'label-primary' : 'label-default') }}">{{ ($user->inactive == false ? 'Active' : 'Inactive') }}</span></td>
-			        	<td>
-			            	{{ $user->username }}
+			            <td class="is-active-td">
+			            	<span class="label {{ ($user->inactive == false ? 'label-primary' : 'label-default') }}">{{ ($user->inactive == false ? 'Active' : 'Inactive') }}</span>
 			            </td>
 			            <td class="table-title">
-			            	<a href="/users/show/{{ $user->id }}">{{ $user->first_name . ' ' . $user->last_name  }}</a>
+			            	<a class="text-navy" href="/users/show/{{ $user->id }}">{{ $user->first_name . ' ' . $user->last_name  }}</a>
 			            	<br/>
 			            	<!--<small>{{ $user->email }}</small>-->
+			            </td>
+			        	<td>
+			            	{{ $user->username }}
 			            </td>
 			            <td>
 			            	{{ $user->email }}
@@ -45,9 +47,14 @@
 			            	{{ $user->role }}
 			            </td>
 			            <td class="center options-td">
-			            	<!--<a href="/users/show/{{ $user->id }}" class="btn btn-info btn-xs option-buttons"><i class="fa fa-folder"></i> View </a>-->
 			            	<a href="/users/edit/{{ $user->id }}" class="btn btn-white btn-xs option-buttons"><i class="fa fa-pencil"></i> Edit </a>
-			            	<a href="/users/delete/{{ $user->id }}" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Delete </a>
+			            	@if($user->inactive == false)
+                            <a href="/users/deactivate/{{ $user->id }}" class="btn btn-danger btn-xs">Deactivate</a>
+                            @endif
+
+                            @if($user->inactive == true)
+                            <a href="/users/activate/{{ $user->id }}" class="btn btn-success btn-xs">Activate</a>
+                            @endif
 			            </td>
 			        </tr>
 			        @endforeach

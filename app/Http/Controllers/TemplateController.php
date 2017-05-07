@@ -122,6 +122,17 @@ class TemplateController extends Controller
 
         $template_components = TemplateComponent::all()->where('template_id', $template->id);
 
+        foreach($template_components as $template_component){
+            
+            $created = User::find($template_component->created_by);
+
+            $modified = User::find($template_component->modified_by);
+
+            $template_component->created_full_name = $created->first_name . ' ' . $created->last_name;
+
+            $template_component->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
+        }
+
         $participants = User::all()
                                 ->where('role', 'Test Participant')
                                 ->where('inactive', false);
@@ -255,4 +266,46 @@ class TemplateController extends Controller
         return redirect()->back();
 
     }
+
+    public function addComponent(Request $request, $id)
+    {
+        
+        $validations = [
+                            'type' => 'required',
+                            'description' => 'required',
+                            'order' => 'required'
+                        ];
+
+        if($request['type'] == 'Question'){
+            $validations['selections'] = 'required';
+        } else if($request['type'] == 'Scenario'){
+            $validations['target'] = 'required';
+            $validations['time_limit'] = 'required';
+        }
+
+        $this->validate($request, $validations);
+        
+        $template = Template::find($id);
+
+        $template->modified_by = Auth::user()->id;
+
+        $template->save();
+
+        $component = new TemplateComponent;
+
+        $component->template_id = $template->id;
+        $component->name = $template->name . ' Component ' . $request['order'];
+        $component->type = $request['type'];
+        $component->description = $request['description'];
+        $component->order = $request['order'];
+        $component->help_text = $request['help_text'];
+
+        $component->save();
+
+        session()->flash('message', 'Template component added!');
+        
+        return redirect()->back();
+
+    }
+
 }

@@ -128,9 +128,17 @@ class TemplateComponentController extends Controller
      * @param  \App\TemplateComponent  $templateComponent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TemplateComponent $templateComponent)
+    public function destroy($id)
     {
-        //
+        
+        $component = TemplateComponent::find($id);
+
+        $component->delete();
+
+        session()->flash('message', 'Template component deleted!');
+        
+        return redirect()->back();
+
     }
 
     public function getTemplateComponents($id){

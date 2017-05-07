@@ -88,6 +88,7 @@
 </div>
 </div>
 </div>
+</div>
 
 <div class="row">
  <div class="col-lg-12">
@@ -101,12 +102,13 @@
     </div>
   </div>
   <div class="ibox-content">
-    <table class="table table-hover dt-tables" >
+    <table class="table table-hover dt-tables" id="template-components-table">
       <thead>
         <tr>
          <th>Order</th>
          <th>Type</th>
          <th>Component</th>
+         <th>Created</th>
          <th>Options</th>
        </tr>
      </thead>
@@ -120,11 +122,15 @@
          <br/>
          <small>{{ str_limit($component->description, 120) }}</small>
        </td>
-										            <!--<td>{{ $component->help_text }}</td>
-										            <td>{{ $component->selections }}</td>-->
+       <td class="table-title">
+         <a class="text-navy" href="/templates/users/show/{{ $component->created_by }}">{{ $component->created_full_name }}</a>
+         <br/>
+         <small>{{ $component->created_date }}</small>
+       </td>
+										            
 										            <td class="center">
-										            	<a href="/templates/components/edit/1" class="btn btn-white btn-xs option-buttons"><i class="fa fa-pencil"></i> Edit </a>
-										            	<a href="/templates/components/delete/1" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Delete </a>
+										            	<a href="/templates/components/edit/{{ $component->id }}" class="btn btn-white btn-xs option-buttons"><i class="fa fa-pencil"></i> Edit </a>
+										            	<a href="/templates/components/delete/{{ $component->id }}" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Delete </a>
 										            </td>
                               </tr>
                               @endforeach

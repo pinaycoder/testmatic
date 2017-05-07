@@ -169,6 +169,46 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $user = User::find($id);
+
+        $user->delete();
+
+        session()->flash('message', 'User deleted!');
+        
+        return redirect()->back();
+
+    }
+
+    public function deactivate($id){
+
+        $user = User::find($id);
+
+        $user->inactive = true;
+
+        $user->modified_by = Auth::user()->id;
+
+        $user->save();
+
+        session()->flash('message', 'User deactivated!');
+
+        return redirect()->back();
+
+    }
+
+    public function activate($id){
+
+        $user = User::find($id);
+
+        $user->inactive = false;
+
+        $user->modified_by = Auth::user()->id;
+
+        $user->save();
+
+        session()->flash('message', 'User activated!');
+
+        return redirect()->back();
+
     }
 }

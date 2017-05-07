@@ -89,8 +89,16 @@ class ProjectComponentController extends Controller
      * @param  \App\ProjectComponent  $projectComponent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProjectComponent $projectComponent)
+    public function destroy($id)
     {
-        //
+        
+        $component = ProjectComponent::find($id);
+
+        $component->delete();
+
+        session()->flash('message', 'Project component deleted!');
+        
+        return redirect()->back();
+
     }
 }
