@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('question_ans_1', 20)->default('');
             $table->integer('question_id_2')->default(1);
             $table->string('question_ans_2', 20)->default('');
-            $table->timestamp('last_login_date')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('last_pass_change')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('last_login_date')->nullable()->default(NULL);
+            $table->timestamp('last_pass_change')->nullable()->default(NULL);
             $table->string('first_name', 50)->default('');
             $table->string('middle_name', 50)->default('');
             $table->string('last_name', 50)->default('');
