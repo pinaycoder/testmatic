@@ -22,7 +22,7 @@ class CreateProjectsTable extends Migration
             $table->datetime('start')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->datetime('end')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->integer('created_by')->default(1);
-            $table->timestamp('created_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_date')->nullable()->default(NULL);
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(1);
             $table->boolean('inactive')->default(false);

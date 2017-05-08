@@ -33,11 +33,11 @@ class CreateUsersTable extends Migration
             $table->string('contact_num', 50)->default('');
             $table->string('user_pic_file', 50)->default('/img/default-user-img.png');
             $table->integer('created_by')->default(1);
-            $table->timestamp('created_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_date')->nullable()->default(NULL);
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(1);
             $table->boolean('inactive')->default(false);
-            $table->string('remember_token', 100)->nullable();
+            //$table->string('remember_token', 100)->nullable();
         });
     }
 

@@ -7,6 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    const CREATED_AT = 'created_date';
+    const UPDATED_AT = 'modified_date';
+
     use Notifiable;
 
     /**

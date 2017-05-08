@@ -20,7 +20,7 @@ class CreateProjectUserTable extends Migration
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->integer('created_by')->default(1);
-            $table->timestamp('created_date')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('created_date')->nullable()->default(NULL);
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(1);
             $table->boolean('inactive')->default(false);
