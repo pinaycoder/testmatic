@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\User;
 use App\SecurityQuestion;
@@ -63,11 +63,14 @@ class UserController extends Controller
         $user->username = $request['username'];
         $user->gender = $request['gender'];
         $user->role = $request['role'];
+        $user->inactive = (boolean) $request['inactive'];
         $user->contact_num = $request['contact_num'];
         $user->birthdate = $request['birthdate'];
         $user->password = Hash::make(str_random(8));
         $user->created_by = Auth::user()->id;
         $user->modified_by = Auth::user()->id;
+        $user->created_date = Carbon::now();
+        $user->modified_date = Carbon::now(); 
 
         $user->save();
 
@@ -142,7 +145,7 @@ class UserController extends Controller
         $user->email = $request['email'];
         $user->gender = $request['gender'];
         $user->role = $request['role'];
-        $user->inactive = (boolean) $request['inactive'];
+        $user->inactive = $request['inactive'];
         $user->contact_num = $request['contact_num'];
         $user->birthdate = $request['birthdate'];
         $user->question_id_1 = $request['question_id_1'];
@@ -150,6 +153,7 @@ class UserController extends Controller
         $user->question_id_2 = $request['question_id_2'];
         $user->question_ans_2 = $request['question_ans_2'];
         $user->modified_by = Auth::user()->id;
+        $user->modified_date = Carbon::now(); 
 
         $user->save();
 
@@ -157,7 +161,9 @@ class UserController extends Controller
 
         $success_message = 'Changes has been saved. Click <a href="/users/show/' . $user->id . '">here</a> to go back to user profile.';
 
-        return view('users.edit', compact('user', 'security_questions', 'success_message'));
+        session()->flash('message', $success_message);
+
+        return redirect('users/edit/' . $user->id);
 
     }
 
@@ -187,6 +193,7 @@ class UserController extends Controller
         $user->inactive = true;
 
         $user->modified_by = Auth::user()->id;
+        $user->modified_date = Carbon::now();
 
         $user->save();
 
@@ -203,6 +210,7 @@ class UserController extends Controller
         $user->inactive = false;
 
         $user->modified_by = Auth::user()->id;
+        $user->modified_date = Carbon::now();
 
         $user->save();
 

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\TemplateComponent;
-use Illuminate\Http\Request;
+
 
 class TemplateComponentController extends Controller
 {
@@ -116,6 +118,7 @@ class TemplateComponentController extends Controller
         $component->time_limit = $request['time_limit'];
 
         $component->modified_by = Auth::user()->id;
+        $component->modified_date = Carbon::now(); 
 
         $component->save();
 

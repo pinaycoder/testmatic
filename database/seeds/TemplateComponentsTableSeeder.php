@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class TemplateComponentsTableSeeder extends Seeder
 {
@@ -19,7 +20,9 @@ class TemplateComponentsTableSeeder extends Seeder
 	            'description' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non eros eget ipsum luctus ultrices. Sed eget finibus elit. Proin fringilla dui augue, sit amet pulvinar ex porttitor nec. Quisque nec arcu ut est sagittis faucibus in eget arcu. Proin in sagittis quam. In ut imperdiet metus. Suspendisse suscipit bibendum lectus, sed ultrices dui. Maecenas risus ligula, mattis vel dolor ac, vehicula ultrices metus. Donec nulla ligula, consectetur et volutpat at, placerat a enim. In dui metus, tristique gravida dui et, viverra accumsan ipsum. Nullam pellentesque lobortis lacus, tincidunt feugiat nibh placerat sit amet.',
 	            'help_text' => 'Quisque nec arcu ut est sagittis faucibus in eget arcu. Proin in sagittis quam. In ut imperdiet metus.',
 	            'selections' => 'A,B,C,D,E',
-	            'type' => 'Question'
+	            'type' => 'Question',
+                'created_date' => Carbon::now(),
+                'modified_date' => Carbon::now()
 	        ]);
     	}
 
@@ -32,7 +35,9 @@ class TemplateComponentsTableSeeder extends Seeder
 	            'target' => 'http://www.testmatic' . $i . '.com',
 	            'help_text' => 'Quisque nec arcu ut est sagittis faucibus in eget arcu. Proin in sagittis quam. In ut imperdiet metus.',
 	            'time_limit' => '500',
-	            'type' => 'Scenario'
+	            'type' => 'Scenario',
+                'created_date' => Carbon::now(),
+                'modified_date' => Carbon::now()
 	        ]);
     	}
     }

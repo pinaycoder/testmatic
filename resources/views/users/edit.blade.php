@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="wrapper wrapper-content animated fadeInUp">
-   @if(isset($success_message))
+   @if(isset($success_message) || Session::has('message'))
       @include('layouts.success')
    @endif
    @if(count($errors->all()) > 0)
@@ -64,8 +64,8 @@
                         <dt>Status:</dt>
                         <dd>
                            <select class="form-control" name="inactive">
-                                <option value="false" {{ ($user->inactive == false ? 'selected' : '') }}>Active</option>
-                                <option value="true" {{ ($user->inactive == true ? 'selected' : '') }}>Inactive</option>
+                                <option value="0" {{ ($user->inactive == false ? 'selected' : '') }}>Active</option>
+                                <option value="1" {{ ($user->inactive == true ? 'selected' : '') }}>Inactive</option>
                             </select>
                         </dd>
                      </dl>

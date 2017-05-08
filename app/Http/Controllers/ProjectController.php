@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\User;
 use App\Project;
@@ -94,6 +94,8 @@ class ProjectController extends Controller
         $project->end = $request['end'];
         $project->created_by = Auth::user()->id;
         $project->modified_by = Auth::user()->id;
+        $project->created_date = Carbon::now();
+        $project->modified_date = Carbon::now(); 
 
         $project->save();
 
@@ -111,6 +113,8 @@ class ProjectController extends Controller
             $project_component->help_text = $component->help_text;
             $project_component->created_by = Auth::user()->id;
             $project_component->modified_by = Auth::user()->id;
+            $project_component->created_date = Carbon::now();
+            $project_component->modified_date = Carbon::now(); 
 
             $project_component->save();
 
@@ -195,6 +199,7 @@ class ProjectController extends Controller
         $project->start = $request['start'];
         $project->end = $request['end'];
         $project->modified_by = Auth::user()->id;
+        $project->modified_date = Carbon::now(); 
 
         $project->save();
 
@@ -230,6 +235,7 @@ class ProjectController extends Controller
         
 
         $project->modified_by = Auth::user()->id;
+        $project->modified_date = Carbon::now(); 
 
         foreach($users as $user){
 
@@ -253,6 +259,7 @@ class ProjectController extends Controller
         $user = User::find($user_id);
 
         $project->modified_by = Auth::user()->id;
+        $project->modified_date = Carbon::now(); 
         
         $project->users()->detach($user);
 
@@ -283,6 +290,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
 
         $project->modified_by = Auth::user()->id;
+        $project->modified_date = Carbon::now(); 
 
         $project->save();
 
@@ -312,6 +320,7 @@ class ProjectController extends Controller
         $project->inactive = true;
 
         $project->modified_by = Auth::user()->id;
+        $project->modified_date = Carbon::now(); 
 
         $project->save();
 
@@ -328,6 +337,7 @@ class ProjectController extends Controller
         $project->inactive = false;
 
         $project->modified_by = Auth::user()->id;
+        $project->modified_date = Carbon::now(); 
 
         $project->save();
 

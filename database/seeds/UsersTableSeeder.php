@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -26,7 +27,9 @@ class UsersTableSeeder extends Seeder
                 'question_ans_2' => 'Test Answer 2',
                 'gender' => 'Female',
                 'role' => 'Super Administrator',
-                'birthdate' => '1992-04-25'
+                'birthdate' => '1992-04-25',
+                'created_date' => Carbon::now(),
+                'modified_date' => Carbon::now()
             ]);
 
         for($i = 1; $i <= 5; $i++){
@@ -44,7 +47,9 @@ class UsersTableSeeder extends Seeder
                 'question_ans_2' => 'Test Answer 2',
                 'gender' => 'Female',
                 'role' => 'Super Administrator',
-                'birthdate' => '1992-04-25'
+                'birthdate' => '1992-04-25',
+                'created_date' => Carbon::now(),
+                'modified_date' => Carbon::now()
 	        ]);
     	}
 
@@ -63,7 +68,9 @@ class UsersTableSeeder extends Seeder
                 'question_ans_2' => 'Test Answer 2',
                 'gender' => 'Male',
                 'role' => 'Test Administrator',
-                'birthdate' => '1992-04-25'
+                'birthdate' => '1992-04-25',
+                'created_date' => Carbon::now(),
+                'modified_date' => Carbon::now()
             ]);
         }
 
@@ -82,7 +89,9 @@ class UsersTableSeeder extends Seeder
                 'question_ans_2' => 'Test Answer 2',
                 'gender' => 'Female',
                 'role' => 'Test Participant',
-                'birthdate' => '1992-04-25'
+                'birthdate' => '1992-04-25',
+                'created_date' => Carbon::now(),
+                'modified_date' => Carbon::now()
             ]);
         }
     }

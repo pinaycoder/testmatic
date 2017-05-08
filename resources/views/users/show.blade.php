@@ -3,6 +3,12 @@
 @section('content')
 	
 <div class="wrapper wrapper-content animated fadeInUp">
+   @if(isset($success_message) || Session::has('message'))
+      @include('layouts.success')
+   @endif
+   @if(count($errors->all()) > 0)
+      @include('layouts.errors')
+   @endif
    <div class="ibox">
       <div class="ibox-content">
          <div class="row">

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 use App\User;
 use App\Template;
@@ -72,6 +72,8 @@ class TemplateController extends Controller
         $template->description = $request['description'];
         $template->created_by = Auth::user()->id;
         $template->modified_by = Auth::user()->id;
+        $template->created_date = Carbon::now();
+        $template->modified_date = Carbon::now(); 
 
         $template->save();
 
@@ -89,6 +91,8 @@ class TemplateController extends Controller
             $template_component->help_text = $component->help_text;
             $template_component->created_by = Auth::user()->id;
             $template_component->modified_by = Auth::user()->id;
+            $template_component->created_date = Carbon::now();
+            $template_component->modified_date = Carbon::now(); 
 
             $template_component->save();
 
@@ -195,6 +199,7 @@ class TemplateController extends Controller
         $template->inactive = (boolean) $request['inactive'];
         $template->description = $request['description'];
         $template->modified_by = Auth::user()->id;
+        $template->modified_date = Carbon::now(); 
 
         $template->save();
 
@@ -242,6 +247,7 @@ class TemplateController extends Controller
         $template->inactive = true;
 
         $template->modified_by = Auth::user()->id;
+        $template->modified_date = Carbon::now(); 
 
         $template->save();
 
@@ -258,6 +264,7 @@ class TemplateController extends Controller
         $template->inactive = false;
 
         $template->modified_by = Auth::user()->id;
+        $template->modified_date = Carbon::now(); 
 
         $template->save();
 
@@ -288,6 +295,7 @@ class TemplateController extends Controller
         $template = Template::find($id);
 
         $template->modified_by = Auth::user()->id;
+        $template->modified_date = Carbon::now(); 
 
         $template->save();
 
