@@ -14,16 +14,17 @@ class CreateTemplatesTable extends Migration
     public function up()
     {
         Schema::create('templates', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 20)->default('');
             $table->text('description');
             $table->string('entry_url')->default('');
-            $table->integer('created_by')->unsigned()->nullable();
+            $table->unsignedInteger('created_by')->default(1);
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamp('created_date')->nullable()->default(NULL);
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-            $table->integer('modified_by')->unsigned()->default(1);
-            $table->foreign('modified_by')->references('id')->on('users');
+            $table->unsignedInteger('modified_by')->default(1);
+            $table->foreign('modified_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->boolean('inactive')->default(false);
         });
     }
