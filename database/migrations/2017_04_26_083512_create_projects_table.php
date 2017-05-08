@@ -19,8 +19,8 @@ class CreateProjectsTable extends Migration
             $table->text('description');
             $table->string('entry_url')->default('');
             $table->enum('status', ['Closed', 'In Progress', 'Open']);
-            $table->datetime('start')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->datetime('end')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->datetime('start')->nullable()->default(NULL);
+            $table->datetime('end')->nullable()->default(NULL);
             $table->integer('created_by')->default(1);
             $table->timestamp('created_date')->nullable()->default(NULL);
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
