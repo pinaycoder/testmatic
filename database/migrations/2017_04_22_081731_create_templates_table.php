@@ -18,10 +18,12 @@ class CreateTemplatesTable extends Migration
             $table->string('name', 20)->default('');
             $table->text('description');
             $table->string('entry_url')->default('');
-            $table->integer('created_by')->default(1);
+            $table->integer('created_by')->unsigned()->default(1);
+            $table->foreign('created_by')->references('id')->on('users');
             $table->timestamp('created_date')->nullable()->default(NULL);
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-            $table->integer('modified_by')->default(1);
+            $table->integer('modified_by')->unsigned()->default(1);
+            $table->foreign('modified_by')->references('id')->on('users');
             $table->boolean('inactive')->default(false);
         });
     }
