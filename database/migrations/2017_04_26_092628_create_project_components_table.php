@@ -13,6 +13,10 @@ class CreateProjectComponentsTable extends Migration
      */
     public function up()
     {
+        $statement = "ALTER TABLE MY_TABLE AUTO_INCREMENT = 1;";
+        
+        DB::unprepared($statement);
+
         Schema::create('project_components', function (Blueprint $table){
             $table->increments('id');
             $table->string('name');

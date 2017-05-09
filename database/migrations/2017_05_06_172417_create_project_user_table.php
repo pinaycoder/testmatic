@@ -13,6 +13,10 @@ class CreateProjectUserTable extends Migration
      */
     public function up()
     {
+        $statement = "ALTER TABLE MY_TABLE AUTO_INCREMENT = 1;";
+        
+        DB::unprepared($statement);
+
         Schema::create('project_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();

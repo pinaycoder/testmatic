@@ -13,6 +13,10 @@ class CreateTemplatesTable extends Migration
      */
     public function up()
     {
+        $statement = "ALTER TABLE MY_TABLE AUTO_INCREMENT = 1;";
+        
+        DB::unprepared($statement);
+
         Schema::create('templates', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
