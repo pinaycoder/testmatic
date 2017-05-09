@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UsersTableSeeder::class);
         $this->call(TemplatesTableSeeder::class);
-        /**$this->call(TemplateComponentsTableSeeder::class);
+        $this->call(TemplateComponentsTableSeeder::class);
         $this->call(ProjectsTableSeeder::class);
         $this->call(ProjectComponentsTableSeeder::class);
-        $this->call(SecurityQuestionsTableSeeder::class);**/
+        $this->call(SecurityQuestionsTableSeeder::class);
         
     }
 }
