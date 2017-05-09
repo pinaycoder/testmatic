@@ -12,7 +12,7 @@ class TemplateComponentsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 2; $i <= 30; $i++){
+        for($i = 2; $i <= 302; $i+10){
 	        DB::table('template_components')->insert([
 	        	'template_id' => $i,
 	        	'order' => 1,
@@ -26,7 +26,7 @@ class TemplateComponentsTableSeeder extends Seeder
 	        ]);
     	}
 
-    for($i = 2; $i <= 30; $i++){
+    for($i = 2; $i <= 302; $i+10){
 	        DB::table('template_components')->insert([
 	        	'template_id' => $i,
 	        	'order' => 2,
