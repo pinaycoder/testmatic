@@ -13,10 +13,6 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        $statement = "ALTER TABLE MY_TABLE AUTO_INCREMENT = 1;";
-        
-        DB::unprepared($statement);
-
         Schema::create('users', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -44,6 +40,8 @@ class CreateUsersTable extends Migration
             $table->boolean('inactive')->default(false);
             $table->string('remember_token', 100)->nullable();
         });
+
+        DB::update("ALTER TABLE users AUTO_INCREMENT = 1;");
     }
 
     /**

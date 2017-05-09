@@ -13,10 +13,6 @@ class CreateTemplatesTable extends Migration
      */
     public function up()
     {
-        $statement = "ALTER TABLE MY_TABLE AUTO_INCREMENT = 1;";
-        
-        DB::unprepared($statement);
-
         Schema::create('templates', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
@@ -31,6 +27,8 @@ class CreateTemplatesTable extends Migration
             $table->foreign('modified_by')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->boolean('inactive')->default(false);
         });
+
+        DB::update("ALTER TABLE templates AUTO_INCREMENT = 1;");
     }
 
     /**

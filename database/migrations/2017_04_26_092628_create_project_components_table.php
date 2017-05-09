@@ -13,10 +13,6 @@ class CreateProjectComponentsTable extends Migration
      */
     public function up()
     {
-        $statement = "ALTER TABLE MY_TABLE AUTO_INCREMENT = 1;";
-        
-        DB::unprepared($statement);
-
         Schema::create('project_components', function (Blueprint $table){
             $table->increments('id');
             $table->string('name');
@@ -34,6 +30,8 @@ class CreateProjectComponentsTable extends Migration
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(1);
         });
+
+        DB::update("ALTER TABLE project_components AUTO_INCREMENT = 1;");
     }
 
     /**

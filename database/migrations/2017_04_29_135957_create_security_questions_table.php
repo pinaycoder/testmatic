@@ -13,15 +13,13 @@ class CreateSecurityQuestionsTable extends Migration
      */
     public function up()
     {
-        $statement = "ALTER TABLE MY_TABLE AUTO_INCREMENT = 1;";
-        
-        DB::unprepared($statement);
-
         Schema::create('security_questions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('question')->default('');
             $table->boolean('inactive')->default(false);
         });
+
+        DB::update("ALTER TABLE security_questions AUTO_INCREMENT = 1;");
     }
 
     /**
