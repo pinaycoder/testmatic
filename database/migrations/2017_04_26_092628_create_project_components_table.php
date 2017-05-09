@@ -25,10 +25,10 @@ class CreateProjectComponentsTable extends Migration
             $table->string('target')->default('');
             $table->string('time_limit', 5)->default('');
             $table->string('selections')->default('');
-            $table->integer('created_by')->default(1);
+            $table->integer('created_by')->default(2);
             $table->timestamp('created_date')->nullable()->default(NULL);
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-            $table->integer('modified_by')->default(1);
+            $table->integer('modified_by')->default(2);
         });
 
         DB::update("ALTER TABLE project_components AUTO_INCREMENT = 1;");
