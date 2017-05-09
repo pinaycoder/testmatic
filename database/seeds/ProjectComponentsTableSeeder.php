@@ -12,7 +12,7 @@ class ProjectComponentsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 2; $i <= 30; $i++){
+        for($i = 1; $i <= 30; $i++){
 	        DB::table('project_components')->insert([
 	        	'project_id' => $i,
 	        	'order' => 1,
@@ -26,7 +26,7 @@ class ProjectComponentsTableSeeder extends Seeder
 	        ]);
     	}
 
-    for($i = 2; $i <= 30; $i++){
+    for($i = 1; $i <= 30; $i++){
 	        DB::table('project_components')->insert([
 	        	'project_id' => $i,
 	        	'order' => 2,
