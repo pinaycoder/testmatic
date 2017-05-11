@@ -63,7 +63,7 @@ class UserController extends Controller
         $user->username = $request['username'];
         $user->gender = $request['gender'];
         $user->role = $request['role'];
-        $user->inactive = (boolean) $request['inactive'];
+        $user->inactive = $request['inactive'];
         $user->contact_num = $request['contact_num'];
         $user->birthdate = $request['birthdate'];
         $user->password = Hash::make(str_random(8));

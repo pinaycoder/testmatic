@@ -68,7 +68,7 @@ class TemplateController extends Controller
 
         $template->name = $request['name'];
         $template->entry_url = $request['entry_url'];
-        $template->inactive = (boolean) $request['inactive'];
+        $template->inactive = $request['inactive'];
         $template->description = $request['description'];
         $template->created_by = Auth::user()->id;
         $template->modified_by = Auth::user()->id;
@@ -196,7 +196,7 @@ class TemplateController extends Controller
 
         $template->name = $request['name'];
         $template->entry_url = $request['entry_url'];
-        $template->inactive = (boolean) $request['inactive'];
+        $template->inactive = $request['inactive'];
         $template->description = $request['description'];
         $template->modified_by = Auth::user()->id;
         $template->modified_date = Carbon::now(); 

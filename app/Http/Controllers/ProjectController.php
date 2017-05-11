@@ -88,7 +88,7 @@ class ProjectController extends Controller
         $project->name = $request['name'];
         $project->description = $request['description'];
         $project->entry_url = $request['entry_url'];
-        $project->inactive = (boolean) $request['inactive'];
+        $project->inactive = $request['inactive'];
         $project->status = $request['status'];
         $project->start = $request['start'];
         $project->end = $request['end'];
@@ -194,7 +194,7 @@ class ProjectController extends Controller
         $project->name = $request['name'];
         $project->description = $request['description'];
         $project->entry_url = $request['entry_url'];
-        $project->inactive = (boolean) $request['inactive'];
+        $project->inactive = $request['inactive'];
         $project->status = $request['status'];
         $project->start = $request['start'];
         $project->end = $request['end'];

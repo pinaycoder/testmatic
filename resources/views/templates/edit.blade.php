@@ -58,8 +58,8 @@
                             <dt>Status:</dt>
                             <dd>
                             	<select class="form-control" name="inactive">
-                                <option value="false" {{ ($template->inactive == false ? 'selected' : '') }}>Active</option>
-                                <option value="true" {{ ($template->inactive == true ? 'selected' : '') }}>Inactive</option>
+                                <option value="0" {{ ($template->inactive == false ? 'selected' : '') }}>Active</option>
+                                <option value="1" {{ ($template->inactive == true ? 'selected' : '') }}>Inactive</option>
                             </select>
                             </dd>
                         </dl>

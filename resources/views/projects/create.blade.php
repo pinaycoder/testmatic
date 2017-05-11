@@ -42,8 +42,8 @@
                                 <label class="col-sm-2 control-label">* Active:</label>
                                 <div class="col-lg-4">
                                     <select class="form-control required" name="inactive">
-                                        <option value="false">Active</option>
-                                        <option value="true">Inactive</option>
+                                        <option value="0">Active</option>
+                                        <option value="1">Inactive</option>
                                     </select>
                                 </div>
                                 <label class="col-sm-2 control-label">* Status:</label>
