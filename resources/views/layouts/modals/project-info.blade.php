@@ -37,9 +37,9 @@
                                 <label class="col-sm-2 control-label">Active:</label>
                                 <div class="col-lg-4">
                                     <select class="form-control" name="inactive">
-                                        <option value="false" {{ ($project->inactive == false ? 'selected' : '') }}>Active</option>
+                                        <option value="0" {{ ($project->inactive == false ? 'selected' : '') }}>Active</option>
                                         @if($project->status != 'In Progress')
-                                        <option value="true" {{ ($project->inactive == true ? 'selected' : '') }}>Inactive</option>
+                                        <option value="1" {{ ($project->inactive == true ? 'selected' : '') }}>Inactive</option>
                                         @endif
                                     </select>
                                 </div>

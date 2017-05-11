@@ -33,9 +33,9 @@
                                 <label class="col-sm-2 control-label">Active:</label>
                                 <div class="col-lg-4">
                                     <select class="form-control" name="inactive">
-                                        <option value="false" {{ ($template->inactive == false ? 'selected' : '') }}>Active</option>
+                                        <option value="0" {{ ($template->inactive == false ? 'selected' : '') }}>Active</option>
                                         @if($template->status != 'In Progress')
-                                        <option value="true" {{ ($template->inactive == true ? 'selected' : '') }}>Inactive</option>
+                                        <option value="1" {{ ($template->inactive == true ? 'selected' : '') }}>Inactive</option>
                                         @endif
                                     </select>
                                 </div>
