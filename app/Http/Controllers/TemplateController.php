@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
 
 use App\User;
@@ -20,6 +21,13 @@ class TemplateController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+        if(Gate::allows('view_templates')){
+            echo "This is Test";
+        } else{
+            echo "no access";
+            exit;
+        }
     }
 
     /**
@@ -306,7 +314,10 @@ class TemplateController extends Controller
         $component->type = $request['type'];
         $component->description = $request['description'];
         $component->order = $request['order'];
-        $component->help_text = $request['help_text'];
+        $component->help_text = ($request['help_text'] != NULL) ? $request['help_text'] : ' ';
+        $component->selections = ($request['selections'] != NULL) ? $request['selections'] : ' ';
+        $component->target = ($request['target'] != NULL) ? $request['target'] : ' ';
+        $component->time_limit = ($request['time_limit'] != NULL) ? $request['time_limit'] : ' ';
 
         $component->save();
 

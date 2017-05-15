@@ -8,9 +8,6 @@
 		 }
 	</style>
     <div class="wrapper wrapper-content animated fadeInUp">
-	    @if(isset($success_message) || Session::has('message'))
-	      @include('layouts.success')
-	    @endif
         <div class="ibox">
             <div class="ibox-content">
                 <div class="ibox float-e-margins">
@@ -26,7 +23,7 @@
 		            	@if(count($errors->all()) > 0)
 		            		@include('layouts.errors')
 		            	@endif
-		            	<form action='/templates/components/update/{{ $component->id }}' method="post" class="form-horizontal">
+		            	<form action='/projects/components/update/{{ $component->id }}' method="post" class="form-horizontal" id="edit-project-component-form">
 			                {{ csrf_field() }}
 			                <div class="form-group">
 			            		<label class="col-sm-3 control-label">Name: </label>
@@ -88,7 +85,6 @@
 			                </div>
 			                <div class="hr-line-dashed question-mandatory"></div>
 			                @endif
-
 			                <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
                                     <button class="btn btn-white" type="submit">Cancel</button>

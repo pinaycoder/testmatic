@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\ProjectComponent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+
+use App\User;
+use App\ProjectComponent;
 
 class ProjectComponentController extends Controller
 {
@@ -56,9 +59,19 @@ class ProjectComponentController extends Controller
      * @param  \App\ProjectComponent  $projectComponent
      * @return \Illuminate\Http\Response
      */
-    public function show(ProjectComponent $projectComponent)
+    public function show($id)
     {
-        //
+        $component = ProjectComponent::find($id);
+
+        $created = User::find($component->created_by);
+
+        $modified = User::find($component->modified_by);
+
+        $component->created_full_name = $created->first_name . ' ' . $created->last_name;
+
+        $component->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
+
+        return view('projects.components-info', compact('component'));
     }
 
     /**
@@ -67,9 +80,11 @@ class ProjectComponentController extends Controller
      * @param  \App\ProjectComponent  $projectComponent
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProjectComponent $projectComponent)
+    public function edit($id)
     {
-        //
+        $component = ProjectComponent::find($id);
+
+        return view('projects.components-edit', compact('component'));
     }
 
     /**
@@ -79,9 +94,44 @@ class ProjectComponentController extends Controller
      * @param  \App\ProjectComponent  $projectComponent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProjectComponent $projectComponent)
+    public function update(Request $request, $id)
     {
-        //
+        $validations = [
+                            'name' => 'required',
+                            'type' => 'required',
+                            'description' => 'required',
+                            'order' => 'required'
+                        ];
+
+        if($request['type'] == 'Question'){
+            $validations['selections'] = 'required';
+        } else if($request['type'] == 'Scenario'){
+            $validations['target'] = 'required';
+            $validations['time_limit'] = 'required';
+        }
+
+        $this->validate($request, $validations);
+
+        $component = ProjectComponent::find($id);
+
+        $component->name = $request['name'];
+        $component->description = $request['description'];
+        $component->type = $request['type'];
+        $component->order = $request['order'];
+        $component->help_text = $request['help_text'];
+        $component->help_text = ($request['help_text'] != NULL) ? $request['help_text'] : ' ';
+        $component->selections = ($request['selections'] != NULL) ? $request['selections'] : ' ';
+        $component->target = ($request['target'] != NULL) ? $request['target'] : ' ';
+        $component->time_limit = ($request['time_limit'] != NULL) ? $request['time_limit'] : ' ';
+
+        $component->modified_by = Auth::user()->id;
+        $component->modified_date = Carbon::now(); 
+
+        $component->save();
+
+        session()->flash('message', 'Project component updated!');
+        
+        return redirect('projects/components/show/' . $id);
     }
 
     /**

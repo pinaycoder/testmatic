@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
+use App\User;
 use App\TemplateComponent;
 
 
@@ -63,6 +64,14 @@ class TemplateComponentController extends Controller
     {
         $component = TemplateComponent::find($id);
 
+        $created = User::find($component->created_by);
+
+        $modified = User::find($component->modified_by);
+
+        $component->created_full_name = $created->first_name . ' ' . $created->last_name;
+
+        $component->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
+
         return view('components.show', compact('component'));
     }
 
@@ -109,20 +118,21 @@ class TemplateComponentController extends Controller
         $component->name = $request['name'];
         $component->description = $request['description'];
         $component->type = $request['type'];
-        $component->help_text = $request['help_text'];
         $component->order = $request['order'];
-
-        $component->selections = $request['selections'];
-
-        $component->target = $request['target'];
-        $component->time_limit = $request['time_limit'];
+        $component->help_text = $request['help_text'];
+        $component->help_text = ($request['help_text'] != NULL) ? $request['help_text'] : ' ';
+        $component->selections = ($request['selections'] != NULL) ? $request['selections'] : ' ';
+        $component->target = ($request['target'] != NULL) ? $request['target'] : ' ';
+        $component->time_limit = ($request['time_limit'] != NULL) ? $request['time_limit'] : ' ';
 
         $component->modified_by = Auth::user()->id;
         $component->modified_date = Carbon::now(); 
 
         $component->save();
 
-        return view('components.show', compact('component'));
+        session()->flash('message', 'Template component updated!');
+        
+        return redirect('templates/components/show/' . $id);
     }
 
     /**

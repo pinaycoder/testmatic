@@ -408,7 +408,7 @@ Angular Dependiences
 
         });
 
-        $('#add-component-modal #type, #add-project-component-modal #type, #add-template-component-modal #type').on('change', function(){
+        $('#add-component-modal #type, #add-project-component-modal #type, #add-template-component-modal #type, #edit-project-component-form #type, #edit-template-component-form #type').on('change', function(){
             if(this.value == 'Question'){
                 $('.scenario-mandatory').hide();
                 $('.question-mandatory').show();

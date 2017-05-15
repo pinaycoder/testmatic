@@ -36,15 +36,21 @@
                 <li class="{{ (str_contains(Request::path(), 'dashboard') || Request::path() == '/') ? 'active' : ''  }}">
                     <a href="/dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
+                @can('view_templates')
                 <li class="{{ str_contains(Request::path(),  'templates') ? 'active' : ''  }}">
                     <a href="/templates"><i class="fa fa-book"></i> <span class="nav-label">Test Templates</span></a>
                 </li>
+                @endcan
+                @can('view_projects')
                 <li class="{{ str_contains(Request::path(), 'projects') ? 'active' : ''  }}">
                     <a href="/projects"><i class="fa fa-folder"></i> <span class="nav-label">Test Projects</span> </a>
                 </li>
+                @endcan
+                @can('view_users')
                 <li class="{{ str_contains(Request::path(), 'users') ? 'active' : ''  }}">
                     <a href="/users"><i class="fa fa-users"></i> <span class="nav-label">Test Users</span> </a>
                 </li>
+                @endcan
                 <li class="{{ str_contains(Request::path(), 'reports') ? 'active' : ''  }}">
                     <a href="/reports"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Test Reports</span> </a>
                 </li>

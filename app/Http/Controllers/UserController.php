@@ -63,7 +63,7 @@ class UserController extends Controller
         $user->username = $request['username'];
         $user->gender = $request['gender'];
         $user->role = $request['role'];
-        $user->inactive = $request['inactive'];
+        $user->inactive = false;
         $user->contact_num = $request['contact_num'];
         $user->birthdate = $request['birthdate'];
         $user->password = Hash::make(str_random(8));
@@ -149,9 +149,9 @@ class UserController extends Controller
         $user->contact_num = $request['contact_num'];
         $user->birthdate = $request['birthdate'];
         $user->question_id_1 = $request['question_id_1'];
-        $user->question_ans_1 = $request['question_ans_1'];
+        $user->question_ans_1 = ($request['question_ans_1'] !== NULL) ? $request['question_ans_1'] : ' ';
         $user->question_id_2 = $request['question_id_2'];
-        $user->question_ans_2 = $request['question_ans_2'];
+        $user->question_ans_2 = ($request['question_ans_2'] !== NULL) ? $request['question_ans_2'] : ' ';
         $user->modified_by = Auth::user()->id;
         $user->modified_date = Carbon::now(); 
 

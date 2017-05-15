@@ -20,6 +20,8 @@
 			        	<th>Active?</th>
 			        	<th>Status</th>
 			            <th>Project</th>
+			            <th>Start Date</th>
+			            <th>End Date</th>
 			            <th>Created</th>
 			            <th>Options</th>
 			        </tr>
@@ -53,8 +55,14 @@
 			            <td class="table-title">
 			            	<a href="/projects/show/{{ $project->id }}"  class="text-navy">{{ $project->name }}</a>
 			            	<br/>
-			            	<small>{{ str_limit($project->description, 100) }}</small>
+			            	<!--<small>{{ str_limit($project->description, 75) }}</small>-->
 			            </td>
+			        	<td class="table-title">
+			        		{{ date('Y-m-d', strtotime($project->start)) }}
+			        	</td>
+			        	<td class="table-title">
+			        		{{ date('Y-m-d', strtotime($project->end)) }}
+			        	</td>
 			            <td class="table-title">
 			            	<a href="/users/show/{{ $project->created_by }}" class="text-navy">{{ $project->created_full_name }}</a>
 			            	<br/>

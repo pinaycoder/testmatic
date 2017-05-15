@@ -81,6 +81,8 @@ Route::post('/projects/components/create/{id}', 'ProjectController@addComponent'
 
 Route::get('/projects/components/edit/{id}', 'ProjectComponentController@edit');
 
+Route::get('/projects/components/show/{id}', 'ProjectComponentController@show');
+
 Route::post('/projects/components/update/{id}', 'ProjectComponentController@update');
 
 Route::get('/projects/components/delete/{id}', 'ProjectComponentController@destroy');

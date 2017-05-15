@@ -34,7 +34,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::orderBy('start', 'desc')->orderBy('end', 'asc')->get();
 
         foreach($projects as $project){
             
@@ -106,7 +106,7 @@ class ProjectController extends Controller
             $project_component = new ProjectComponent;
 
             $project_component->project_id = $project->id;
-            $project_component->name = $project->description;
+            $project_component->name = $project->name . ' Component ' . $request['order'];
             $project_component->order = $component->order;
             $project_component->type = $component->type;
             $project_component->description = $component->description;
@@ -301,7 +301,10 @@ class ProjectController extends Controller
         $component->type = $request['type'];
         $component->description = $request['description'];
         $component->order = $request['order'];
-        $component->help_text = $request['help_text'];
+        $component->help_text = ($request['help_text'] != NULL) ? $request['help_text'] : ' ';
+        $component->selections = ($request['selections'] != NULL) ? $request['selections'] : ' ';
+        $component->target = ($request['target'] != NULL) ? $request['target'] : ' ';
+        $component->time_limit = ($request['time_limit'] != NULL) ? $request['time_limit'] : ' ';
 
         $component->save();
 

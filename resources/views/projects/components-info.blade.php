@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="m-b-md">
-                            <a href="/templates/components/edit/{{ $component->id }}" class="btn btn-white btn-xs pull-right">Edit Component</a>
+                            <a href="/projects/components/edit/{{ $component->id }}" class="btn btn-white btn-xs pull-right">Edit Component</a>
                             <h2>{{ $component->name }}</h2>
                         </div>
                     </div>
