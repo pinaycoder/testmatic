@@ -29,12 +29,12 @@
 
 <p>To log-in, please enter the following information in the <a href="{{ url('login') }}">log-in page</a>:</p>
 
-<p>Username: {{ $user->username }}</p>
+<p>Username: {{ $user->email }}</p>
 <p>Password: {{ $user->password }}</p>
 
 <p>You'll be asked to set a password when you first log in.  Passwords are case sensitive.  You'll also be asked to set a password question and answer that will be used if you forget your password.
 
-<p>To log in now, click: <a href="#"></a></p>
+<p>To log in now, click: <a href="{{ url('login') }}">www.testmatic.com/login</a></p></p>
 
 <p>For assistance, contact us at admin@testmatic.com. Once again, welcome to TESTmatic!
 </p>

@@ -23,18 +23,9 @@
 
 @if($user->role == 'Test Participant')
 
-<p>You have been added as a Test participant. Please wait for invitations from test administrators to start the online usability testing.</p>
+<p>You have been added as a Test participant. You can now start the online usability testing.</p>
 
 @endif
-
-<p>To log-in, please enter the following information in the <a href="{{ url('login') }}">log-in page</a>:</p>
-
-<p>Username: {{ $user->username }}</p>
-<p>Password: {{ $user->password }}</p>
-
-<p>You'll be asked to set a password when you first log in.  Passwords are case sensitive.  You'll also be asked to set a password question and answer that will be used if you forget your password.
-
-<p>To log in now, click: <a href="#"></a></p>
 
 <p>For assistance, contact us at admin@testmatic.com. Once again, welcome to TESTmatic!
 </p>
