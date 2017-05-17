@@ -311,16 +311,19 @@ Angular Dependiences
 
         $('#add-component-modal').on('show.bs.modal', function(){
             $('#add-component-form #order').val(counter).attr('readonly','readonly');
+            $('.scenario-mandatory, .question-mandatory').hide();
         });
 
         $('#add-project-component-modal').on('show.bs.modal', function(){
             var count = $('#project-components-table').DataTable().data().length + 1;
             $('#add-project-component-form #order').val(count).attr('readonly','readonly');
+            $('.scenario-mandatory, .question-mandatory').hide();
         });
 
         $('#add-template-component-modal').on('show.bs.modal', function(){
             var count = $('#template-components-table').DataTable().data().length + 1;
             $('#add-template-component-form #order').val(count).attr('readonly','readonly');
+            $('.scenario-mandatory, .question-mandatory').hide();
         });
 
         $('#add-participants-modal').on('show.bs.modal', function(){

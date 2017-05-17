@@ -57,7 +57,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        
+
         $projects = $this->getProjectsPerUser(Auth::user());
 
         foreach($projects as $project){
@@ -123,6 +123,8 @@ class ProjectController extends Controller
 
         $project->save();
 
+        $project->users()->save(Auth::user());
+
         $components = json_decode($request['components-json']);
 
         foreach($components as $component){
@@ -171,11 +173,24 @@ class ProjectController extends Controller
 
         $project_users = Project::where('id', $project->id)->with('users')->get()[0]->users;
         
+        $participants = [];
+
+        if(Auth::user()->role == 'Super Administrator'){
+
         $participants = User::whereDoesntHave('projects', function($q)              use ($project){
                             $q->where('project_id', $project->id);})
                             ->where('role', 'Test Participant')
                             ->where('inactive', false)
                             ->get();
+        } else if(Auth::user()->role == 'Test Administrator'){
+
+        $participants = User::whereDoesntHave('projects', function($q)              use ($project){
+                            $q->where('project_id', $project->id);})
+                            ->where('role', 'Test Participant')
+                            ->orWhere('role', 'Test Administrator')
+                            ->where('inactive', false)
+                            ->get();
+        }
 
         return view('projects.show', compact('project', 'project_components', 'participants', 'project_users'));
     }
