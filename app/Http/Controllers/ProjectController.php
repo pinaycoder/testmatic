@@ -175,14 +175,14 @@ class ProjectController extends Controller
         
         $participants = [];
 
-        if(Auth::user()->role == 'Super Administrator'){
+        if(Auth::user()->role == 'Test Administrator'){
 
         $participants = User::whereDoesntHave('projects', function($q)              use ($project){
                             $q->where('project_id', $project->id);})
                             ->where('role', 'Test Participant')
                             ->where('inactive', false)
                             ->get();
-        } else if(Auth::user()->role == 'Test Administrator'){
+        } else if(Auth::user()->role == 'Super Administrator'){
 
         $participants = User::whereDoesntHave('projects', function($q)              use ($project){
                             $q->where('project_id', $project->id);})
