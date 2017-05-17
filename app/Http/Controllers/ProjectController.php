@@ -27,6 +27,29 @@ class ProjectController extends Controller
         $this->middleware('auth');
     }
 
+    private function getProjectsPerUser($user){
+
+        $projects = [];
+
+        switch($user->role){
+            case "Super Administrator":
+                $projects = Project::orderBy('start', 'desc')->orderBy('end', 'asc')->get();
+                break;
+            case "Test Administrator":
+                $projects = Project::whereHas('users', function($query) use ($user) {    
+                     $query->where('user_id', $user->id);
+                })->orderBy('start', 'desc')->orderBy('end', 'asc')->get();
+                break;
+            case "Test Participant":
+                $projects = Project::whereHas('users', function($query) use ($user) {    
+                     $query->where('user_id', $user->id);
+                })->orderBy('start', 'desc')->orderBy('end', 'asc')->get();
+                break;
+        }
+
+        return $projects;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +57,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::orderBy('start', 'desc')->orderBy('end', 'asc')->get();
+        
+        $projects = $this->getProjectsPerUser(Auth::user());
 
         foreach($projects as $project){
             

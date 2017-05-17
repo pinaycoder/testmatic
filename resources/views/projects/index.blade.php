@@ -8,7 +8,9 @@
         <div class="ibox-title">
             <h5>All Projects</h5>
             <div class="ibox-tools">
+            	@if(Auth::user()->role != 'Test Participant')
                 <a href="/projects/create" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i> New Project </a>
+                @endif
             </div>
         </div>
         <div class="ibox-content">

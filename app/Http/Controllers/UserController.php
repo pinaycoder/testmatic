@@ -13,6 +13,7 @@ use App\Mailers\AppMailer;
 
 class UserController extends Controller
 {
+    protected $logged_user;
 
     /**
      * Create a new controller instance.
@@ -22,6 +23,23 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+
+    }
+
+    private function getUsersPerUser($user){
+
+        $users = [];
+
+        switch($user->role){
+            case "Super Administrator":
+                $users = User::all();
+            break;
+            case "Test Administrator":
+                $users = User::where('role', 'Test Participant')->get();
+            break;
+        }
+
+        return $users;
     }
 
     /**
@@ -31,9 +49,15 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        if(Auth::user()->role != 'Test Participant'){
+            
+            $users = $this->getUsersPerUser(Auth::user());
 
-        return view('users.index', compact('users'));
+            return view('users.index', compact('users'));
+
+        } else{
+            echo "NO ACCESS";
+        }
     }
 
     /**
@@ -43,7 +67,11 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        if(Auth::user()->role != 'Test Participant'){
+            return view('users.create');
+        } else{
+            echo "NO ACCESS";
+        }
     }
 
     /**
@@ -91,6 +119,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        if(Auth::user()->role != 'Test Participant' || (Auth::user()->role == 'Test Participant' && Auth::user()->id != $id)){
         $user = User::find($id);
 
         $security_question_1 = SecurityQuestion::find($user->question_id_1);
@@ -98,6 +127,9 @@ class UserController extends Controller
         $security_question_2 = SecurityQuestion::find($user->question_id_2);
 
         return view('users.show', compact('user', 'security_question_1', 'security_question_2'));
+        } else{
+            echo "NO ACCESS";
+        }
     }
 
     /**
@@ -108,11 +140,15 @@ class UserController extends Controller
      */
     public function edit($id)
     {
+        if(Auth::user()->role != 'Test Participant' || (Auth::user()->role == 'Test Participant' && Auth::user()->id != $id)){
         $user = User::find($id);
 
         $security_questions = SecurityQuestion::all();
 
         return view('users.edit', compact('user', 'security_questions'));
+        } else{
+            echo "NO ACCESS";
+        }
     }
 
     /**

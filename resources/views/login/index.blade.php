@@ -35,13 +35,16 @@
             <h3>Welcome to TM+</h3>
             <p>TESTmatic - an Online Usability Testing Tool.</p>
             <p>Login in</p>
+            @if(count($errors->all()) > 0)
+              @include('layouts.errors')
+            @endif
             <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
                 {{ csrf_field() }}
                 <div class="form-group">
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Username" required="">
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control" placeholder="Username" required="">
                 </div>
                 <div class="form-group">
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="">
+                    <input type="password" id="password" name="password" value="{{ old('email') }}" class="form-control" placeholder="Password" required="">
                 </div>
                 <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
 

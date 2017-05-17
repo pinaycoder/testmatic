@@ -22,12 +22,33 @@ class TemplateController extends Controller
     {
         $this->middleware('auth');
 
-        if(Gate::allows('view_templates')){
-            echo "This is Test";
-        } else{
-            echo "no access";
-            exit;
+        //$this->middleware(function ($request, $next) {
+            
+            //$this->user= Auth::user();
+
+            //if($this->user->role == 'Test Participant'){
+                //echo "No Access";
+            //}
+        //});
+    }
+
+    private function getTemplatesPerUser($role){
+
+        $templates = new Template;
+
+        switch($role){
+            case "Super Administrator":
+                $templates = Template::all();
+                break;
+            case "Test Administrator":
+                $templates = Template::all();
+                break;
+            case "Test Participant":
+                $templates = Template::all();
+                break;
         }
+
+        return $templates;
     }
 
     /**
@@ -37,6 +58,7 @@ class TemplateController extends Controller
      */
     public function index()
     {
+        if(Auth::user()->role != 'Test Participant'){
         $templates = Template::all();
 
         foreach($templates as $template){
@@ -52,6 +74,9 @@ class TemplateController extends Controller
         }
 
         return view('templates.index', compact('templates'));
+        } else{
+            echo "NO ACCESS";
+        }
     }
 
     /**
@@ -61,7 +86,11 @@ class TemplateController extends Controller
      */
     public function create()
     {
+        if(Auth::user()->role != 'Test Participant'){
         return view('templates.create');
+        } else{
+            echo "NO ACCESS";
+        }
     }
 
     /**
@@ -122,6 +151,7 @@ class TemplateController extends Controller
      */
     public function show($id)
     {
+        if(Auth::user()->role != 'Test Participant'){
         $template = Template::find($id);
 
         $created = User::find($template->created_by);
@@ -150,6 +180,9 @@ class TemplateController extends Controller
                                 ->where('inactive', false);
 
         return view('templates.show', compact('template', 'template_components', 'participants'));
+        } else{
+            echo "NO ACCESS";
+        }
     }
 
     /**
@@ -160,11 +193,7 @@ class TemplateController extends Controller
      */
     public function edit($id)
     {
-        /** $template = Template::find($id)
-                                ->getCreatedByName()
-                                ->getModifiedByName()
-                                ->getDuration();
-        **/
+        if(Auth::user()->role != 'Test Participant'){
                                 
         $template = Template::find($id);
 
@@ -179,6 +208,9 @@ class TemplateController extends Controller
         $template_components = TemplateComponent::select(array('id', 'order', 'type', 'description', 'help_text', 'target', 'selections', 'time_limit'))->where('template_id', $template->id)->get();
 
         return view('templates.edit', compact('template', 'template_components'));
+        } else{
+            echo "NO ACCESS";
+        }
     }
 
     /**
