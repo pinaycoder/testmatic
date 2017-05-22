@@ -9,7 +9,7 @@
             <div class="ibox-content">
                 <form id="new-template-form" action="/templates/store" method="POST" class="wizard-big form-wizards">
                     {{ csrf_field() }}
-                    <input type="hidden" name="components-json" id="components-json"/>
+                    <input type="hidden" name="components-json" value="[]" id="components-json"/>
                     <h1>Basic Info</h1>
                     <fieldset>
                         <h2>Basic Information</h2>

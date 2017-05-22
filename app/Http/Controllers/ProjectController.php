@@ -33,17 +33,17 @@ class ProjectController extends Controller
 
         switch($user->role){
             case "Super Administrator":
-                $projects = Project::orderBy('start', 'desc')->orderBy('end', 'asc')->get();
+                $projects = Project::orderBy('created_date', 'desc')->get();
                 break;
             case "Test Administrator":
                 $projects = Project::whereHas('users', function($query) use ($user) {    
                      $query->where('user_id', $user->id);
-                })->orderBy('start', 'desc')->orderBy('end', 'asc')->get();
+                })->orderBy('created_date', 'desc')->get();
                 break;
             case "Test Participant":
                 $projects = Project::whereHas('users', function($query) use ($user) {    
                      $query->where('user_id', $user->id);
-                })->orderBy('start', 'desc')->orderBy('end', 'asc')->get();
+                })->orderBy('created_date', 'desc')->get();
                 break;
         }
 

@@ -1,12 +1,23 @@
 @extends('layouts.master')
 
 @section('content')
+	
+	@if($component->type == 'Question')
 	<style>
-		 .scenario-mandatory,
 		 .question-mandatory{
 		 	display: block;
 		 }
 	</style>
+	@endif
+
+	@if($component->type == 'Scenario')
+	<style>
+		 .scenario-mandatory{
+		 	display: block;
+		 }
+	</style>
+	@endif
+
     <div class="wrapper wrapper-content animated fadeInUp">
 	    @if(isset($success_message) || Session::has('message'))
 	      @include('layouts.success')
@@ -26,7 +37,7 @@
 		            	@if(count($errors->all()) > 0)
 		            		@include('layouts.errors')
 		            	@endif
-		            	<form action='/templates/components/update/{{ $component->id }}' method="post" class="form-horizontal">
+		            	<form action='/templates/components/update/{{ $component->id }}' method="post" id="edit-template-component-form" class="form-horizontal">
 			                {{ csrf_field() }}
 			                <div class="form-group">
 			            		<label class="col-sm-3 control-label">Name: </label>
@@ -66,7 +77,7 @@
 			                    </div>
 			                </div>
 			                <div class="hr-line-dashed"></div>
-			                @if($component->type == 'Scenario')
+			                
 			                <div class="form-group  scenario-mandatory">
 			            		<label class="col-sm-3 control-label">Target: </label>
 			                    <div class="col-sm-3">
@@ -78,8 +89,7 @@
 			                    </div>
 			                </div>
 			                <div class="hr-line-dashed  scenario-mandatory"></div>
-			                @endif
-			                @if($component->type == 'Question')
+			                
 			                <div class="form-group question-mandatory">
 			            		<label class="col-sm-3 control-label">Selections: </label>
 			                    <div class="col-sm-9">
@@ -87,11 +97,10 @@
 			                    </div>
 			                </div>
 			                <div class="hr-line-dashed question-mandatory"></div>
-			                @endif
-
+			              
 			                <div class="form-group">
                                 <div class="col-sm-4 col-sm-offset-2">
-                                    <button class="btn btn-white" type="submit">Cancel</button>
+                                    <button class="btn btn-white cancel-btn">Cancel</button>
                                     <button class="btn btn-primary" type="submit">Save changes</button>
                                 </div>
                             </div>

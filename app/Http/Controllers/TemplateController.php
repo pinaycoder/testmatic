@@ -34,17 +34,17 @@ class TemplateController extends Controller
 
     private function getTemplatesPerUser($role){
 
-        $templates = new Template;
+        $templates = [];
 
         switch($role){
             case "Super Administrator":
-                $templates = Template::all();
+                $templates = Template::orderBy('created_date', 'desc')->get();
                 break;
             case "Test Administrator":
-                $templates = Template::all();
+                $templates = Template::orderBy('created_date', 'desc')->get();
                 break;
             case "Test Participant":
-                $templates = Template::all();
+                $templates = [];
                 break;
         }
 
@@ -58,8 +58,8 @@ class TemplateController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role != 'Test Participant'){
-        $templates = Template::all();
+        
+        $templates = $this->getTemplatesPerUser(Auth::user()->role);
 
         foreach($templates as $template){
 
@@ -74,9 +74,7 @@ class TemplateController extends Controller
         }
 
         return view('templates.index', compact('templates'));
-        } else{
-            echo "NO ACCESS";
-        }
+        
     }
 
     /**
@@ -135,11 +133,9 @@ class TemplateController extends Controller
 
         }
 
-        $templates = Template::all();
+        session()->flash('message', 'New template has been saved. Click <a href="/templates/show/' . $template->id . '">here</a> to check new template.');
 
-        $success_message = 'New template has been saved. Click <a href="/templates/show/' . $template->id . '">here</a> to check new template.';
-
-        return view('templates.index', compact('templates', 'success_message'));
+        return redirect('/templates');
 
     }
 
@@ -152,6 +148,7 @@ class TemplateController extends Controller
     public function show($id)
     {
         if(Auth::user()->role != 'Test Participant'){
+        
         $template = Template::find($id);
 
         $created = User::find($template->created_by);
@@ -224,7 +221,7 @@ class TemplateController extends Controller
     {
 
         $validations = [
-                            'name' => 'required',
+                            'name' => 'required|unique',
                             'description' => 'required',
                             'entry_url' => 'required',
                             'inactive' => 'required'
@@ -242,27 +239,6 @@ class TemplateController extends Controller
         $template->modified_date = Carbon::now(); 
 
         $template->save();
-
-        /**$components = json_decode($request['components-json']);
-
-        foreach($components as $component){
-        
-            if(!isset($component->id)){
-            
-                $template_component = new TemplateComponent;
-
-                $template_component->template_id = $template->id;
-                $template_component->name = 'Template Component' . $component->order;
-                $template_component->order = $component->order;
-                $template_component->type = $component->type;
-                $template_component->description = $component->description;
-                $template_component->help_text = $component->help_text;
-                $template_component->modified_by = Auth::user()->id;
-
-                $template_component->save();
-            }
-
-        }**/
 
         session()->flash('message', 'Template updated!');
 
@@ -357,6 +333,13 @@ class TemplateController extends Controller
         
         return redirect()->back();
 
+    }
+
+    public function getDetails($id){
+
+        $template = Template::find($id);
+
+        return $template;
     }
 
 }

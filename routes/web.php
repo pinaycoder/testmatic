@@ -31,6 +31,8 @@ Route::post('/templates/update/{id}', 'TemplateController@update');
 
 Route::get('/templates/delete', 'TemplateController@destroy');
 
+Route::get('/templates/details/{id}', 'TemplateController@getDetails');
+
 Route::get('/templates/deactivate/{id}', 'TemplateController@deactivate');
 
 Route::get('/templates/activate/{id}', 'TemplateController@activate');

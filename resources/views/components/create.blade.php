@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">HelpText:</label>
                         <div class="col-sm-10">
-                            <textarea class="form-control required" rows="2" name="help_text" id="help_text"></textarea>
+                            <textarea class="form-control" rows="2" name="help_text" id="help_text"></textarea>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>

@@ -9,7 +9,7 @@
             <div class="ibox-content form-horizontal">
                 <form id="new-project-form" action="/projects/store" method="POST" class="wizard-big form-wizards">
                     {{ csrf_field() }}
-                    <input type="hidden" name="components-json" id="components-json"/>
+                    <input type="hidden" name="components-json" value="[]" id="components-json"/>
                     <h1>Basic Info</h1>
                     <fieldset>
                         <h2>Basic Information</h2>
@@ -33,7 +33,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">* Entry URL:</label>
                                 <div class="col-lg-10">
-                                    <input type="text" name="entry_url" class="form-control required"/>
+                                    <input type="text" name="entry_url" id="entry_url" class="form-control required"/>
                                 </div>
                             </div>
                         </div>

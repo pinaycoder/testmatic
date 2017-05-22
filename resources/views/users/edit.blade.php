@@ -192,7 +192,7 @@
                   <div class="hr-line-dashed"></div>
                   <div class="form-group">
                     <div class="col-sm-4 col-sm-offset-2">
-                        <button class="btn btn-white" type="submit" onclick="window.history.back();">Cancel</button>
+                        <button class="btn btn-white cancel-btn">Cancel</button>
                         <button class="btn btn-primary" type="submit">Save changes</button>
                     </div>
                 </div>

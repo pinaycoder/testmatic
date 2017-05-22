@@ -32,10 +32,10 @@ class UserController extends Controller
 
         switch($user->role){
             case "Super Administrator":
-                $users = User::all();
+                $users = User::orderBy('created_date', 'desc')->get();
             break;
             case "Test Administrator":
-                $users = User::where('role', 'Test Participant')->get();
+                $users = User::where('role', 'Test Participant')->orderBy('created_date', 'desc')->get();
             break;
         }
 

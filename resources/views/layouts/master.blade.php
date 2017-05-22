@@ -302,6 +302,11 @@ Angular Dependiences
 
                 $('#components-json').val(JSON.stringify(components));
             });
+
+            $.get('/templates/details/'+this.value, function(data){
+
+                $('#entry_url').val(data.entry_url);
+            });
         });
 
         if($('#components-json').val()){
@@ -412,6 +417,7 @@ Angular Dependiences
         });
 
         $('#add-component-modal #type, #add-project-component-modal #type, #add-template-component-modal #type, #edit-project-component-form #type, #edit-template-component-form #type').on('change', function(){
+            
             if(this.value == 'Question'){
                 $('.scenario-mandatory').hide();
                 $('.question-mandatory').show();
@@ -427,6 +433,11 @@ Angular Dependiences
             $('#selected_users').val($(".chosen-select").val());
             $('#add-participants-form').submit();
 
+        });
+
+        $('.cancel-btn').on('click', function(event){
+            event.preventDefault();
+            window.history.back();
         });
         
     });

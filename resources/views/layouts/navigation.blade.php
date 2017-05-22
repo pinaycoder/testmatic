@@ -33,7 +33,7 @@
                         TM+
                     </div>
                 </li>
-                <li class="{{ (str_contains(Request::path(), 'dashboard') || Request::path() == '/') ? 'active' : ''  }}">
+                <li class="{{ (str_contains(Request::path(), 'dashboard') || str_contains(Request::path(), 'home') || Request::path() == '/') ? 'active' : ''  }}">
                     <a href="/dashboard"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
                 @if(Auth::user()->role != 'Test Participant')
