@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['confirm']]);
 
     }
 
@@ -253,6 +253,22 @@ class UserController extends Controller
         session()->flash('message', 'User activated!');
 
         return redirect()->back();
+
+    }
+
+    public function confirm($confirmation_token){
+
+        $user = User::select('confirmed', 'loggedin', 'confirmation_token')->where('confirmation_token', $confirmation_token)->first();
+        
+        if(!$user->confirmed && !$user->loggedin){
+
+            return view('users.confirm');
+
+        }
+
+    }
+
+    public function setPassword($user, $password, $confirm_password){
 
     }
 }

@@ -38,7 +38,10 @@ class CreateUsersTable extends Migration
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(2);
             $table->boolean('inactive')->default(false);
+            $table->boolean('confirmed')->default(false);
+            $table->boolean('loggedin')->default(false);
             $table->string('remember_token', 100)->nullable();
+            $table->string('confirmation_token', 100)->nullable();
         });
 
         DB::update("ALTER TABLE users AUTO_INCREMENT = 1;");
