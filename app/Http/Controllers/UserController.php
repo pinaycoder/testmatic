@@ -284,7 +284,7 @@ class UserController extends Controller
 
         } else{
 
-            Auth::login($user);
+            return redirect('/login');
 
         }
 

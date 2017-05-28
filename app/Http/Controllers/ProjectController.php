@@ -96,7 +96,7 @@ class ProjectController extends Controller
     {
 
         $validations = [
-                            'name' => 'required|unique:projects,name',
+                            'name' => 'required|max:20|unique:projects,name',
                             'description' => 'required',
                             'entry_url' => 'required',
                             'inactive' => 'required',
@@ -136,7 +136,10 @@ class ProjectController extends Controller
             $project_component->order = $component->order;
             $project_component->type = $component->type;
             $project_component->description = $component->description;
-            $project_component->help_text = $component->help_text;
+            $project_component->help_text = ($component->help_text != NULL) ? $component->help_text : ' ';
+            $project_component->selections = ($component->selections != NULL) ? $component->selections : ' ';
+            $project_component->target = ($component->target != NULL) ? $component->target : ' ';
+            $project_component->time_limit = ($component->time_limit != NULL) ? $component->time_limit : ' ';
             $project_component->created_by = Auth::user()->id;
             $project_component->modified_by = Auth::user()->id;
             $project_component->created_date = Carbon::now();
@@ -219,7 +222,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
 
         $validations = [
-                            'name' => 'required|unique:projects,name,' . $project->id,
+                            'name' => 'required|max:20|unique:projects,name,' . $project->id,
                             'description' => 'required',
                             'entry_url' => 'required',
                             'inactive' => 'required',

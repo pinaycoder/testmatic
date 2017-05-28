@@ -100,7 +100,7 @@ class TemplateController extends Controller
     public function store(Request $request)
     {
         $validations = [
-                            'name' => 'required|unique:templates,name',
+                            'name' => 'required|max:20|unique:templates,name',
                             'description' => 'required',
                             'entry_url' => 'required',
                             'inactive' => 'required'
@@ -132,7 +132,10 @@ class TemplateController extends Controller
             $template_component->order = $component->order;
             $template_component->type = $component->type;
             $template_component->description = $component->description;
-            $template_component->help_text = $component->help_text;
+            $template_component->help_text = ($component->help_text != NULL) ? $component->help_text : ' ';
+            $template_component->selections = ($component->selections != NULL) ? $component->selections : ' ';
+            $template_component->target = ($component->target != NULL) ? $component->target : ' ';
+            $template_component->time_limit = ($component->time_limit != NULL) ? $component->time_limit : ' ';
             $template_component->created_by = Auth::user()->id;
             $template_component->modified_by = Auth::user()->id;
             $template_component->created_date = Carbon::now();
@@ -232,7 +235,7 @@ class TemplateController extends Controller
         $template = Template::find($id);
 
         $validations = [
-                            'name' => 'required|unique:templates,name,' . $template->id,
+                            'name' => 'required|max:20|unique:templates,name,' . $template->id,
                             'description' => 'required',
                             'entry_url' => 'required',
                             'inactive' => 'required'
