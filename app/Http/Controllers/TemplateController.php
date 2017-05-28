@@ -99,6 +99,15 @@ class TemplateController extends Controller
      */
     public function store(Request $request)
     {
+        $validations = [
+                            'name' => 'required|unique:templates,name',
+                            'description' => 'required',
+                            'entry_url' => 'required',
+                            'inactive' => 'required'
+                        ];
+
+        $this->validate($request, $validations);
+
         $template = new Template;
 
         $template->name = $request['name'];
@@ -220,16 +229,16 @@ class TemplateController extends Controller
     public function update(Request $request, $id)
     {
 
+        $template = Template::find($id);
+
         $validations = [
-                            'name' => 'required|unique',
+                            'name' => 'required|unique:templates,name,' . $template->id,
                             'description' => 'required',
                             'entry_url' => 'required',
                             'inactive' => 'required'
                         ];
 
         $this->validate($request, $validations);
-
-        $template = Template::find($id);
 
         $template->name = $request['name'];
         $template->entry_url = $request['entry_url'];

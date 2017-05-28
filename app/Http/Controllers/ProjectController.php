@@ -96,7 +96,7 @@ class ProjectController extends Controller
     {
 
         $validations = [
-                            'name' => 'required',
+                            'name' => 'required|unique:projects,name',
                             'description' => 'required',
                             'entry_url' => 'required',
                             'inactive' => 'required',
@@ -216,8 +216,10 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $project = Project::find($id);
+
         $validations = [
-                            'name' => 'required',
+                            'name' => 'required|unique:projects,name,' . $project->id,
                             'description' => 'required',
                             'entry_url' => 'required',
                             'inactive' => 'required',
@@ -227,8 +229,6 @@ class ProjectController extends Controller
                         ];
 
         $this->validate($request, $validations);
-
-        $project = Project::find($id);
 
         $project->name = $request['name'];
         $project->description = $request['description'];

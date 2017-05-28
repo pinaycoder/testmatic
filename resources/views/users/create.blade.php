@@ -6,6 +6,9 @@
 		<div class="ibox-title">
             <h5>Create New Test User</h5></div>
       <div class="ibox-content">
+        @if(count($errors->all()) > 0)
+            @include('layouts.errors')
+        @endif
 <form id="new-user-form" action="/users/store" method="POST" class="wizard-big form-wizards">
     {{ csrf_field() }}
     <h1>Basic Info</h1>

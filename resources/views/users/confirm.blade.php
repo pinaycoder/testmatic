@@ -14,18 +14,11 @@
 
     <link href="/css/animate.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-
-    <script>
-        window.TESTmatic = {!! json_encode([
-            'csrfToken' => csrf_token(),
-        ]) !!};
-    </script>
-
 </head>
 
 <body class="gray-bg">
 
-    <div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div class="middle-box text-center loginscreen animated fadeInDown">
         <div>
             <div>
 
@@ -37,7 +30,7 @@
             @if(count($errors->all()) > 0)
               @include('layouts.errors')
             @endif
-            <form class="m-t" role="form" method="POST" action="{{ route('login') }}">
+            <form method="POST" action="/users/setpassword/{{ $user->id }}">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <input type="password" id="password" name="password" value="{{ old('password') }}" class="form-control" placeholder="Password">

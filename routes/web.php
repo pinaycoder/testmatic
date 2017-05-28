@@ -95,6 +95,8 @@ Route::get('/users', 'UserController@index');
 
 Route::get('/users/confirm/{confirmation_token}', 'UserController@confirm');
 
+Route::post('/users/setpassword/{id}', 'UserController@setPassword');
+
 Route::get('/users/show/{id}', 'UserController@show');
 
 Route::get('/myprofile/{id}', 'UserController@show');

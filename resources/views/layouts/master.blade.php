@@ -189,12 +189,18 @@ Angular Dependiences
 <script>
     $(document).ready(function() {
 
+        $.validator.addMethod("time24", function(value, element) {
+            return /^(?:[0-5][0-9]):[0-5][0-9]$/.test(value);
+        }, "Invalid time format. (mm:ss)");
+
         $('.dt-tables').dataTable({
             'lengthChange': false,
             'ordering': false
         });
 
         $("#wizard").steps();
+
+
         $(".form-wizards").steps({
             bodyTag: "fieldset",
             onStepChanging: function (event, currentIndex, newIndex)
@@ -233,6 +239,13 @@ Angular Dependiences
                 if (currentIndex === 2 && priorIndex === 3)
                 {
                     $(this).steps("previous");
+                }
+                
+                if(currentIndex == 2){
+
+                    console.log($(this).attr('id').indexOf('template') != -1);
+
+                    console.log($(this).serialize());
                 }
             },
             onFinishing: function (event, currentIndex)
@@ -355,38 +368,16 @@ Angular Dependiences
               rules: {
                 time_limit: {
                   required: true,
-                  number: true,
-                  min: 0,
-                  max: 30
+                  time24: true
               },
               order: {
                   required: true,
                   number: true,
                   min: 1,
                   max: 50
-                                        }/**,
-                                        description: {
-                                          required: true,
-                                          min: 1,
-                                          max: 500
-                                        },
-                                        help_text: {
-                                          required: true,
-                                          min: 1,
-                                          max: 500
-                                        },
-                                        target: {
-                                          required: true,
-                                          min: 1,
-                                          max: 500
-                                        },
-                                        selections: {
-                                          required: true,
-                                          min: 1,
-                                          max: 1000
-                                      }**/
-                                  }
-                              }).form();
+                        }
+                  }
+              }).form();
 
             isValidForm = $('#add-component-form').valid();
             
@@ -439,6 +430,21 @@ Angular Dependiences
             event.preventDefault();
             window.history.back();
         });
+
+        $('#add-project-component-form, #add-template-component-form').validate({
+              rules: {
+                time_limit: {
+                  required: true,
+                  time24: true
+              },
+              order: {
+                  required: true,
+                  number: true,
+                  min: 1,
+                  max: 50
+                        }
+                  }
+              });
         
     });
 

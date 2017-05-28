@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['confirm']]);
+        $this->middleware('auth', ['except' => ['confirm', 'setPassword']]);
 
     }
 
@@ -82,6 +82,19 @@ class UserController extends Controller
      */
     public function store(Request $request, AppMailer $mailer)
     {
+        $validations = [
+                            'first_name' => 'required',
+                            'middle_name' => 'required',
+                            'last_name' => 'required',
+                            'gender' => 'required',
+                            'role' => 'required',
+                            'contact_num' => 'min:7|max:11',
+                            'email' => 'required|email|unique:users',
+                            'birthdate' => 'required|date|before:-18 years'
+                        ];
+
+        $this->validate($request, $validations);
+               
         $user = new User;
 
         $user->first_name = $request['first_name'];
@@ -95,6 +108,7 @@ class UserController extends Controller
         $user->contact_num = $request['contact_num'];
         $user->birthdate = $request['birthdate'];
         $user->password = Hash::make(str_random(8));
+        $user->confirmation_token = str_random(15);
         $user->created_by = Auth::user()->id;
         $user->modified_by = Auth::user()->id;
         $user->created_date = Carbon::now();
@@ -160,6 +174,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $user = User::find($id);
+        
         $validations = [
                             'first_name' => 'required',
                             'middle_name' => 'required',
@@ -167,13 +183,11 @@ class UserController extends Controller
                             'gender' => 'required',
                             'role' => 'required',
                             'contact_num' => 'min:7|max:11',
-                            'email' => 'required|email',
+                            'email' => 'required|email|unique:users,email,'.$user->id,
                             'birthdate' => 'required|date|before:-18 years'
                         ];
 
         $this->validate($request, $validations);
-
-        $user = User::find($id);
 
         $user->first_name = $request['first_name'];
         $user->middle_name = $request['middle_name'];
@@ -258,17 +272,44 @@ class UserController extends Controller
 
     public function confirm($confirmation_token){
 
-        $user = User::select('confirmed', 'loggedin', 'confirmation_token')->where('confirmation_token', $confirmation_token)->first();
+        $user = User::select('id', 'confirmed', 'loggedin', 'confirmation_token')->where('confirmation_token', $confirmation_token)->first();
         
-        if(!$user->confirmed && !$user->loggedin){
+        if(!isset($user)){
+            return redirect('/login');
+        }
 
-            return view('users.confirm');
+        if(!$user->confirmed){
+
+            return view('users.confirm', compact('user'));
+
+        } else{
+
+            Auth::login($user);
 
         }
 
     }
 
-    public function setPassword($user, $password, $confirm_password){
+    public function setPassword(Request $request, $id){
+        
+        $user = User::find($id);
+
+        $validations = [
+                            'password' => 'required|min:6',
+                            'password_confirmation' => 'required|same:password'
+                        ];
+
+        $this->validate($request, $validations);
+        
+        $user->password = Hash::make($request['password']);
+        $user->confirmed = true;
+        $user->confirmation_token = null;
+
+        $user->save();
+
+        Auth::login($user);
+
+        return redirect('/');
 
     }
 }

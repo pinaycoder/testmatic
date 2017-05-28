@@ -7,6 +7,9 @@
         <div class="ibox-title">
             <h5>Create New Test Template</h5></div>
             <div class="ibox-content">
+                @if(count($errors->all()) > 0)
+                    @include('layouts.errors')
+                @endif
                 <form id="new-template-form" action="/templates/store" method="POST" class="wizard-big form-wizards">
                     {{ csrf_field() }}
                     <input type="hidden" name="components-json" value="[]" id="components-json"/>
@@ -74,6 +77,7 @@
                 <h1>Finish</h1>
                 <fieldset>
                 <h2>Review Template Details</h2>
+                <h3></h3>
                 </fieldset>
             </form>
         </div>  

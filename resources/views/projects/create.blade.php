@@ -7,6 +7,9 @@
         <div class="ibox-title">
             <h5>Create New Test Project</h5></div>
             <div class="ibox-content form-horizontal">
+                @if(count($errors->all()) > 0)
+                    @include('layouts.errors')
+                @endif
                 <form id="new-project-form" action="/projects/store" method="POST" class="wizard-big form-wizards">
                     {{ csrf_field() }}
                     <input type="hidden" name="components-json" value="[]" id="components-json"/>
