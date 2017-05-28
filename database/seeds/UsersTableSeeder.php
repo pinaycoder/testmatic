@@ -70,7 +70,8 @@ class UsersTableSeeder extends Seeder
                 'role' => 'Test Administrator',
                 'birthdate' => '1992-04-25',
                 'created_date' => Carbon::now(),
-                'modified_date' => Carbon::now()
+                'modified_date' => Carbon::now(),
+                'confirmation_token' => str_random(15)
             ]);
         }
 
@@ -91,7 +92,8 @@ class UsersTableSeeder extends Seeder
                 'role' => 'Test Participant',
                 'birthdate' => '1992-04-25',
                 'created_date' => Carbon::now(),
-                'modified_date' => Carbon::now()
+                'modified_date' => Carbon::now(),
+                'confirmation_token' => str_random(15)
             ]);
         }
     }

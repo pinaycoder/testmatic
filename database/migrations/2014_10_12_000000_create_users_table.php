@@ -31,7 +31,7 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['Female', 'Male']);
             $table->enum('role', ['Super Administrator', 'Test Administrator', 'Test Participant']);
             $table->string('email');
-            $table->string('contact_num', 50)->default('');
+            $table->string('contact_num', 50)->default('')->nullable();
             $table->string('user_pic_file', 50)->default('/img/default-user-img.png');
             $table->integer('created_by')->default(2);
             $table->timestamp('created_date')->nullable()->default(NULL);
@@ -39,7 +39,6 @@ class CreateUsersTable extends Migration
             $table->integer('modified_by')->default(2);
             $table->boolean('inactive')->default(false);
             $table->boolean('confirmed')->default(false);
-            $table->boolean('loggedin')->default(false);
             $table->string('remember_token', 100)->nullable();
             $table->string('confirmation_token', 100)->nullable();
         });
