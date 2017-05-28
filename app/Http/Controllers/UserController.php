@@ -272,7 +272,7 @@ class UserController extends Controller
 
     public function confirm($confirmation_token){
 
-        $user = User::select('id', 'confirmed', 'loggedin', 'confirmation_token')->where('confirmation_token', $confirmation_token)->first();
+        $user = User::select('id', 'confirmed', 'confirmation_token')->where('confirmation_token', $confirmation_token)->first();
         
         if(!isset($user)){
             return redirect('/login');
