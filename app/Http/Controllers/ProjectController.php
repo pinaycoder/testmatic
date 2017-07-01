@@ -391,4 +391,22 @@ class ProjectController extends Controller
         return redirect()->back();
 
     }
+
+    /**
+     * Show the test confirmation to test participants.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function test($project_id, $component_order = 0)
+    {
+        $project = Project::find($project_id);
+
+        $project_component = $project->components()
+                                      ->where('order', $component_order)
+                                      ->first();
+
+        $next_order = $component_order + 1;
+        
+        return view('projects.test', compact('project', 'project_component', 'component_order', 'next_order'));
+    }
 }

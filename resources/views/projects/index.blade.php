@@ -82,7 +82,7 @@
                             @endif
 
                             @if(Auth::check() && Auth::user()->role == 'Test Participant')
-                            <a href="/projects/test/{{ $project->id }}" class="btn btn-primary btn-xs">Start Testing</a>
+                            <a href="/projects/test/{{ $project->id }}/0" target="_blank" class="btn btn-primary btn-xs">Start Testing</a>
                             @endif
 
 			            </td>

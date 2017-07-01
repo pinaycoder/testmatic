@@ -73,6 +73,8 @@ Route::get('/projects/delete', 'ProjectController@destroy');
 
 Route::post('/projects/user/add/{id}', 'ProjectController@addUser');
 
+Route::get('/projects/test/{id}/{cid}', 'ProjectController@test');
+
 Route::get('/projects/user/delete/{project_id}/{user_id}', 'ProjectController@removeUser');
 
 Route::get('/projects/deactivate/{id}', 'ProjectController@deactivate');

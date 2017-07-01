@@ -33,7 +33,7 @@ class Project extends Model
 
     public function components()
     {
-        return $this->hasMany('App\ProjectComponent');
+        return $this->hasMany('App\ProjectComponent')->orderBy('order');
     }
 
 }
