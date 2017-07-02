@@ -52,7 +52,7 @@
                     <div class="form-group new-participant">
                        <label class="col-sm-3 control-label">*Gender: </label>
                        <div class="col-sm-9">
-                          <select class="form-control  required" name="gender">
+                          <select class="form-control  required" name="gender" id="gender">
                             <option value="">Please select gender</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -77,7 +77,8 @@
                                 <select id="name" name="project_users[]"data-placeholder="Select Participants" class="chosen-select   required">
                                     @foreach($participants as $participant)
                                     
-                                    <option data-name ="{{ $participant->last_name . ', ' . $participant->first_name}}" data-userrole ="{{ $participant->role }}" value="{{ $participant->id }}">{{ $participant->last_name . ', ' . $participant->first_name . ' (' . $participant->email . ')' }}</option>
+                                    <option
+                                    data-userid = "{{ $participant->id }}" data-name ="{{ $participant->last_name . ', ' . $participant->first_name}}" data-userrole ="{{ $participant->role }}" value="{{ $participant->id }}">{{ $participant->last_name . ', ' . $participant->first_name . ' (' . $participant->email . ')' }}</option>
                                     
                                     @endforeach
                                 </select>

@@ -13,7 +13,9 @@
                 <form id="new-project-form" action="/projects/store" method="POST" class="wizard-big form-wizards">
                     {{ csrf_field() }}
                     <input type="hidden" name="components-json" value="[]" id="components-json"/>
-                    <!--<h1>Basic Info</h1>
+                    <input type="hidden" name="new_users" id="new_users" value="[]"/>
+                    <input type="hidden" name="existing_users" id="existing_users" value="[]"/>
+                    <h1>Basic Info</h1>
                     <fieldset>
                         <h2>Basic Information</h2>
                         <div class="row">
@@ -120,7 +122,7 @@
                         </div>
                     </div>
                 </fieldset>
-                -->
+                
                 <h1>Participants</h1>
                     <fieldset style="width: 100%;">
                         <div class="row">

@@ -326,9 +326,8 @@ Angular Dependiences
         
         var counter = table.data().length + 1;
 
-        var components = [];
-        
-        var counter = table.data().length + 1;
+        var new_users = [];
+        var existing_users = [];
 
         $('#reference-template').on('change', function(){
             $.get('/templates/components/get/'+this.value, function(data){
@@ -369,7 +368,13 @@ Angular Dependiences
         });
 
         $('#add-participants-modal').on('show.bs.modal', function(){
+
             var count = participantsTable.data().length + 1;
+
+            if($('#project-participants-table').length == 1){
+                count = $('#project-participants-table').DataTable().data().length + 1;
+            }
+
             $('.chosen-select', this).chosen('destroy').chosen();
             $('#add-participants-form')[0].reset();
             $('.new-participant').hide();
@@ -464,14 +469,25 @@ Angular Dependiences
                         "email": $('#add-participants-modal #email').val(),
                         "status": $('#add-participants-modal #inactive option:selected').text(),
                         "name": $('#add-participants-modal #name option:selected')[0].dataset.name,
-                        "role": $('#add-participants-modal #name option:selected')[0].dataset.userrole,
+                        "role": $('#add-participants-modal #name option:selected')[0].dataset.userrole
                     };
 
                     if($('#add-participants-modal #new_user').is(':checked')){
 
+                        participant.first_name = $('#add-participants-modal #first_name').val();
+                        participant.last_name = $('#add-participants-modal #last_name').val();
+                        participant.middle_name = $('#add-participants-modal #middle_name').val() + ', ' + $('#add-participants-modal #first_name').val();
                         participant.name = $('#add-participants-modal #last_name').val() + ', ' + $('#add-participants-modal #first_name').val();
 
+                        participant.gender = $('#add-participants-modal #gender').val();
+
+
                         participant.role = 'Test Participant';
+
+                        new_users.push(participant);
+                    } else{
+
+                        existing_users.push($('#add-participants-modal #name option:selected')[0].dataset.userid);
                     }
 
                     participantsTable.row.add(participant).draw(false);
@@ -486,7 +502,8 @@ Angular Dependiences
                     $('#add-participants-form').submit();
                 }
             }
-            
+
+            $('#new_users').val(JSON.stringify(new_users));
         });
 
         $('#add-component-modal #type, #add-project-component-modal #type, #add-template-component-modal #type, #edit-project-component-form #type, #edit-template-component-form #type').on('change', function(){

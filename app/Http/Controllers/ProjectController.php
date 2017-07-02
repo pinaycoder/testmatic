@@ -141,7 +141,37 @@ class ProjectController extends Controller
 
         $project->save();
 
-        $project->users()->save(Auth::user());
+        //$project->users()->save(Auth::user());
+
+        $new_users = json_decode($request['new_users']);
+        
+        foreach($new_users as $new_user){
+            
+            $user = new User;
+
+            $user->first_name = $new_user->first_name;
+            $user->middle_name = $new_user->middle_name;
+            $user->last_name = $new_user->last_name;
+            $user->role = $new_user->role;
+            $user->gender = $new_user->gender;
+            $user->email = $new_user->email;
+            $user->username = $new_user->email;
+            $user->inactive = $new_user->status == 'Active' ? false : true;
+            $user->password = Hash::make(str_random(8));
+            $user->confirmation_token = str_random(15);
+            $user->created_by = Auth::user()->id;
+            $user->modified_by = Auth::user()->id;
+            $user->created_date = Carbon::now();
+            $user->modified_date = Carbon::now(); 
+
+            $user->save();
+
+            //$mailer->sendUserWelcomeEmail($user);
+
+            $project->users()->save($user);
+
+            //$mailer->sendProjectWelcomeEmail($project, $user);
+        }
 
         $components = json_decode($request['components-json']);
 
