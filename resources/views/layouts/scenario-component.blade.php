@@ -1,4 +1,4 @@
-<div class="row gray-bg testing-main-panel">
+<div class="row gray-bg testing-iframe-panel">
     <div class="col-lg-12 iframe-div">
 		<iframe src="{{ $project->entry_url }}" sandbox="allow-forms allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigations"></iframe>
 	</div>

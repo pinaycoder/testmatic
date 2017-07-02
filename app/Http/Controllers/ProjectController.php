@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 use App\User;
+use App\SecurityQuestion;
 use App\Project;
 use App\ProjectComponent;
 use App\ProjectUser;
@@ -83,7 +85,23 @@ class ProjectController extends Controller
     {
         $templates = Template::where('inactive', false)->get();
 
-        return view('projects.create', compact('templates'));
+        $participants = [];
+
+        if(Auth::user()->role == 'Test Administrator'){
+
+        $participants = User::whereDoesntHave('projects')->where('role', 'Test Participant')
+            ->where('inactive', false)
+            ->get();
+
+        } else if(Auth::user()->role == 'Super Administrator'){
+
+        $participants = User::whereDoesntHave('projects')->where('role', 'Test Participant')
+            ->orWhere('role', 'Test Administrator')
+            ->where('inactive', false)
+            ->get();
+        }
+
+        return view('projects.create', compact('templates', 'participants'));
     }
 
     /**
@@ -273,19 +291,61 @@ class ProjectController extends Controller
     
         $project = Project::find($id);
 
-        $users = User::findMany(explode(',', $request['selected_users']));
+        $user = new User;
+
+        if(isset($request['new_user'])){
+
+            $validations = [
+                            'first_name' => 'required',
+                            'middle_name' => 'required',
+                            'last_name' => 'required',
+                            'gender' => 'required',
+                            /**'role' => 'required',**/
+                            'contact_num' => 'min:7|max:11',
+                            'email' => 'required|email|unique:users'/**,
+                            'birthdate' => 'required|date|before:-18 years'**/
+                        ];
+
+            $this->validate($request, $validations);
+                   
+            $user->first_name = $request['first_name'];
+            $user->middle_name = $request['middle_name'];
+            $user->last_name = $request['last_name'];
+            $user->email = $request['email'];
+            $user->username = $request['email'];
+            $user->gender = $request['gender'];
+            //$user->role = $request['role'];
+            $user->role = 'Test Participant';
+            $user->inactive = false;
+            $user->contact_num = $request['contact_num'];
+            $user->birthdate = $request['birthdate'];
+            $user->password = Hash::make(str_random(8));
+            $user->confirmation_token = str_random(15);
+            $user->created_by = Auth::user()->id;
+            $user->modified_by = Auth::user()->id;
+            $user->created_date = Carbon::now();
+            $user->modified_date = Carbon::now(); 
+
+            $user->save();
+
+            //$mailer->sendUserWelcomeEmail($user);
+
+        } else{
+            $user = User::find($request['selected_users']);
+        }
+
         
 
         $project->modified_by = Auth::user()->id;
         $project->modified_date = Carbon::now(); 
 
-        foreach($users as $user){
+        //foreach($users as $user){
 
-            $project->users()->save($user);
+        $project->users()->save($user);
 
-            $mailer->sendProjectWelcomeEmail($project, $user);
+        $mailer->sendProjectWelcomeEmail($project, $user);
 
-        }
+        //}
 
         session()->flash('message', 'Project participants updated!');
         

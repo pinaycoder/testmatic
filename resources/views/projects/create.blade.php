@@ -13,7 +13,7 @@
                 <form id="new-project-form" action="/projects/store" method="POST" class="wizard-big form-wizards">
                     {{ csrf_field() }}
                     <input type="hidden" name="components-json" value="[]" id="components-json"/>
-                    <h1>Basic Info</h1>
+                    <!--<h1>Basic Info</h1>
                     <fieldset>
                         <h2>Basic Information</h2>
                         <div class="row">
@@ -120,6 +120,33 @@
                         </div>
                     </div>
                 </fieldset>
+                -->
+                <h1>Participants</h1>
+                    <fieldset style="width: 100%;">
+                        <div class="row">
+                            <div class="col-lg-9">
+                             <h2>Test Project Participants</h2> 
+                         </div>
+                         <div class="col-lg-3">
+                            <a href="#" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#add-participants-modal"><i class="fa fa-pencil"></i> Add Participant </a>   
+                        </div>
+                    </div>
+                    <div class="row white-bg">
+                        <div class="col-lg-12">
+                            <table class="table table-hover" id="add-participants-table">
+                                <thead>
+                                    <tr>
+                                        <th>Order</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </fieldset>
 
                 <h1>Finish</h1>
                 <fieldset>
@@ -130,6 +157,6 @@
     </div>
 </div>
 
+@include('layouts.modals.participants')
 @include('components.create')
-
 @endsection

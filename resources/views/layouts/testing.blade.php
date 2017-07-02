@@ -39,16 +39,30 @@
             font-weight: bold;
         }
 
-        .testing-main-panel{
+        .testing-question-panel{
+            height: 520px;
+            margin-bottom: 0;
+            padding: 50px;
+        }
+
+        .testing-iframe-panel{
             height: 520px;
         }
 
         .testing-welcome{
             height: 560px;
+            margin-bottom: 0;
+            padding: 150px;
         }
 
         .question-selections-ul{
             list-style-type: none;
+        }
+
+        .question-selections-li{
+            margin-bottom: 15px;
+            font-size: 21px;
+            font-weight: 200;
         }
 
         .iframe-div,

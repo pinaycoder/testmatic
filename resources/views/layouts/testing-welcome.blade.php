@@ -1,4 +1,4 @@
-<div class="row gray-bg testing-welcome">
+<div class="row gray-bg testing-welcome jumbotron">
     <div class="col-lg-12">
 		<p>Welcome Test Participant!</p>
 

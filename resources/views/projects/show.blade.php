@@ -209,9 +209,10 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <table class="table table-hover dt-tables" >
+                        <table class="table table-hover dt-tables" id="project-participants-table">
                             <thead>
                                 <tr>
+                                    <th>Order</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
@@ -221,6 +222,7 @@
                                 <tbody>
                                 @foreach($project_users as $project_user)
                                 <tr>
+                                    <td>{{ $project_user->order }}</td>
                                     <td><a href="/users/show/{{ $project_user->id }}" class="text-navy"> {{ $project_user->first_name . ' ' . $project_user->last_name }}</a></td>
                                     <td>{{ $project_user->email }}</td>
                                     <td>{{ $project_user->role }}</td>

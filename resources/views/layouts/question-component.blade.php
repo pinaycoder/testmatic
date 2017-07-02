@@ -1,7 +1,7 @@
-<div class="row gray-bg testing-main-panel">
+<div class="row gray-bg testing-question-panel jumbotron">
     <div class="col-lg-12">
         <div>
-            <span>{{ $project_component->order }}. {{ $project_component->description }}</span>
+            <p>{{ $project_component->order }}. {{ $project_component->description }}</p>
             <ul class="question-selections-ul">
                 @foreach(explode(',', $project_component->selections) as $selection)
                 <li class="question-selections-li">

@@ -24,6 +24,7 @@ class CreateProjectUserTable extends Migration
             $table->timestamp('modified_date')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
             $table->integer('modified_by')->default(2);
             $table->boolean('inactive')->default(false);
+            $table->integer('order')->default(0);
         });
 
         DB::update("ALTER TABLE project_user AUTO_INCREMENT = 1;");

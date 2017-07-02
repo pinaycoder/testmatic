@@ -90,9 +90,13 @@
           z-index: 1600 !important; /* has to be larger than 1050 */
       }
 
-      .wizard-big.wizard > .content{
-        min-height: 500px;
-      }
+        .wizard-big.wizard > .content{
+            min-height: 500px;
+        }
+
+        .new-participant{
+            display: none;
+        }
 
   </style>
 </head>
@@ -285,6 +289,22 @@ Angular Dependiences
             autoclose: true
         });
 
+        var participantsTable = $('#add-participants-table').DataTable({
+          "columns": [
+          { "data": "order" },
+          { "data": "name" },
+          { "data": "email" },
+          { "data": "role" },
+          { "data": "status" }
+          ],
+          "paging": false,
+          "ordering": false,
+          "lengthChange": false,
+          "searching": false,
+          "info": false
+      });
+
+
         var table = $('#add-component-table').DataTable({
           "columns": [
           { "data": "order" },
@@ -301,6 +321,10 @@ Angular Dependiences
           "searching": false,
           "info": false
       });
+
+        var components = [];
+        
+        var counter = table.data().length + 1;
 
         var components = [];
         
@@ -345,7 +369,14 @@ Angular Dependiences
         });
 
         $('#add-participants-modal').on('show.bs.modal', function(){
+            var count = participantsTable.data().length + 1;
             $('.chosen-select', this).chosen('destroy').chosen();
+            $('#add-participants-form')[0].reset();
+            $('.new-participant').hide();
+            $('.old-participant').show();
+            $("label.error").remove();
+            $(".error").removeClass("error");
+            $('#add-participants-form #order').val(count).attr('readonly','readonly');
         });
 
         $('#edit-project-info-modal').on('show.bs.modal', function(){
@@ -407,6 +438,57 @@ Angular Dependiences
 
         });
 
+        $('#add-participants-row-btn').on('click',function (event) {
+
+            event.preventDefault();
+            event.stopPropagation(); 
+
+            var isValidForm = true;
+
+            $('#add-participants-form').validate({
+                    rules: {
+                        email: {
+                          required: true,
+                          email: true
+                        }
+                    }
+                  }).form();
+
+            isValidForm = $('#add-participants-form').valid();
+
+            if(isValidForm){
+                if($('#add-participants-form').attr('action') == ''){
+
+                    var participant = {
+                        "order": participantsTable.data().length + 1,
+                        "email": $('#add-participants-modal #email').val(),
+                        "status": $('#add-participants-modal #inactive option:selected').text(),
+                        "name": $('#add-participants-modal #name option:selected')[0].dataset.name,
+                        "role": $('#add-participants-modal #name option:selected')[0].dataset.userrole,
+                    };
+
+                    if($('#add-participants-modal #new_user').is(':checked')){
+
+                        participant.name = $('#add-participants-modal #last_name').val() + ', ' + $('#add-participants-modal #first_name').val();
+
+                        participant.role = 'Test Participant';
+                    }
+
+                    participantsTable.row.add(participant).draw(false);
+
+                    $('#add-participants-form')[0].reset();
+
+                    $('#add-participants-modal').modal('hide');  
+
+                } else{
+
+                    $('#selected_users').val($(".chosen-select").val());
+                    $('#add-participants-form').submit();
+                }
+            }
+            
+        });
+
         $('#add-component-modal #type, #add-project-component-modal #type, #add-template-component-modal #type, #edit-project-component-form #type, #edit-template-component-form #type').on('change', function(){
             
             if(this.value == 'Question'){
@@ -419,12 +501,6 @@ Angular Dependiences
                 $('.scenario-mandatory').show();
             }
         }); 
-
-        $('#add-participants-row-btn').on('click', function(){
-            $('#selected_users').val($(".chosen-select").val());
-            $('#add-participants-form').submit();
-
-        });
 
         $('.cancel-btn').on('click', function(event){
             event.preventDefault();
@@ -445,6 +521,16 @@ Angular Dependiences
                         }
                   }
               });
+
+        $('#new_user').on('click', function(){
+            $('.new-participant').toggle();
+            $('.old-participant').toggle();
+        });
+
+        /**$('#add-participants-form').submit().on('show.bs.modal', function(event) {
+            // prevent datepicker from firing bootstrap modal "show.bs.modal"
+            event.stopPropagation(); 
+        });**/
         
     });
 
