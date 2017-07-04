@@ -85,7 +85,22 @@
     <!-- Mainly scripts -->
     <script src="/js/jquery-2.1.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#mark_complete').on('click', function(){
 
+                $('.testing-footer, .testing-header').hide();
+
+                $.get('/projects/markComplete', function(data){
+                    console.log(data);
+                    $('.testing-footer, .testing-header').show();
+
+                    alert('Screenshot taken. Marked as completed!');
+                });
+
+            });
+        });
+    </script>
 </body>
 
 </html>

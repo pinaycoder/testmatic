@@ -83,6 +83,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
+
         $templates = Template::where('inactive', false)->get();
 
         $participants = [];
@@ -112,7 +113,7 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         $validations = [
                             'name' => 'required|max:20|unique:projects,name',
                             'description' => 'required',
@@ -171,6 +172,14 @@ class ProjectController extends Controller
             $project->users()->save($user);
 
             //$mailer->sendProjectWelcomeEmail($project, $user);
+        }
+
+        $existing_users = User::findMany(json_decode($request['existing_users']));
+
+        foreach($existing_users as $existing_user){
+
+            $project->users()->save($existing_user);
+
         }
 
         $components = json_decode($request['components-json']);
@@ -243,7 +252,9 @@ class ProjectController extends Controller
                             ->get();
         }
 
-        return view('projects.show', compact('project', 'project_components', 'participants', 'project_users'));
+        $counter = 0;
+
+        return view('projects.show', compact('project', 'project_components', 'participants', 'project_users', 'counter'));
     }
 
     /**
@@ -498,5 +509,10 @@ class ProjectController extends Controller
         $next_order = $component_order + 1;
         
         return view('projects.test', compact('project', 'project_component', 'component_order', 'next_order'));
+    }
+
+    public function markComplete(){
+        $img = imagegrabscreen();
+        imagepng($img, 'screenshot.png');
     }
 }

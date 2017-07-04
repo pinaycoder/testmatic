@@ -377,6 +377,7 @@ Angular Dependiences
 
             $('.chosen-select', this).chosen('destroy').chosen();
             $('#add-participants-form')[0].reset();
+            $('#add-participants-modal').attr('disabled', false);
             $('.new-participant').hide();
             $('.old-participant').show();
             $("label.error").remove();
@@ -492,6 +493,16 @@ Angular Dependiences
 
                     participantsTable.row.add(participant).draw(false);
 
+
+                    if($('.chosen-select option:selected').length > 1){
+
+                        $('.chosen-select option:selected').attr("disabled",true);
+
+                        $('.chosen-select').trigger('chosen:updated');
+
+                    }
+                    
+
                     $('#add-participants-form')[0].reset();
 
                     $('#add-participants-modal').modal('hide');  
@@ -503,6 +514,7 @@ Angular Dependiences
                 }
             }
 
+            $('#existing_users').val(JSON.stringify(existing_users));
             $('#new_users').val(JSON.stringify(new_users));
         });
 
@@ -542,12 +554,22 @@ Angular Dependiences
         $('#new_user').on('click', function(){
             $('.new-participant').toggle();
             $('.old-participant').toggle();
+            $('#add-participants-modal #email').attr('disabled', false).val('');
+            $('#add-participants-modal #name_chosen span').text('Select Participants');
+            $('#add-participants-modal #name_chosen a').addClass('chosen-default');
         });
 
         /**$('#add-participants-form').submit().on('show.bs.modal', function(event) {
             // prevent datepicker from firing bootstrap modal "show.bs.modal"
             event.stopPropagation(); 
         });**/
+
+        $('#add-participants-modal .chosen-select').on('change', function(){
+            
+            $('#add-participants-modal #email').val($(this).find(':selected').data('email')).attr('disabled', true);
+
+            $('#name_chosen span').text($(this).find(':selected').data('name'));
+        });
         
     });
 

@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name', 50)->default('');
             $table->string('middle_name', 50)->default('');
             $table->string('last_name', 50)->default('');
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->enum('gender', ['Female', 'Male']);
             $table->enum('role', ['Super Administrator', 'Test Administrator', 'Test Participant']);
             $table->string('email');

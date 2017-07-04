@@ -216,18 +216,16 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
-                                    <th>Status</th>
                                     <th>Options</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($project_users as $project_user)
                                 <tr>
-                                    <td>1</td>
+                                    <td>{{ ++$counter }}</td>
                                     <td><a href="/users/show/{{ $project_user->id }}" class="text-navy"> {{ $project_user->first_name . ' ' . $project_user->last_name }}</a></td>
                                     <td>{{ $project_user->email }}</td>
                                     <td>{{ $project_user->role }}</td>
-                                    <td>{{ $project_user->inactive }}</td>
                                     <td class="center">
                                         <a href="/projects/user/delete/{{ $project->id }}/{{ $project_user->id }}" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Remove </a>
                                     </td>

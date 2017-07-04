@@ -18,7 +18,7 @@
     </div>
     <div class="col-lg-2">
     	<div class="footer-desc">
-	        <button type="button" class="btn btn-sm btn-default btn-block">Mark Complete</button>
+	        <button type="button" class="btn btn-sm btn-default btn-block" id="mark_complete">Mark Complete</button>
 	        <a href="/projects/test/{{$project->id}}/{{$next_order}}" class="btn btn-sm btn-default btn-block">Next</a>
 	    </div>
     </div>

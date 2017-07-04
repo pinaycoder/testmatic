@@ -74,11 +74,14 @@
                         <label class="col-sm-3 control-label">*Name:</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <select id="name" name="project_users[]"data-placeholder="Select Participants" class="chosen-select   required">
+                                <select id="name" name="project_users[]" data-placeholder="Select Participants" class="chosen-select   required">
+                                    <option></option>
                                     @foreach($participants as $participant)
                                     
                                     <option
-                                    data-userid = "{{ $participant->id }}" data-name ="{{ $participant->last_name . ', ' . $participant->first_name}}" data-userrole ="{{ $participant->role }}" value="{{ $participant->id }}">{{ $participant->last_name . ', ' . $participant->first_name . ' (' . $participant->email . ')' }}</option>
+                                    data-userid = "{{ $participant->id }}" 
+                                    data-email = "{{ $participant->email }}"
+                                    data-name ="{{ $participant->last_name . ', ' . $participant->first_name}}" data-userrole ="{{ $participant->role }}" value="{{ $participant->id }}">{{ $participant->last_name . ', ' . $participant->first_name . ' (' . $participant->email . ')' }}</option>
                                     
                                     @endforeach
                                 </select>
