@@ -10,7 +10,7 @@
 
 <div class="row testing-footer">
     <div class="col-lg-2">
-        <a href="/projects/test/23/1" class="btn btn-sm btn-default btn-block">Start Testing Now</a>
+        <a href="/projects/test/{{ $project->id }}/1" class="btn btn-sm btn-default btn-block">Start Testing Now</a>
     </div>
     <div class="col-lg-8">
         &nbsp;
