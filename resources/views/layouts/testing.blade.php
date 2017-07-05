@@ -40,17 +40,17 @@
         }
 
         .testing-question-panel{
-            height: 520px;
+            height: 500px;
             margin-bottom: 0;
             padding: 50px;
         }
 
         .testing-iframe-panel{
-            height: 520px;
+            height: 465px;
         }
 
         .testing-welcome{
-            height: 560px;
+            height: 500px;
             margin-bottom: 0;
             padding: 150px;
         }

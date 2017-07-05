@@ -507,8 +507,10 @@ class ProjectController extends Controller
                                       ->first();
 
         $next_order = $component_order + 1;
-        
-        return view('projects.test', compact('project', 'project_component', 'component_order', 'next_order'));
+
+        $component_count = $project->components->count();
+
+        return view('projects.test', compact('project', 'project_component', 'component_order', 'next_order', 'component_count'));
     }
 
     public function markComplete(){
