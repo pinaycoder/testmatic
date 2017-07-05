@@ -16,6 +16,6 @@
         &nbsp;
     </div>
     <div class="col-lg-2">
-        <button type="button" class="btn btn-sm btn-default btn-block" onclick="window.close();">Exit</button>
+        <a href="/projects" class="btn btn-sm btn-default btn-block">Exit</a>
     </div>
 </div>
