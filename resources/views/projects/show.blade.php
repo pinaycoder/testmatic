@@ -23,7 +23,9 @@
                             @if(Auth::check() && Auth::user()->role != 'Test Participant')
                             <a href="#" data-toggle="modal" data-target="#edit-project-info-modal" class="btn btn-white btn-xs">Edit Project</a>
                             
+                            @if($project->status == 'Open' || $project->status == 'In Progress')
                             <a href="#" data-toggle="modal" data-target="#add-participants-modal" class="btn btn-info btn-xs">Add Participants</a>
+                            @endif
 
                             <a href="#" data-toggle="modal" data-target="#add-project-component-modal" class="btn btn-primary btn-xs">Add Component</a>
 

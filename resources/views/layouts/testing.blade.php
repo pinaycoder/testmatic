@@ -25,6 +25,11 @@
             line-height: 18px;
         }
 
+        .testing-header{
+            font-size: 30px;
+            line-height: 40px;
+        }
+
         .testing-footer .footer-desc{
             border: 1px solid #FFFFFF;
             padding: 5px;
@@ -32,6 +37,13 @@
             vertical-align: middle;
             font-size: 18px;
             line-height: 18px;
+        }
+
+        .footer-desc div{
+            height: 70px; 
+            width: 100%;
+            display:table-cell;
+            vertical-align:middle;
         }
 
         .testing-footer .btn-default{
@@ -88,15 +100,16 @@
     <script>
         $(document).ready(function(){
             $('#mark_complete').on('click', function(){
-
-                $('.testing-footer, .testing-header').hide();
+                document.domain = 'lazada.com.ph';
+;                console.log($('iframe')[0].contentWindow.location.href)
+                /**$('.testing-footer, .testing-header').hide();
 
                 $.get('/projects/markComplete', function(data){
                     console.log(data);
                     $('.testing-footer, .testing-header').show();
 
                     alert('Screenshot taken. Marked as completed!');
-                });
+                });**/
 
             });
         });
