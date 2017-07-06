@@ -52,17 +52,17 @@
         }
 
         .testing-question-panel{
-            height: 500px;
+            height: 560px;
             margin-bottom: 0;
             padding: 50px;
         }
 
         .testing-iframe-panel{
-            height: 465px;
+            height: 500px;
         }
 
         .testing-welcome{
-            height: 500px;
+            height: 560px;
             margin-bottom: 0;
             padding: 150px;
         }
@@ -97,6 +97,8 @@
     <!-- Mainly scripts -->
     <script src="/js/jquery-2.1.1.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="//cdn.webrtc-experiment.com/getScreenId.js"></script>
+    <script src="//cdn.webrtc-experiment.com/screen.js"></script>
     <script>
         $(document).ready(function(){
             $('#mark_complete').on('click', function(){
