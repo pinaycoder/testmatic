@@ -197,6 +197,8 @@ Angular Dependiences
             return /^(?:[0-5][0-9]):[0-5][0-9]$/.test(value);
         }, "Invalid time format. (mm:ss)");
 
+
+
         $('.dt-tables').dataTable({
             'lengthChange': false,
             'ordering': false
@@ -455,7 +457,8 @@ Angular Dependiences
                     rules: {
                         email: {
                           required: true,
-                          email: true
+                          email: true,
+                          remote: '/users/checkEmail'
                         }
                     }
                   }).form();

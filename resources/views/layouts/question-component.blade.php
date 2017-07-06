@@ -17,6 +17,10 @@
         &nbsp;
     </div>
     <div class="col-lg-2">
-        <a href="/projects/test/{{$project->id}}/{{$next_order}}" class="btn btn-sm btn-default btn-block">Next</a>
+        <div class="footer-btn">
+            <div>
+                <a href="/projects/test/{{$project->id}}/{{$next_order}}" class="btn btn-sm btn-default btn-block">Next</a>
+            </div>
+        </div>
     </div>
 </div>

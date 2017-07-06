@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 
 use App\User;
@@ -311,5 +313,16 @@ class UserController extends Controller
 
         return redirect('/');
 
+    }
+
+    public function checkIfEmailExist(){
+
+        $user = User::all()->where('email', Input::get('email'))->first();
+
+        if ($user) {
+            return Response::json(Input::get('email').' is already taken');
+        } else {
+            return Response::json(Input::get('email').' Username is available');
+        }
     }
 }

@@ -71,6 +71,8 @@ class ProjectController extends Controller
             $project->created_full_name = $created->first_name . ' ' . $created->last_name;
 
             $project->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
+
+            $project->is_valid_for_testing = $this->isValidForTesting($project);
         }
 
         return view('projects.index', compact('projects'));
@@ -221,6 +223,8 @@ class ProjectController extends Controller
     {
         $project = Project::find($id);
 
+        $project->duration = $this->getProjectDuration($project);
+
         $created = User::find($project->created_by);
 
         $modified = User::find($project->modified_by);
@@ -228,6 +232,8 @@ class ProjectController extends Controller
         $project->created_full_name = $created->first_name . ' ' . $created->last_name;
 
         $project->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
+
+        $project->is_valid_for_testing = $this->isValidForTesting($project);
 
         $project_components = ProjectComponent::all()->where('project_id', $project->id);
 
@@ -502,6 +508,8 @@ class ProjectController extends Controller
     {
         $project = Project::find($project_id);
 
+        $project->duration = $this->getProjectDuration($project);
+
         $project_component = $project->components()
                                       ->where('order', $component_order)
                                       ->first();
@@ -516,5 +524,30 @@ class ProjectController extends Controller
     public function markComplete(){
         $img = imagegrabscreen();
         imagepng($img, 'screenshot.png');
+    }
+
+    public function isValidForTesting(Project $project){
+        
+        return (($project->status == 'Open' ||
+                $project->status == 'In Progress') &&
+                (Carbon::now() >= $project->start ||
+                Carbon::now() <= $project->end));
+    }
+
+    public function getProjectDuration($project){
+
+        $scenario_components = $project->components()
+                                      ->where('type', 'Scenario')->get();
+
+        $d = Carbon::createFromFormat('H:i:s', '00:00:00');
+
+        foreach($scenario_components as $components){
+
+            $time = explode(':', $components->time_limit);
+
+            $d->addMinutes(intval($time[0]))->addSeconds(intval($time[1]));
+        }
+
+        return $d->format("H:i:s");
     }
 }

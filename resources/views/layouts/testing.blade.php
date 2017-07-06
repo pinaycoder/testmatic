@@ -39,6 +39,17 @@
             line-height: 18px;
         }
 
+        .footer-btn{
+            min-height: 77px;
+        }
+
+        .footer-btn div{
+            height: 70px; 
+            width: 200px;
+            display:table-cell;
+            vertical-align:middle;
+        }
+
         .footer-desc div{
             height: 70px; 
             width: 100%;
@@ -52,7 +63,7 @@
         }
 
         .testing-question-panel{
-            height: 560px;
+            height: 500px;
             margin-bottom: 0;
             padding: 50px;
         }
@@ -62,7 +73,7 @@
         }
 
         .testing-welcome{
-            height: 560px;
+            height: 500px;
             margin-bottom: 0;
             padding: 150px;
         }

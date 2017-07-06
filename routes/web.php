@@ -113,6 +113,8 @@ Route::get('/users/edit/{id}', 'UserController@edit');
 
 Route::post('/users/update/{id}', 'UserController@update');
 
+Route::get('/users/checkEmail', 'UserController@checkIfEmailExist');
+
 Route::get('/users/delete', 'UserController@destroy');
 
 Route::get('/users/deactivate/{id}', 'UserController@deactivate');

@@ -38,9 +38,14 @@
                             @endif
                             @endif
 
-                            @if(Auth::check() && Auth::user()->role == 'Test Participant')
+                            @if(Auth::check() && Auth::user()->role == 'Test Participant' &&$project->is_valid_for_testing)
                             <a href="/projects/test/{{ $project->id }}/0" target="_blank" class="btn btn-primary btn-xs">Start Testing</a>
                             @endif
+
+                            @if(Auth::check() && Auth::user()->role == 'Test Participant' &&!$project->is_valid_for_testing)
+                            <a href="#" class="btn btn-default btn-xs">Start Testing</a>
+                            @endif
+                            
                         </div>
                     </div>
                 </div>

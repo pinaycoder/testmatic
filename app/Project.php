@@ -9,6 +9,7 @@ class Project extends Model
     protected $created_full_name = '';
     protected $modified_full_name = '';
     protected $duration;
+    protected $is_valid_for_testing = true;
 
      public $timestamps = false;
 
