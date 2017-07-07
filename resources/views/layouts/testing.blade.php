@@ -80,6 +80,8 @@
 
         .testing-complete{
             height: 550px;
+            margin-bottom: 0;
+            padding: 150px;
         }
 
         .question-selections-ul{
