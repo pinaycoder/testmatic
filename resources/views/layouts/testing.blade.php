@@ -73,7 +73,7 @@
         }
 
         .testing-welcome{
-            height: 500px;
+            height: 560px;
             margin-bottom: 0;
             padding: 150px;
         }
