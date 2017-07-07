@@ -374,7 +374,7 @@ class ProjectController extends Controller
 
             $user->save();
 
-            //$mailer->sendUserWelcomeEmail($user);
+            $mailer->sendUserWelcomeEmail($user);
 
         } else{
             $user = User::find($request['selected_users']);
@@ -384,6 +384,11 @@ class ProjectController extends Controller
 
         $project->modified_by = Auth::user()->id;
         $project->modified_date = Carbon::now(); 
+        $project->duration = $this->getProjectDuration($project);
+
+        $modified = User::find($project->modified_by);
+        
+        $project->modified_full_name = $modified->first_name . ' ' . $modified->last_name;
 
         //foreach($users as $user){
 

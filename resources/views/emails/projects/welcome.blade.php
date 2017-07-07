@@ -23,7 +23,9 @@
 
 @if($user->role == 'Test Participant')
 
-<p>You have been added as a Test participant. You can now start the online usability testing.</p>
+<p>You have been added as a Test participant to the test project {{ $project->name }} by Test Administrator {{ $project->modified_full_name }}. As one of the chosen test participants, TESTmatic will let you experience the website under test from a user's perspective. Please take time to check the project and finish your usability testing between {{ $project->start }} to {{ $project->end }}.</p>
+
+<p>The entire usability testing should take a maximum of {{ $project->duration }}.</p>
 
 @endif
 
