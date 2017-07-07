@@ -321,8 +321,6 @@ class UserController extends Controller
 
         if ($user) {
             return Response::json(Input::get('email').' is already taken');
-        } else {
-            return Response::json(Input::get('email').' Username is available');
         }
     }
 }
