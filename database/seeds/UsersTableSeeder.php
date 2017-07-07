@@ -120,7 +120,7 @@ class UsersTableSeeder extends Seeder
                 'first_name' => 'Test',
                 'middle_name' => 'Name ' . $i,
                 'last_name' => 'Test Last Name',
-                'email' => 'testparticipant_' . ($i - 10) . '@gmail.com',
+                'email' => 'testparticipant' . ($i - 10) . '@gmail.com',
                 'contact_num' => '+639217271881',
                 'question_id_1' => 2,
                 'question_ans_1' => 'Test Answer 1',

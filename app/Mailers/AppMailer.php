@@ -42,7 +42,7 @@ class AppMailer{
 		$this->to = $user->email;
 		$this->view = 'emails.projects.welcome';
 		$this->subject = 'Welcome to TESTmatic: ' . $project->name . ' !';
-		$this->data = compact('user');
+		$this->data = compact('user','project');
 
 		$this->deliver();
 	}
@@ -52,7 +52,7 @@ class AppMailer{
 		$this->to = $user->email;
 		$this->view = 'emails.users.welcome';
 		$this->subject = 'Welcome to TESTmatic!';
-		$this->data = compact('user');
+		$this->data = compact('user', 'project');
 
 		$this->deliver();
 	}
