@@ -1,4 +1,4 @@
-<div class="row gray-bg testing-welcome jumbotron">
+<div class="row gray-bg testing-complete jumbotron">
     <div class="col-lg-12" style="margin: 0 auto; text-align: center;">
 		<p>Thank you for taking the time to complete this test!</p>
         <p>Click 'Exit' to go back to projects list.</p>

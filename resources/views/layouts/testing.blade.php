@@ -78,6 +78,10 @@
             padding: 150px;
         }
 
+        .testing-complete{
+            height: 550px;
+        }
+
         .question-selections-ul{
             list-style-type: none;
         }
