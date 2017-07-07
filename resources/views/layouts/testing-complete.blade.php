@@ -13,8 +13,10 @@
         &nbsp;
     </div>
     <div class="col-lg-2">
-        <div>
-            <a href="/projects" class="btn btn-sm btn-default btn-block">Exit</a>
+        <div class="footer-btn">
+            <div>
+                <a href="/projects" class="btn btn-sm btn-default btn-block">Exit</a>
+            </div>
         </div>
     </div>
 </div>

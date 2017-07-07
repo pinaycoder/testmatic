@@ -72,14 +72,9 @@
             height: 500px;
         }
 
-        .testing-welcome{
-            height: 500px;
-            margin-bottom: 0;
-            padding: 150px;
-        }
-
+        .testing-welcome,
         .testing-complete{
-            height: 550px;
+            height: 500px;
             margin-bottom: 0;
             padding: 150px;
         }
