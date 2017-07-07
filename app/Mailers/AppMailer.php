@@ -41,7 +41,7 @@ class AppMailer{
 
 		$this->to = $user->email;
 		$this->view = 'emails.projects.welcome';
-		$this->subject = 'Welcome to TESTmatic: ' . $project->name . ' !';
+		$this->subject = 'TESTmatic: Welcome to Project ' . $project->name . ' !';
 		$this->data = compact('user','project');
 
 		$this->deliver();
