@@ -344,7 +344,6 @@ class ProjectController extends Controller
 
             $validations = [
                             'first_name' => 'required',
-                            'middle_name' => 'required',
                             'last_name' => 'required',
                             'gender' => 'required',
                             /**'role' => 'required',**/

@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('last_login_date')->nullable()->default(NULL);
             $table->timestamp('last_pass_change')->nullable()->default(NULL);
             $table->string('first_name', 50)->default('');
-            $table->string('middle_name', 50)->default('');
+            $table->string('middle_name', 50)->default('')->nullable();
             $table->string('last_name', 50)->default('');
             $table->date('birthdate')->nullable();
             $table->enum('gender', ['Female', 'Male']);
