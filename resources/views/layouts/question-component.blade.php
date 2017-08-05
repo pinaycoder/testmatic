@@ -5,7 +5,7 @@
             <ul class="question-selections-ul">
                 @foreach(explode(',', $project_component->selections) as $selection)
                 <li class="question-selections-li">
-                    <input type="checkbox"/> {{ trim($selection) }}
+                    <input type="checkbox" class="question-selections-checkbox"/> {{ trim($selection) }}
                 </li>
                 @endforeach
             </ul>
@@ -19,7 +19,7 @@
     <div class="col-lg-2">
         <div class="footer-btn">
             <div>
-                <a href="/projects/test/{{$project->id}}/{{$next_order}}" class="btn btn-sm btn-default btn-block">Next</a>
+                <a href="/projects/test/{{$project->id}}/{{$next_order}}" class="btn btn-sm btn-default btn-block" id="question-next-btn">Next</a>
             </div>
         </div>
     </div>

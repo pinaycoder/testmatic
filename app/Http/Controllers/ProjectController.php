@@ -27,6 +27,7 @@ class ProjectController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('cors');
     }
 
     private function getProjectsPerUser($user){
@@ -90,19 +91,19 @@ class ProjectController extends Controller
 
         $participants = [];
 
-        if(Auth::user()->role == 'Test Administrator'){
+        //if(Auth::user()->role == 'Test Administrator' || Auth::user()->role == 'Super Administrator'){
 
         $participants = User::whereDoesntHave('projects')->where('role', 'Test Participant')
             ->where('inactive', false)
             ->get();
 
-        } else if(Auth::user()->role == 'Super Administrator'){
+        /**} else if(Auth::user()->role == 'Super Administrator'){
 
         $participants = User::whereDoesntHave('projects')->where('role', 'Test Participant')
             ->orWhere('role', 'Test Administrator')
             ->where('inactive', false)
             ->get();
-        }
+        }**/
 
         return view('projects.create', compact('templates', 'participants'));
     }
@@ -144,7 +145,7 @@ class ProjectController extends Controller
 
         $project->save();
 
-        //$project->users()->save(Auth::user());
+        $project->users()->save(Auth::user());
 
         $new_users = json_decode($request['new_users']);
         
@@ -169,11 +170,11 @@ class ProjectController extends Controller
 
             $user->save();
 
-            //$mailer->sendUserWelcomeEmail($user);
+            $mailer->sendUserWelcomeEmail($user);
 
             $project->users()->save($user);
 
-            //$mailer->sendProjectWelcomeEmail($project, $user);
+            $mailer->sendProjectWelcomeEmail($project, $user);
         }
 
         $existing_users = User::findMany(json_decode($request['existing_users']));
@@ -237,18 +238,20 @@ class ProjectController extends Controller
 
         $project_components = ProjectComponent::all()->where('project_id', $project->id);
 
-        $project_users = Project::where('id', $project->id)->with('users')->get()[0]->users;
+        $project_users = Project::with(array('users' => function($query) {
+                $query->where('role', 'Test Participant');
+            }))->where('id', $project->id)->get()[0]->users;
         
         $participants = [];
 
-        if(Auth::user()->role == 'Test Administrator'){
+        //if(Auth::user()->role == 'Test Administrator'){
 
         $participants = User::whereDoesntHave('projects', function($q)              use ($project){
                             $q->where('project_id', $project->id);})
                             ->where('role', 'Test Participant')
                             ->where('inactive', false)
                             ->get();
-        } else if(Auth::user()->role == 'Super Administrator'){
+        /**} else if(Auth::user()->role == 'Super Administrator'){
 
         $participants = User::whereDoesntHave('projects', function($q)              use ($project){
                             $q->where('project_id', $project->id);})
@@ -256,7 +259,7 @@ class ProjectController extends Controller
                             ->orWhere('role', 'Test Administrator')
                             ->where('inactive', false)
                             ->get();
-        }
+        }**/
 
         $counter = 0;
 
@@ -384,7 +387,7 @@ class ProjectController extends Controller
 
         $project->modified_by = Auth::user()->id;
         $project->modified_date = Carbon::now(); 
-        $project->duration = $this->getProjectDuration($project);
+        $project->duration = $this->getProjectDuration($project, true);
 
         $modified = User::find($project->modified_by);
         
@@ -510,6 +513,9 @@ class ProjectController extends Controller
      */
     public function test($project_id, $component_order = 0)
     {
+
+        //dd(apache_response_headers());
+
         $project = Project::find($project_id);
 
         $project->duration = $this->getProjectDuration($project);
@@ -534,11 +540,11 @@ class ProjectController extends Controller
         
         return (($project->status == 'Open' ||
                 $project->status == 'In Progress') &&
-                (Carbon::now() >= $project->start ||
+                (Carbon::now() >= $project->start &&
                 Carbon::now() <= $project->end));
     }
 
-    public function getProjectDuration($project){
+    public function getProjectDuration($project, $isEmail = false){
 
         $scenario_components = $project->components()
                                       ->where('type', 'Scenario')->get();
@@ -552,6 +558,28 @@ class ProjectController extends Controller
             $d->addMinutes(intval($time[0]))->addSeconds(intval($time[1]));
         }
 
-        return $d->format("H:i:s");
+        if($isEmail){
+
+            $time = explode(':', $d->format("H:i:s"));
+
+            $duration = '';
+
+            if(intval($time[0]) > 0){
+                $duration .= intval($time[0]) . ' hour/s';
+            }
+
+            if(intval($time[1]) > 0){
+                $duration .= ' ' . intval($time[1]) . ' minutes';
+            }
+
+            if(intval($time[2]) > 0){
+                $duration .= ' ' . intval($time[2]) . ' seconds';
+            }
+        } else{
+            $duration = $d->format("H:i:s");
+        }
+        
+        
+        return $duration;
     }
 }

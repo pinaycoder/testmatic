@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <title page-title>TESTmatic</title>
 
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -51,10 +51,16 @@
         }
 
         .footer-desc div{
-            height: 70px; 
-            width: 100%;
-            display:table-cell;
-            vertical-align:middle;
+            max-width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: 65px;
+            max-height: 65px;
+        }
+
+        .running-time-div{
+            height: 45px !important;
+            margin: 10px auto;
         }
 
         .testing-footer .btn-default{
@@ -94,7 +100,6 @@
             height: 100%;
             width: 100%;
         }
-
     </style>
 </head>
 
@@ -112,10 +117,28 @@
     <script src="//cdn.webrtc-experiment.com/getScreenId.js"></script>
     <script src="//cdn.webrtc-experiment.com/screen.js"></script>
     <script>
+
         $(document).ready(function(){
+
+            /**chrome.webRequest.onHeadersReceived.addListener(
+  function (details) {
+    for (var i = 0; i < details.responseHeaders.length; ++i) {
+      if (details.responseHeaders[i].name.toLowerCase() == 'x-frame-options') {
+        details.responseHeaders.splice(i, 1);
+        return {
+          responseHeaders: details.responseHeaders
+        };
+      }
+    }
+  }, {
+    urls: ["<all_urls>"]
+  }, ["blocking", "responseHeaders"]);**/
+
+            var isMarkedComplete = false;
+
             $('#mark_complete').on('click', function(){
-                document.domain = 'lazada.com.ph';
-;                console.log($('iframe')[0].contentWindow.location.href)
+                    console.log($($('iframe')[0]).contents().find('body'));
+                //console.log($('iframe')[0].contentWindow);
                 /**$('.testing-footer, .testing-header').hide();
 
                 $.get('/projects/markComplete', function(data){
@@ -125,6 +148,22 @@
                     alert('Screenshot taken. Marked as completed!');
                 });**/
 
+                isMarkedComplete = true;
+
+            });
+
+            $('#question-next-btn').on('click', function(){
+                if($('.question-selections-checkbox:checked').length <= 0){
+                    alert('Please select your choice.');
+                    return false;
+                }
+            });
+
+            $('#scenario-next-btn').on('click', function(){
+                if(!isMarkedComplete){
+                    alert('Please mark this scenario as complete first.');
+                    return false;
+                }
             });
         });
     </script>

@@ -178,7 +178,9 @@
     					        	<th>Order</th>
     					        	<th>Type</th>
     					            <th>Component</th>
+                                    @if(Auth::check() && Auth::user()->role != 'Test Participant')
     					            <th>Options</th>
+                                    @endif
     					        </tr>
     					        </thead>
     					        <tbody>
@@ -191,10 +193,12 @@
     					            	<br/>
     					            	<small>{{ str_limit($component->description, 120) }}</small>
     					            </td>
+                                    @if(Auth::check() && Auth::user()->role != 'Test Participant')
     					            <td class="center">
     					            	<a href="/projects/components/edit/{{ $component->id }}" class="btn btn-white btn-xs option-buttons"><i class="fa fa-pencil"></i> Edit </a>
     					            	<a href="/projects/components/delete/{{ $component->id }}" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Delete </a>
     					            </td>
+                                    @endif
     					        </tr>
     					        @endforeach
     					        </tbody>
@@ -223,7 +227,9 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    @if(Auth::check() && Auth::user()->role != 'Test Participant')
                                     <th>Options</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -233,9 +239,11 @@
                                     <td><a href="/users/show/{{ $project_user->id }}" class="text-navy"> {{ $project_user->first_name . ' ' . $project_user->last_name }}</a></td>
                                     <td>{{ $project_user->email }}</td>
                                     <td>{{ $project_user->role }}</td>
+                                    @if(Auth::check() && Auth::user()->role != 'Test Participant')
                                     <td class="center">
                                         <a href="/projects/user/delete/{{ $project->id }}/{{ $project_user->id }}" class="btn btn-danger btn-xs option-buttons"><i class="fa fa-trash"></i> Remove </a>
                                     </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                                 </tbody>

@@ -18,3 +18,11 @@
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
+
+<IfModule mod_headers.c>
+    Header always unset X-Frame-Options
+    Header always unset Content-Security-Policy
+    Header set Access-Control-Allow-Origin "*"
+    Header set Cache-Control "private, no-cache, no-store, proxy-revalidate, no-transform"
+    Header set Pragma "no-cache"
+</IfModule>
