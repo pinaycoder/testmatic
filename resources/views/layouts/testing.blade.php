@@ -122,26 +122,34 @@
     <script src="//cdn.webrtc-experiment.com/screen.js"></script>
     <script>
 
-        $(document).ready(function(){
+        var extensionId = "kegdbcgopmmfabicalpcohlknnabcfgd";
+        var yourMessage = 'capture';
 
-            /**chrome.webRequest.onHeadersReceived.addListener(
-  function (details) {
-    for (var i = 0; i < details.responseHeaders.length; ++i) {
-      if (details.responseHeaders[i].name.toLowerCase() == 'x-frame-options') {
-        details.responseHeaders.splice(i, 1);
-        return {
-          responseHeaders: details.responseHeaders
-        };
-      }
-    }
-  }, {
-    urls: ["<all_urls>"]
-  }, ["blocking", "responseHeaders"]);**/
+        function screenshot(){
+
+            /**$('.testing-footer, .testing-header').hide();
+            $('.testing-iframe-panel').css('height', $(window).height() + 'px');
+            **/
+            chrome.runtime.sendMessage(extensionId, yourMessage,
+                function(response) {
+                    $.ajax({
+                      type: "POST",
+                      url: "/projects/markComplete",
+                      data: {image: response.imgSrc, _token : "{{ csrf_token() }}"}
+                    }).done(function( respond ) {
+                        /**$('.testing-iframe-panel').css('height', '525px');
+                        $('.testing-footer, .testing-header').show();**/
+                        alert("Saved filename: "+respond);
+                    });
+                });
+        }
+
+        $(document).ready(function(){
 
             var isMarkedComplete = false;
 
             $('#mark_complete').on('click', function(){
-                    console.log($($('iframe')[0]).contents().find('body'));
+                    //console.log($($('iframe')[0]).contents().find('body'));
                 //console.log($('iframe')[0].contentWindow);
                 /**$('.testing-footer, .testing-header').hide();
 
@@ -151,9 +159,9 @@
 
                     alert('Screenshot taken. Marked as completed!');
                 });**/
+                screenshot();
 
                 isMarkedComplete = true;
-
             });
 
             $('#question-next-btn').on('click', function(){

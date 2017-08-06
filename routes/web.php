@@ -81,7 +81,7 @@ Route::get('/projects/deactivate/{id}', 'ProjectController@deactivate');
 
 Route::get('/projects/activate/{id}', 'ProjectController@activate');
 
-Route::get('/projects/markComplete', 'ProjectController@markComplete');
+Route::post('/projects/markComplete', 'ProjectController@markComplete');
 
 Route::post('/projects/components/create/{id}', 'ProjectController@addComponent');
 
