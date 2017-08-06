@@ -520,8 +520,6 @@ class ProjectController extends Controller
     public function test($project_id, $component_order = 0)
     {
 
-        //dd(apache_response_headers());
-
         $project = Project::find($project_id);
 
         $project->duration = $this->getProjectDuration($project);
@@ -537,9 +535,7 @@ class ProjectController extends Controller
         return view('projects.test', compact('project', 'project_component', 'component_order', 'next_order', 'component_count'));
     }
 
-    public function markComplete(Request $request){
-        /**$img = imagegrabscreen();
-        imagepng($img, 'screenshot.png');**/
+    public function markComplete(Request $request, $project_id, $component_id, $user_id){
 
         if(isset($request["image"]) && !empty($request["image"])){ 
             // get the image data
@@ -548,7 +544,7 @@ class ProjectController extends Controller
             $uri = str_replace('data:image/jpeg;base64,', '', $data);
             $uri = str_replace(' ', '+', $uri);
             // create a filename for the new image
-            $file = 'test.png';
+            $file = $project_id . $component_id . $user_id . '.png';
             // decode the image data and save it to file
             file_put_contents('img/scenarios-img/' . $file, base64_decode($uri));
 

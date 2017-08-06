@@ -120,6 +120,7 @@
     <script src="/js/bootstrap.min.js"></script>
     <script src="//cdn.webrtc-experiment.com/getScreenId.js"></script>
     <script src="//cdn.webrtc-experiment.com/screen.js"></script>
+    @if(isset($project_component))
     <script>
 
         var extensionId = "kegdbcgopmmfabicalpcohlknnabcfgd";
@@ -134,7 +135,7 @@
                 function(response) {
                     $.ajax({
                       type: "POST",
-                      url: "/projects/markComplete",
+                      url: "/projects/markComplete/{{ $project->id }}/{{ $project_component->id }}/{{ Auth::user()->id }}",
                       data: {image: response.imgSrc, _token : "{{ csrf_token() }}"}
                     }).done(function( respond ) {
                         /**$('.testing-iframe-panel').css('height', '525px');
@@ -149,16 +150,7 @@
             var isMarkedComplete = false;
 
             $('#mark_complete').on('click', function(){
-                    //console.log($($('iframe')[0]).contents().find('body'));
-                //console.log($('iframe')[0].contentWindow);
-                /**$('.testing-footer, .testing-header').hide();
 
-                $.get('/projects/markComplete', function(data){
-                    console.log(data);
-                    $('.testing-footer, .testing-header').show();
-
-                    alert('Screenshot taken. Marked as completed!');
-                });**/
                 screenshot();
 
                 isMarkedComplete = true;
@@ -179,6 +171,7 @@
             });
         });
     </script>
+    @endif
 </body>
 
 </html>
