@@ -16,7 +16,6 @@
     <style>
         .testing-footer,
         .testing-header{
-            min-height: 50px;
             background-color: #1ab394;
             border-color: #1ab394;
             color: #FFFFFF;
@@ -28,6 +27,11 @@
         .testing-header{
             font-size: 30px;
             line-height: 40px;
+            height: 50px;
+        }
+
+        .testing-footer{
+            min-height: 87px;
         }
 
         .testing-footer .footer-desc{
@@ -69,18 +73,18 @@
         }
 
         .testing-question-panel{
-            height: 500px;
+            height: 525px;
             margin-bottom: 0;
             padding: 50px;
         }
 
         .testing-iframe-panel{
-            height: 500px;
+            height: 525px;
         }
 
         .testing-welcome,
         .testing-complete{
-            height: 500px;
+            height: 525px;
             margin-bottom: 0;
             padding: 150px;
         }
