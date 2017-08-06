@@ -174,6 +174,9 @@ class ProjectController extends Controller
 
             $project->users()->save($user);
 
+            $project->start = date('mm/dd/yyyy', strtotime($project->start));
+            $project->end = date('mm/dd/yyyy', strtotime($project->end));
+
             $mailer->sendProjectWelcomeEmail($project, $user);
         }
 
@@ -396,6 +399,9 @@ class ProjectController extends Controller
         //foreach($users as $user){
 
         $project->users()->save($user);
+
+        $project->start = date('mm/dd/yyyy', strtotime($project->start));
+        $project->end = date('mm/dd/yyyy', strtotime($project->end));
 
         $mailer->sendProjectWelcomeEmail($project, $user);
 
