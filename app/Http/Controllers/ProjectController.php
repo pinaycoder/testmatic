@@ -174,8 +174,8 @@ class ProjectController extends Controller
 
             $project->users()->save($user);
 
-            $project->start = $project->start->format('m/d/Y');
-            $project->end = $project->end->format('m/d/Y');
+            $project->start = Carbon::parse($project->start)->format('m/d/Y');
+            $project->end = Carbon::parse($project->end)->format('m/d/Y');
 
             $mailer->sendProjectWelcomeEmail($project, $user);
         }
@@ -400,8 +400,8 @@ class ProjectController extends Controller
 
         $project->users()->save($user);
 
-        $project->start = $project->start->format('m/d/Y');
-        $project->end = $project->end->format('m/d/Y');
+        $project->start = Carbon::parse($project->start)->format('m/d/Y');
+        $project->end = Carbon::parse($project->end)->format('m/d/Y');
 
         $mailer->sendProjectWelcomeEmail($project, $user);
 
