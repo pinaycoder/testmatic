@@ -1,0 +1,23 @@
+{
+  "name": "TESTmatic Extension",
+  "version": "2",
+  "description": "Chrome extension to get screenshot of the current active tab and remove X-frame Options.",
+  "background": {
+    "persistent": true,
+    "scripts": ["background.js"]
+  },
+  "externally_connectable": {
+      "matches": ["http://127.0.0.1:8000/*", "http://testmatic.herokuapp.com/*"]
+  },
+  "page_action": {
+    "default_icon": "camera.png",
+    "default_title": "Take a screen shot!"
+  },
+  "permissions": [
+    "<all_urls>",
+    "webRequest",
+    "webRequestBlocking",
+    "\u003Call_urls>" 
+  ],
+  "manifest_version": 3
+}
