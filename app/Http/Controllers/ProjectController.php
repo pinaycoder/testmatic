@@ -174,8 +174,8 @@ class ProjectController extends Controller
 
             $project->users()->save($user);
 
-            $project->start = date('mm/dd/yyyy', strtotime($project->start));
-            $project->end = date('mm/dd/yyyy', strtotime($project->end));
+            $project->start = $project->start->format('m/d/Y');
+            $project->end = $project->end->format('m/d/Y');
 
             $mailer->sendProjectWelcomeEmail($project, $user);
         }
@@ -400,8 +400,8 @@ class ProjectController extends Controller
 
         $project->users()->save($user);
 
-        $project->start = date('mm/dd/yyyy', strtotime($project->start));
-        $project->end = date('mm/dd/yyyy', strtotime($project->end));
+        $project->start = $project->start->format('m/d/Y');
+        $project->end = $project->end->format('m/d/Y');
 
         $mailer->sendProjectWelcomeEmail($project, $user);
 
