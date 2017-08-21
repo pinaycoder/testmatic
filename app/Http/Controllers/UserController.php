@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 
+use App\Role;
 use App\User;
 use App\SecurityQuestion;
 use App\Mailers\AppMailer;
@@ -118,6 +119,10 @@ class UserController extends Controller
 
         $user->save();
 
+        $role = Role::where('name', $user->role)->first();
+
+        $user->roles()->attach($role);
+
         $mailer->sendUserWelcomeEmail($user);
         
         $success_message = 'New user successfully created! Click <a href="/users/show/' . $user->id . '">here</a> to review user profile.';
@@ -208,6 +213,10 @@ class UserController extends Controller
         $user->modified_date = Carbon::now(); 
 
         $user->save();
+
+        $role = Role::where('name', $user->role)->first();
+
+        $user->roles()->attach($role);
 
         $security_questions = SecurityQuestion::all();
 

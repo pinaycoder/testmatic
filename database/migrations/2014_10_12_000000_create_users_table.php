@@ -30,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->date('birthdate')->nullable();
             $table->enum('gender', ['Female', 'Male']);
             $table->enum('role', ['Super Administrator', 'Test Administrator', 'Test Participant']);
+            //$table->foreign('role_id')->references('id')->on('roles');
             $table->string('email');
             $table->string('contact_num', 50)->default('')->nullable();
             $table->string('user_pic_file', 50)->default('/img/default-user-img.png');
