@@ -61,6 +61,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
+    public function results(){
+        return $this->hasMany('App\ProjectResult');
+    }
+
     public function assignRole($role){
 
         $this->roles()->save(

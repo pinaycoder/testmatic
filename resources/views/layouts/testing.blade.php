@@ -127,12 +127,13 @@
         var yourMessage = 'capture';
 
         function screenshot(){
-
+            alert('TEST');
             /**$('.testing-footer, .testing-header').hide();
             $('.testing-iframe-panel').css('height', $(window).height() + 'px');
             **/
             chrome.runtime.sendMessage(extensionId, yourMessage,
                 function(response) {
+                    
                     $.ajax({
                       type: "POST",
                       url: "/projects/markComplete/{{ $project->id }}/{{ $project_component->id }}/{{ Auth::user()->id }}",

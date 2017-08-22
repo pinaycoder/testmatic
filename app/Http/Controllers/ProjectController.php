@@ -548,7 +548,39 @@ class ProjectController extends Controller
             // decode the image data and save it to file
             file_put_contents('img/scenarios-img/' . $file, base64_decode($uri));
 
+            $user = User::find($user_id);
+
+            $component = User::find($component_id);
+
+            $result = new ProjectResult;
+
+            $result->screenshot = 'img/scenarios-img/' . $file;
+
+            $result()->users()->associate($user);
+
+            $result()->components()->associate($component); 
+
+            $result->save();
+
             echo $file;
+
+        }
+
+        if(isset($request["choices"]) && !empty($request["choices"])){ 
+
+            $user = User::find($user_id);
+
+            $component = User::find($component_id);
+
+            $result = new ProjectResult;
+
+            $result->answer = 'test';
+
+            $result()->users()->associate($user);
+
+            $result()->components()->associate($component); 
+
+            $result->save();
 
         }
     }
