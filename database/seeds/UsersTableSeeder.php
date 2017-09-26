@@ -47,7 +47,7 @@ class UsersTableSeeder extends Seeder
         $user2->first_name = 'Test';
         $user2->middle_name = '123';
         $user2->last_name = 'testparticipant@gmail.com';
-        $user2->email = 'superadmin@gmail.com';
+        $user2->email = 'testparticipant@gmail.com';
         $user2->contact_num = '+639217271881';
         $user2->question_id_1 = 2;
         $user2->question_ans_1 = 'Test Answer 1';
@@ -68,7 +68,7 @@ class UsersTableSeeder extends Seeder
         $user3->first_name = 'Test';
         $user3->middle_name = '123';
         $user3->last_name = 'testadmin@gmail.com';
-        $user3->email = 'superadmin@gmail.com';
+        $user3->email = 'testadmin@gmail.com';
         $user3->contact_num = '+639217271881';
         $user3->question_id_1 = 2;
         $user3->question_ans_1 = 'Test Answer 1';
